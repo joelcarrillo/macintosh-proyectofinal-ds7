@@ -1,0 +1,66 @@
+
+
+body{
+    background-color: #2a2438;
+}
+
+.cuerpo{
+    display: flex;
+    background-color: rgb(255, 255, 255);
+    padding: 35px;
+    margin: 50px 250px;
+    border-radius: 8px;
+    transition: box-shadow .3s;
+}
+
+.cuerpo:hover {
+    box-shadow: 25px 25px 25px 25px rgba(25, 24, 24, 0.541); 
+  }
+
+.section{
+    padding: 20px 80px 20px 20px;
+    text-align: center;
+    
+
+}
+
+.section p{
+    font-size: 12px;
+    color: rgb(113, 113, 113);
+}
+
+.one{
+width: 450px;
+}
+
+.section img{
+    width: 200px;
+    height: auto;
+}
+
+.two{
+  margin: auto auto;
+}
+
+
+.tit_osc{
+    font-weight: bold;
+    margin: 10px;
+}
+
+.boton_new_cuenta{
+    width: 100%;
+    margin-top: 25px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid ;
+    border-color: rgb(168, 168, 168);
+}
+
+.boton_new_cuenta:hover{
+    border: 1px solid ;
+   border-color: aqua;
+}
+
+
+
