@@ -3,21 +3,16 @@
 session_start();// Comienzo de la sesión
 
 require_once 'model/usuario.php';
-require_once 'model/ubicacion.php';
 
 class Controller
 {
     private $model;
     private $model2;
-    private $model3;
-    private $model4;
     private $resp;
     
     public function __CONSTRUCT(){
         $this->model = new Usuario();
-        $this->model2 = new Ubicacion();
-        $this->model3 = new Ubicacion();
-        $this->model4 = new Usuario();
+        $this->model2 = new Usuario();
     }
 
     public function Index(){
@@ -39,13 +34,6 @@ class Controller
 
         $usuario = new Usuario();
         $usuario = $this->model->Obtener($_SESSION['id']);
-
-        $provincia =new Ubicacion();
-        $provincia= $this->model2->ConsultarProvincia();
-
-        $distritos =new Ubicacion();
-        $distritos= $this->model3->ConsultarDistrito();
-
 
         //Le paso los datos a la vista
         require("view/perfil.php");
@@ -86,8 +74,6 @@ class Controller
     public function IngresarPanel(){
 
         require("view/panel.php");
-        
-     
     }
 
     public function Guardar(){
@@ -95,7 +81,8 @@ class Controller
         
         $usuario->nombre = $_POST['nombre'];
         $usuario->apellido = $_POST['apellido'];
-        $usuario->email = $_POST['correo'];  
+        $usuario->correo = $_POST['correo'];  
+        $usuario->telefono = $_POST['telefono'];  
         $usuario->pass = md5($_POST['password1']);    
       
         $this->resp= $this->model->Registrar($usuario);
@@ -106,19 +93,18 @@ class Controller
     public function Ingresar(){
         $ingresarUsuario = new Usuario();
         
-        $ingresarUsuario->email = $_REQUEST['correo'];  
+        $ingresarUsuario->correo = $_REQUEST['correo'];  
         $ingresarUsuario->pass = md5($_REQUEST['password']);    
 
         //Verificamos si existe en la base de datos
         if ($resultado= $this->model->Consultar($ingresarUsuario))
         {
             $_SESSION["acceso"] = true;
-            $_SESSION["user"] = $resultado->nombre." ".$resultado->apellido;
             $_SESSION["foto"] = $resultado->foto;
-            $_SESSION["id"] = $resultado->id;
+            $_SESSION["user"] = $resultado->nombre." ".$resultado->apellido;
+            $_SESSION["id"] = $resultado->id_usuario;
             
             header('Location: ?op=permitido');
-
         }
         else
         {
@@ -131,8 +117,8 @@ class Controller
         $usuario = new Usuario();
         $usuario->nombre = $_REQUEST['nombre'];
         $usuario->apellido = $_REQUEST['apellido'];
-        $usuario->id_distrito= $_REQUEST['distrito'];
-        $usuario->id=$_SESSION["id"];
+        $usuario->telefono = $_REQUEST['telefono'];  
+        $usuario->id_usuario = $_SESSION["id"];
 
 
         if (isset($_FILES['foto']))
@@ -174,7 +160,7 @@ class Controller
     public function IngresarAdmin(){
 
         $listaUsuario = new Usuario();
-        $listaUsuario = $this->model4->ObtenerTodosLosUsuarios();
+        $listaUsuario = $this->model2->ObtenerTodosLosUsuarios();
 
         require("view/admin.php");
         
@@ -196,7 +182,8 @@ class Controller
         
         $usuario->nombre = $_POST['nombre'];
         $usuario->apellido = $_POST['apellido'];
-        $usuario->email = $_POST['correo'];  
+        $usuario->correo = $_POST['correo'];  
+        $usuario->telefono = $_POST['telefono'];  
         $usuario->pass = md5($_POST['password1']);    
       
         $this->resp= $this->model->Registrar($usuario);

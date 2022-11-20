@@ -10,10 +10,9 @@ class Usuario
 	public $id;
     public $nombre;
     public $apellido;  
-    public $email;
+    public $correo;
     public $pass;
 	public $foto;
-	public $id_distrito;
 
 
 	public function __CONSTRUCT()
@@ -33,16 +32,17 @@ class Usuario
 	{
 		try 
 		{
-		$sql = "INSERT INTO usuario (nombre,apellido,email,pass) 
-		        VALUES (?, ?, ?, ?)";
+		$sql = "INSERT INTO usuario (correo,nombre,apellido,pass,telefono) 
+		        VALUES (?, ?, ?, ?, ?)";
 
 		$this->pdo->prepare($sql)
 		     ->execute(
 				array( 
-                    $data->nombre,
+                    $data->correo,
+                    $data->nombre, 
                     $data->apellido, 
-                    $data->email, 
-                    $data->pass
+                    $data->pass,
+					$data->telefono,
                 )
 			);
 		$this->msg="Su registro se ha guardado exitosamente!&t=text-success";
@@ -61,8 +61,8 @@ class Usuario
 	{
 		try
 		{
-			$stm = $this->pdo->prepare("SELECT * FROM usuario WHERE email = ? AND pass=?");
-			$stm->execute(array($data->email, $data->pass));
+			$stm = $this->pdo->prepare("SELECT * FROM usuario WHERE correo = ? AND pass=?");
+			$stm->execute(array($data->correo, $data->pass));
 			return $stm->fetch(PDO::FETCH_OBJ);
 		} catch (Exception $e) 
 		{
@@ -76,7 +76,7 @@ class Usuario
 		try 
 		{
 			$stm = $this->pdo
-			          ->prepare("SELECT * FROM usuario WHERE id = ?");
+			          ->prepare("SELECT * FROM usuario WHERE id_usuario = ?");
 			          
 
 			$stm->execute(array($id));
@@ -105,17 +105,17 @@ class Usuario
 	{
 		try 
 		{
-		$sql = "UPDATE usuario SET nombre = ?,apellido= ?, id_distrito= ?, foto= ? 
-		        WHERE id = ?";
+		$sql = "UPDATE usuario SET nombre = ?, apellido = ?, telefono = ? , foto = ? 
+		        WHERE id_usuario = ?";
 
 		$this->pdo->prepare($sql)
 		     ->execute(
 				array( 
                     $data->nombre,
                     $data->apellido, 
-                    $data->id_distrito, 
+					$data->telefono,
                     $data->foto,
-					$data->id
+					$data->id_usuario
                 )
 			);
 		$this->msg="Su registro se ha Actualizado exitosamente!&t=text-success";
@@ -131,7 +131,7 @@ class Usuario
 	{
 		try 
 		{
-		$sql = "DELETE FROM usuario WHERE id = ?";
+		$sql = "DELETE FROM usuario WHERE id_usuario = ?";
 		
 		$this->pdo->prepare($sql)
 		     ->execute(

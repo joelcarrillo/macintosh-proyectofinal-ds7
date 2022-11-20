@@ -1,4 +1,3 @@
-
 <?php
 
 //Incluyo los archivos necesarios

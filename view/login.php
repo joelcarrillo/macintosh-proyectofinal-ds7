@@ -47,7 +47,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1">*</span>
                     </div>
-                    <input type="text" class="form-control" placeholder="Contraseña" aria-label="Username"
+                    <input type="password" class="form-control" placeholder="Contraseña" aria-label="Username"
                         aria-describedby="basic-addon1" name="password" required>
                 </div>
                 <br>
