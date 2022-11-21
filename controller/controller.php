@@ -3,16 +3,19 @@
 session_start();// Comienzo de la sesión
 
 require_once 'model/usuario.php';
+require_once 'model/salones.php';
 
 class Controller
 {
     private $model;
     private $model2;
+    private $modeloSalones;
     private $resp;
     
     public function __CONSTRUCT(){
         $this->model = new Usuario();
         $this->model2 = new Usuario();
+        $this->modeloSalones = new Salones();
     }
 
     public function Index(){
@@ -49,6 +52,11 @@ class Controller
 
     public function Salones(){
 
+        $idFac = $_GET['id_facultad'];
+
+        $referenciaSalones = new Salones();
+        $referenciaSalones = $this->modeloSalones->ObtenerSalonesFacultad($idFac);
+        
         //Le paso los datos a la vista
         require("view/salones.php");
 
