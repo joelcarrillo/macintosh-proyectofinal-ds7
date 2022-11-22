@@ -3,16 +3,22 @@
 session_start();// Comienzo de la sesión
 
 require_once 'model/usuario.php';
+require_once 'model/salones.php';
+require_once 'model/reservas.php';
 
 class Controller
 {
     private $model;
     private $model2;
+    private $modeloSalones;
+    private $modeloReservas;
     private $resp;
     
     public function __CONSTRUCT(){
         $this->model = new Usuario();
         $this->model2 = new Usuario();
+        $this->modeloReservas = new Reservas();
+        $this->modeloSalones = new Salones();
     }
 
     public function Index(){
@@ -49,8 +55,16 @@ class Controller
 
     public function Salones(){
 
+        $idFac = $_GET['id_facultad'];
+
+        $nombreFacultad = new Salones();
+        $nombreFacultad = $this->modeloSalones->nombreFacultad($idFac);
+
+        $referenciaSalones = new Salones();
+        $referenciaSalones = $this->modeloSalones->ObtenerSalonesFacultad($idFac);
+        
         //Le paso los datos a la vista
-        require("view/salones.php");
+        require("view/elegirSalon.php");
 
     }
 
@@ -161,7 +175,9 @@ class Controller
 
     public function ReservasActivas(){
 
-        //Le paso los datos a la vista
+        $consultarReservas = new Reservas();
+        $consultarReservas = $this->modeloReservas->ObtenerReservasActivas();
+
         require("view/reservas.php");
 
     }

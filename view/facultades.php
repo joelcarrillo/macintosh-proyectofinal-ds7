@@ -71,7 +71,7 @@ include('layouts/styles.php')
                                 <div class="card-text">Ubicación:</div> <span>Panamá</span>
                             </div>
                             <br>
-                            <a href="?op=salones" class="btn btn-primary btn-lg btn-block">Ver Salones</a>
+                            <a href="?op=salones&id_facultad=1" class="btn btn-primary btn-lg btn-block">Ver Salones</a>
                         </div>
                     </div>
                 </div>
@@ -94,7 +94,7 @@ include('layouts/styles.php')
                                 <div class="card-text">Ubicación:</div> <span>Panamá</span>
                             </div>
                             <br>
-                            <a href="?op=salones" class="btn btn-primary btn-lg btn-block">Ver Salones</a>
+                            <a href="?op=salones&id_facultad=2" class="btn btn-primary btn-lg btn-block">Ver Salones</a>
                         </div>
                     </div>
                 </div>
@@ -117,7 +117,7 @@ include('layouts/styles.php')
                                 <div class="card-text">Ubicación:</div> <span>Panamá</span>
                             </div>
                             <br>
-                            <a href="?op=salones" class="btn btn-primary btn-lg btn-block">Ver Salones</a>
+                            <a href="?op=salones&id_facultad=5" class="btn btn-primary btn-lg btn-block">Ver Salones</a>
                         </div>
                     </div>
                 </div>
@@ -140,7 +140,7 @@ include('layouts/styles.php')
                                 <div class="card-text">Ubicación:</div> <span>Panamá</span>
                             </div>
                             <br>
-                            <a href="?op=salones" class="btn btn-primary btn-lg btn-block">Ver Salones</a>
+                            <a href="?op=salones&id_facultad=4" class="btn btn-primary btn-lg btn-block">Ver Salones</a>
                         </div>
                     </div>
                 </div>
@@ -163,7 +163,7 @@ include('layouts/styles.php')
                                 <div class="card-text">Ubicación:</div> <span>Panamá</span>
                             </div>
                             <br>
-                            <a href="?op=salones" class="btn btn-primary btn-lg btn-block">Ver Salones</a>
+                            <a href="?op=salones&id_facultad=3" class="btn btn-primary btn-lg btn-block">Ver Salones</a>
                         </div>
                     </div>
                 </div>
@@ -186,7 +186,7 @@ include('layouts/styles.php')
                                 <div class="card-text">Ubicación:</div> <span>Panamá</span>
                             </div>
                             <br>
-                            <a href="?op=salones" class="btn btn-primary btn-lg btn-block">Ver Salones</a>
+                            <a href="?op=salones&id_facultad=6" class="btn btn-primary btn-lg btn-block">Ver Salones</a>
                         </div>
                     </div>
                 </div>
