@@ -71,12 +71,14 @@ class Controller
 
     public function Horarios(){
 
+        $cod_salon = $_GET['cod_salon'];
+
         $listaHorasGenerales = new Usuario();
         $listaHorasGenerales = $this->model2->ObtenerHorasGenerales();
 
         
         $listaHorarioSalones = new Usuario();
-        $listaHorarioSalones = $this->model2->ObtenerHorariosSalones();
+        $listaHorarioSalones = $this->model2->ObtenerHorariosSalones($cod_salon);
 
         $listaDiasSemana = new Usuario();
         $listaDiasSemana = $this->model2->ObtenerDiasSemana();

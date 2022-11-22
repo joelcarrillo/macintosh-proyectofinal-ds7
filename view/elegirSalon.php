@@ -72,7 +72,7 @@ if ($_SESSION["acceso"] != true) {
                                         <div class="card-text">Piso:</div> <span><?php echo $salones->numero_piso ?></span>
                                     </div>
                                     <br>
-                                    <a href="?op=horarios&cod_salon=<?php echo $salones->salon ?>" class="btn btn-primary btn-lg btn-block">Ver Horario</a>
+                                    <a href="?op=horarios&cod_salon=<?php echo $salones->salon ?>&idFac=<?php echo $idFac ?>" class="btn btn-primary btn-lg btn-block">Ver Horario</a>
                                 </div>
                             </div>
                         </div>

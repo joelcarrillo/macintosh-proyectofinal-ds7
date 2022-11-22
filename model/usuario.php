@@ -164,13 +164,12 @@ class Usuario
 	}
 	
 	
-	public function ObtenerHorariosSalones()
+	public function ObtenerHorariosSalones($cod_salon)
 	{
 		try 
 		{
-			$stm = $this->pdo->prepare("SELECT * FROM horarios_salon");
-			          
-			$stm->execute();
+			$stm = $this->pdo->prepare("SELECT * FROM horarios_salon WHERE id_salon = ?");
+			$stm->execute(array($cod_salon));
 			return $stm->fetchAll(PDO::FETCH_OBJ);
 		} catch (Exception $e) 
 		{

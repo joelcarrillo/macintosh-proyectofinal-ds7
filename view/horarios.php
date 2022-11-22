@@ -39,7 +39,7 @@ if ($_SESSION["acceso"] != true)
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="?op=permitido">Home</a></li>
                                 <li class="breadcrumb-item"><a href="?op=facultades">Facultades</a></li>
-                                <li class="breadcrumb-item"><a href="?op=salones">Salones</a></li>
+                                <li class="breadcrumb-item"><a href="?op=salones&id_facultad=<?php echo $_GET['idFac']?>">Salones</a></li>
                                 <li class="breadcrumb-item">Horario</li>
                             </ul>
                         </div>
@@ -54,7 +54,7 @@ if ($_SESSION["acceso"] != true)
                     <div class="wrapper bg-white rounded shadow w-full ">
                         <div class="header flex justify-between border-b p-2">
                             <span class="text-lg font-bold">
-                                Horario - Salon (1LS131)
+                                Horario - Salon ( <?php echo $cod_salon ?>)
                             </span>
 
                         </div>

@@ -2,14 +2,15 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost
--- Tiempo de generación: 22-11-2022 a las 04:53:42
--- Versión del servidor: 10.4.24-MariaDB
--- Versión de PHP: 8.1.6
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 22-11-2022 a las 15:39:17
+-- Versión del servidor: 10.4.25-MariaDB
+-- Versión de PHP: 7.4.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
+
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -20,6 +21,29 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `proyecto_ds7`
 --
+USE  proyecto_ds7;
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `dias_semana`
+--
+
+CREATE TABLE `dias_semana` (
+  `id` int(11) NOT NULL,
+  `dia_semana` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `dias_semana`
+--
+
+INSERT INTO `dias_semana` (`id`, `dia_semana`) VALUES
+(1, 'Lunes'),
+(2, 'Martes'),
+(3, 'Miercoles'),
+(4, 'Jueves'),
+(5, 'Viernes'),
+(6, 'Sabado');
 
 -- --------------------------------------------------------
 
@@ -44,26 +68,6 @@ INSERT INTO `edificio` (`numero_edificio`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `estado`
---
-
-CREATE TABLE `estado` (
-  `id_estado` int(11) NOT NULL,
-  `estado` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `estado`
---
-
-INSERT INTO `estado` (`id_estado`, `estado`) VALUES
-(1, 'pendiente'),
-(2, 'en curso'),
-(3, 'completado');
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `facultad`
 --
 
@@ -81,9 +85,9 @@ CREATE TABLE `facultad` (
 INSERT INTO `facultad` (`cod_facultad`, `nombre`, `correo`, `logo`) VALUES
 (1, 'Facultad de Ingeniería en Sistemas Computacionales', 'fisc@utp.ac.pa', ''),
 (2, 'Facultad de Ciencias y Técnologia', 'fct@utp.ac.pa', ''),
-(3, 'Facultad de Ingeniería Civíl', 'fic@utp.ac.pa', ''),
+(3, 'Facutad de Ingeniería Civíl', 'fic@utp.ac.pa', ''),
 (4, 'Facultad de Ingeniería Electrica', 'secacademica.fie@utp.ac.pa', ''),
-(5, 'Facultad de Ingeniería Industrial', 'pregrado.fii@utp.ac.pa', ''),
+(5, 'Facutlad de Ingeniería Industrial', 'pregrado.fii@utp.ac.pa', ''),
 (6, 'Facultad de Ingeniería Mecánica', ' fim@utp.ac.pa', '');
 
 -- --------------------------------------------------------
@@ -95,8 +99,17 @@ INSERT INTO `facultad` (`cod_facultad`, `nombre`, `correo`, `logo`) VALUES
 CREATE TABLE `horarios_salon` (
   `id` int(11) NOT NULL,
   `id_salon` varchar(5) NOT NULL,
-  `id_hora_general` int(11) NOT NULL
+  `id_hora_general` int(11) NOT NULL,
+  `dia_semana` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `horarios_salon`
+--
+
+INSERT INTO `horarios_salon` (`id`, `id_salon`, `id_hora_general`, `dia_semana`) VALUES
+(1, '3-316', 1, 2),
+(2, '3-316', 4, 3);
 
 -- --------------------------------------------------------
 
@@ -139,7 +152,6 @@ INSERT INTO `horas_general` (`id`, `descripcion`) VALUES
 -- Estructura de tabla para la tabla `piso`
 --
 
-
 CREATE TABLE `piso` (
   `cod_piso` int(11) NOT NULL,
   `numero_piso` int(11) NOT NULL,
@@ -166,7 +178,6 @@ INSERT INTO `piso` (`cod_piso`, `numero_piso`, `numero_edificio`) VALUES
 
 -- --------------------------------------------------------
 
---
 -- Estructura de tabla para la tabla `reservacion`
 --
 
@@ -191,6 +202,26 @@ INSERT INTO `reservacion` (`cod_reservacion`, `id_usuario`, `cod_salon`, `tiempo
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `estado`
+--
+
+CREATE TABLE `estado` (
+  `id_estado` int(11) NOT NULL,
+  `estado` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `estado`
+--
+
+INSERT INTO `estado` (`id_estado`, `estado`) VALUES
+(1, 'pendiente'),
+(2, 'en curso'),
+(3, 'completado');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `salon`
 --
 
@@ -205,30 +236,7 @@ CREATE TABLE `salon` (
 --
 
 INSERT INTO `salon` (`cod_salon`, `cod_piso`, `cod_facultad`) VALUES
-('1-307', 3, 3),
-('1-328', 3, 4),
-('3-314', 11, 1),
-('3-315', 11, 1),
 ('3-316', 11, 1);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `tipo_usuario`
---
-
-CREATE TABLE `tipo_usuario` (
-  `id_tipo_usuario` int(11) NOT NULL,
-  `tipoUsuario` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `tipo_usuario`
---
-
-INSERT INTO `tipo_usuario` (`id_tipo_usuario`, `tipoUsuario`) VALUES
-(1, 'usuario corriente'),
-(2, 'administrador');
 
 -- --------------------------------------------------------
 
@@ -244,32 +252,32 @@ CREATE TABLE `usuario` (
   `pass` varchar(256) NOT NULL,
   `telefono` varchar(10) NOT NULL,
   `foto` varchar(20) NOT NULL,
-  `restablecer` varchar(250) NOT NULL,
-  `tipo_usuario` int(11) NOT NULL
+  `restablecer` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id_usuario`, `correo`, `nombre`, `apellido`, `pass`, `telefono`, `foto`, `restablecer`, `tipo_usuario`) VALUES
-(1, 'pablo.lizana@utp.ac.pa', 'Pablito', 'Lizanita', '202cb962ac59075b964b07152d234b70', '6481-9422', '1.jpg', '', 1);
+INSERT INTO `usuario` (`id_usuario`, `correo`, `nombre`, `apellido`, `pass`, `telefono`, `foto`, `restablecer`) VALUES
+(1, 'correo@prueba.com', 'Soporte', 'Macintosh', '123', '123-456-789', '', '');
+
 
 --
 -- Índices para tablas volcadas
 --
 
 --
+-- Indices de la tabla `dias_semana`
+--
+ALTER TABLE `dias_semana`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `edificio`
 --
 ALTER TABLE `edificio`
   ADD PRIMARY KEY (`numero_edificio`);
-
---
--- Indices de la tabla `estado`
---
-ALTER TABLE `estado`
-  ADD PRIMARY KEY (`id_estado`);
 
 --
 -- Indices de la tabla `facultad`
@@ -283,14 +291,14 @@ ALTER TABLE `facultad`
 ALTER TABLE `horarios_salon`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_id_hora_general` (`id_hora_general`),
-  ADD KEY `fk_id_salon_horario` (`id_salon`);
+  ADD KEY `fk_id_salon_horario` (`id_salon`),
+  ADD KEY `fk_id_dia_semana` (`dia_semana`);
 
 --
 -- Indices de la tabla `horas_general`
 --
 ALTER TABLE `horas_general`
   ADD PRIMARY KEY (`id`);
-
 
 --
 -- Indices de la tabla `piso`
@@ -305,8 +313,7 @@ ALTER TABLE `piso`
 ALTER TABLE `reservacion`
   ADD PRIMARY KEY (`cod_reservacion`),
   ADD KEY `fk_id_usuario` (`id_usuario`),
-  ADD KEY `fk_cod_salon` (`cod_salon`),
-  ADD KEY `estado` (`estado`);
+  ADD KEY `fk_cod_salon` (`cod_salon`);
 
 --
 -- Indices de la tabla `salon`
@@ -317,42 +324,33 @@ ALTER TABLE `salon`
   ADD KEY `fk_cod_facultad` (`cod_facultad`);
 
 --
--- Indices de la tabla `tipo_usuario`
---
-ALTER TABLE `tipo_usuario`
-  ADD PRIMARY KEY (`id_tipo_usuario`);
-
---
 -- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id_usuario`),
-  ADD UNIQUE KEY `correo` (`correo`),
-  ADD KEY `tipo_usuario` (`tipo_usuario`);
-
-
-
-
--- AUTO_INCREMENT de la tabla `horarios_salon`
---
-ALTER TABLE `horarios_salon`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `horas_general`
---
-ALTER TABLE `horas_general`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  ADD UNIQUE KEY `correo` (`correo`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT de la tabla `estado`
+-- AUTO_INCREMENT de la tabla `dias_semana`
 --
-ALTER TABLE `estado`
-  MODIFY `id_estado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `dias_semana`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de la tabla `horarios_salon`
+--
+ALTER TABLE `horarios_salon`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `horas_general`
+--
+ALTER TABLE `horas_general`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `piso`
@@ -364,13 +362,7 @@ ALTER TABLE `piso`
 -- AUTO_INCREMENT de la tabla `reservacion`
 --
 ALTER TABLE `reservacion`
-  MODIFY `cod_reservacion` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT de la tabla `tipo_usuario`
---
-ALTER TABLE `tipo_usuario`
-  MODIFY `id_tipo_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `cod_reservacion` int(9) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
@@ -383,6 +375,14 @@ ALTER TABLE `usuario`
 --
 
 --
+-- Filtros para la tabla `horarios_salon`
+--
+ALTER TABLE `horarios_salon`
+  ADD CONSTRAINT `fk_id_dia_semana` FOREIGN KEY (`dia_semana`) REFERENCES `dias_semana` (`id`),
+  ADD CONSTRAINT `fk_id_hora_general` FOREIGN KEY (`id_hora_general`) REFERENCES `horas_general` (`id`),
+  ADD CONSTRAINT `fk_id_salon_horario` FOREIGN KEY (`id_salon`) REFERENCES `salon` (`cod_salon`);
+
+--
 -- Filtros para la tabla `piso`
 --
 ALTER TABLE `piso`
@@ -392,16 +392,8 @@ ALTER TABLE `piso`
 -- Filtros para la tabla `reservacion`
 --
 ALTER TABLE `reservacion`
---
--- Filtros para la tabla `horarios_salon`
---
-ALTER TABLE `horarios_salon`
-  ADD CONSTRAINT `fk_id_hora_general` FOREIGN KEY (`id_hora_general`) REFERENCES `horas_general` (`id`),
-  ADD CONSTRAINT `fk_id_salon_horario` FOREIGN KEY (`id_salon`) REFERENCES `salon` (`cod_salon`);
-
   ADD CONSTRAINT `fk_cod_salon` FOREIGN KEY (`cod_salon`) REFERENCES `salon` (`cod_salon`),
-  ADD CONSTRAINT `fk_id_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`),
-  ADD CONSTRAINT `reservacion_ibfk_1` FOREIGN KEY (`estado`) REFERENCES `estado` (`id_estado`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_id_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`);
 
 --
 -- Filtros para la tabla `salon`
@@ -409,12 +401,6 @@ ALTER TABLE `horarios_salon`
 ALTER TABLE `salon`
   ADD CONSTRAINT `fk_cod_facultad` FOREIGN KEY (`cod_facultad`) REFERENCES `facultad` (`cod_facultad`),
   ADD CONSTRAINT `fk_numero_piso` FOREIGN KEY (`cod_piso`) REFERENCES `piso` (`cod_piso`);
-
---
--- Filtros para la tabla `usuario`
---
-ALTER TABLE `usuario`
-  ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`tipo_usuario`) REFERENCES `tipo_usuario` (`id_tipo_usuario`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
