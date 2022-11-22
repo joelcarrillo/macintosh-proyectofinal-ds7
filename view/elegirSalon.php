@@ -73,6 +73,8 @@ if ($_SESSION["acceso"] != true) {
                                     </div>
                                     <br>
                                     <a href="?op=horarios&cod_salon=<?php echo $salones->salon ?>&idFac=<?php echo $idFac ?>" class="btn btn-primary btn-lg btn-block">Ver Horario</a>
+                                    <a href="?op=reservar&cod_salon=<?php echo $salones->salon ?>&idFac=<?php echo $idFac ?>" class="btn btn-success btn-lg btn-block">Crear Reserva</a>
+                              
                                 </div>
                             </div>
                         </div>

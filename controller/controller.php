@@ -74,21 +74,18 @@ class Controller
         $cod_salon = $_GET['cod_salon'];
 
         $listaHorasGenerales = new Usuario();
-        $listaHorasGenerales = $this->model2->ObtenerHorasGenerales();
+        $listaHorasGenerales = $this->modeloSalones->ObtenerHorasGenerales();
 
         
         $listaHorarioSalones = new Usuario();
-        $listaHorarioSalones = $this->model2->ObtenerHorariosSalones($cod_salon);
+        $listaHorarioSalones = $this->modeloSalones->ObtenerHorariosSalones($cod_salon);
 
         $listaDiasSemana = new Usuario();
-        $listaDiasSemana = $this->model2->ObtenerDiasSemana();
+        $listaDiasSemana = $this->modeloSalones->ObtenerDiasSemana();
         //Le paso los datos a la vista
         require("view/horarios.php");
 
     }
-
-    
-    
 
     public function CrearUsuario(){
 
@@ -128,6 +125,7 @@ class Controller
             $_SESSION["foto"] = $resultado->foto;
             $_SESSION["user"] = $resultado->nombre." ".$resultado->apellido;
             $_SESSION["id"] = $resultado->id_usuario;
+            $_SESSION["dni"] = $resultado->dni;
             
             header('Location: ?op=permitido');
         }
@@ -170,8 +168,25 @@ class Controller
 
     public function Reservar(){
 
+        
+        $idFac = $_GET['idFac'];
+        $cod_salon = $_GET['cod_salon'];
+
+        $nombreFacultad = new Salones();
+        $nombreFacultad = $this->modeloSalones->nombreFacultad($idFac);
+
+        $referenciaSalones = new Salones();
+        $referenciaSalones = $this->modeloSalones->ObtenerSalonesFacultad($idFac);
+
+        $listaHorasGenerales = new Usuario();
+        $listaHorasGenerales = $this->modeloSalones->ObtenerHorasGenerales();
+
+        
+        $listaHorarioSalones = new Usuario();
+        $listaHorarioSalones = $this->modeloSalones->ObtenerHorariosSalones($cod_salon);
+
         //Le paso los datos a la vista
-        require("view/panel.php");
+        require("view/crearReserva.php");
 
     }
 

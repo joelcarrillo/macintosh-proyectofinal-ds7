@@ -3,14 +3,13 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-11-2022 a las 15:39:17
+-- Tiempo de generación: 22-11-2022 a las 22:37:38
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 7.4.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
-
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -21,7 +20,7 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `proyecto_ds7`
 --
-USE  proyecto_ds7;
+
 -- --------------------------------------------------------
 
 --
@@ -64,6 +63,26 @@ INSERT INTO `edificio` (`numero_edificio`) VALUES
 (2),
 (3),
 (4);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `estado`
+--
+
+CREATE TABLE `estado` (
+  `id_estado` int(11) NOT NULL,
+  `estado` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `estado`
+--
+
+INSERT INTO `estado` (`id_estado`, `estado`) VALUES
+(1, 'pendiente'),
+(2, 'en curso'),
+(3, 'completado');
 
 -- --------------------------------------------------------
 
@@ -178,6 +197,7 @@ INSERT INTO `piso` (`cod_piso`, `numero_piso`, `numero_edificio`) VALUES
 
 -- --------------------------------------------------------
 
+--
 -- Estructura de tabla para la tabla `reservacion`
 --
 
@@ -185,6 +205,7 @@ CREATE TABLE `reservacion` (
   `cod_reservacion` int(9) NOT NULL,
   `id_usuario` int(11) NOT NULL,
   `cod_salon` varchar(5) NOT NULL,
+  `fecha_reserva` date DEFAULT NULL,
   `tiempo_inicio` datetime NOT NULL,
   `tiempo_final` datetime NOT NULL,
   `descripcion` varchar(500) NOT NULL,
@@ -196,28 +217,8 @@ CREATE TABLE `reservacion` (
 -- Volcado de datos para la tabla `reservacion`
 --
 
-INSERT INTO `reservacion` (`cod_reservacion`, `id_usuario`, `cod_salon`, `tiempo_inicio`, `tiempo_final`, `descripcion`, `cantidad`, `estado`) VALUES
-(1, 1, '1-328', '2022-11-22 22:10:42', '2022-11-22 23:10:44', 'venimos a jugar furbo xd', 0, 2);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `estado`
---
-
-CREATE TABLE `estado` (
-  `id_estado` int(11) NOT NULL,
-  `estado` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `estado`
---
-
-INSERT INTO `estado` (`id_estado`, `estado`) VALUES
-(1, 'pendiente'),
-(2, 'en curso'),
-(3, 'completado');
+INSERT INTO `reservacion` (`cod_reservacion`, `id_usuario`, `cod_salon`, `fecha_reserva`, `tiempo_inicio`, `tiempo_final`, `descripcion`, `cantidad`, `estado`) VALUES
+(1, 1, '1-328', '2022-11-24', '2022-11-22 22:10:42', '2022-11-22 23:10:44', 'venimos a jugar furbo xd', 0, 2);
 
 -- --------------------------------------------------------
 
@@ -252,16 +253,17 @@ CREATE TABLE `usuario` (
   `pass` varchar(256) NOT NULL,
   `telefono` varchar(10) NOT NULL,
   `foto` varchar(20) NOT NULL,
-  `restablecer` varchar(250) NOT NULL
+  `restablecer` varchar(250) NOT NULL,
+  `dni` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id_usuario`, `correo`, `nombre`, `apellido`, `pass`, `telefono`, `foto`, `restablecer`) VALUES
-(1, 'correo@prueba.com', 'Soporte', 'Macintosh', '123', '123-456-789', '', '');
-
+INSERT INTO `usuario` (`id_usuario`, `correo`, `nombre`, `apellido`, `pass`, `telefono`, `foto`, `restablecer`, `dni`) VALUES
+(1, 'keneric0707@gmail.com', 'Keneric', 'Vasquez', '202cb962ac59075b964b07152d234b70', '62635228', '', '', '8-977-1227'),
+(2, 'floppy@gmail.com', 'Floppy', 'Vasquez', '202cb962ac59075b964b07152d234b70', '62635228', '', '', NULL);
 
 --
 -- Índices para tablas volcadas
@@ -311,9 +313,7 @@ ALTER TABLE `piso`
 -- Indices de la tabla `reservacion`
 --
 ALTER TABLE `reservacion`
-  ADD PRIMARY KEY (`cod_reservacion`),
-  ADD KEY `fk_id_usuario` (`id_usuario`),
-  ADD KEY `fk_cod_salon` (`cod_salon`);
+  ADD PRIMARY KEY (`cod_reservacion`);
 
 --
 -- Indices de la tabla `salon`
@@ -328,7 +328,8 @@ ALTER TABLE `salon`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id_usuario`),
-  ADD UNIQUE KEY `correo` (`correo`);
+  ADD UNIQUE KEY `correo` (`correo`),
+  ADD UNIQUE KEY `dni` (`dni`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -362,13 +363,13 @@ ALTER TABLE `piso`
 -- AUTO_INCREMENT de la tabla `reservacion`
 --
 ALTER TABLE `reservacion`
-  MODIFY `cod_reservacion` int(9) NOT NULL AUTO_INCREMENT;
+  MODIFY `cod_reservacion` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_usuario` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restricciones para tablas volcadas
@@ -387,13 +388,6 @@ ALTER TABLE `horarios_salon`
 --
 ALTER TABLE `piso`
   ADD CONSTRAINT `fk_numero_edificio` FOREIGN KEY (`numero_edificio`) REFERENCES `edificio` (`numero_edificio`);
-
---
--- Filtros para la tabla `reservacion`
---
-ALTER TABLE `reservacion`
-  ADD CONSTRAINT `fk_cod_salon` FOREIGN KEY (`cod_salon`) REFERENCES `salon` (`cod_salon`),
-  ADD CONSTRAINT `fk_id_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`);
 
 --
 -- Filtros para la tabla `salon`

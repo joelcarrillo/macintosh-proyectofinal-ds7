@@ -48,5 +48,81 @@ class Salones
 
     }
 
+	public function ObtenerHorasGenerales()
+	{
+		try 
+		{
+			$stm = $this->pdo->prepare("SELECT * FROM horas_general");
+			          
+			$stm->execute();
+			return $stm->fetchAll(PDO::FETCH_OBJ);
+		} catch (Exception $e) 
+		{
+			die($e->getMessage());
+		}
+	}
+	
+	
+	public function ObtenerHorariosSalones($cod_salon)
+	{
+		try 
+		{
+			$stm = $this->pdo->prepare("SELECT * FROM horarios_salon WHERE id_salon = ?");
+			$stm->execute(array($cod_salon));
+			return $stm->fetchAll(PDO::FETCH_OBJ);
+		} catch (Exception $e) 
+		{
+			die($e->getMessage());
+		}
+	}
+
+	public function ObtenerDiasSemana()
+	{
+		try 
+		{
+			$stm = $this->pdo->prepare("SELECT * FROM dias_semana");
+			          
+			$stm->execute();
+			return $stm->fetchAll(PDO::FETCH_OBJ);
+		} catch (Exception $e) 
+		{
+			die($e->getMessage());
+		}
+	}
+
+	public function Salones(){
+
+        $idFac = $_GET['id_facultad'];
+
+        $nombreFacultad = new Salones();
+        $nombreFacultad = $this->modeloSalones->nombreFacultad($idFac);
+
+        $referenciaSalones = new Salones();
+        $referenciaSalones = $this->modeloSalones->ObtenerSalonesFacultad($idFac);
+        
+        //Le paso los datos a la vista
+        require("view/elegirSalon.php");
+
+    }
+
+
+    public function Horarios(){
+
+        $cod_salon = $_GET['cod_salon'];
+
+        $listaHorasGenerales = new Usuario();
+        $listaHorasGenerales = $this->modeloSalones->ObtenerHorasGenerales();
+
+        
+        $listaHorarioSalones = new Usuario();
+        $listaHorarioSalones = $this->modeloSalones->ObtenerHorariosSalones($cod_salon);
+
+        $listaDiasSemana = new Usuario();
+        $listaDiasSemana = $this->modeloSalones->ObtenerDiasSemana();
+        //Le paso los datos a la vista
+        require("view/horarios.php");
+
+    }
+
 
 }

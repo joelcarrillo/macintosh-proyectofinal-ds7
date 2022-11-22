@@ -149,46 +149,4 @@ class Usuario
 		return $this->msg;
 	}
 
-	public function ObtenerHorasGenerales()
-	{
-		try 
-		{
-			$stm = $this->pdo->prepare("SELECT * FROM horas_general");
-			          
-			$stm->execute();
-			return $stm->fetchAll(PDO::FETCH_OBJ);
-		} catch (Exception $e) 
-		{
-			die($e->getMessage());
-		}
-	}
-	
-	
-	public function ObtenerHorariosSalones($cod_salon)
-	{
-		try 
-		{
-			$stm = $this->pdo->prepare("SELECT * FROM horarios_salon WHERE id_salon = ?");
-			$stm->execute(array($cod_salon));
-			return $stm->fetchAll(PDO::FETCH_OBJ);
-		} catch (Exception $e) 
-		{
-			die($e->getMessage());
-		}
-	}
-
-	public function ObtenerDiasSemana()
-	{
-		try 
-		{
-			$stm = $this->pdo->prepare("SELECT * FROM dias_semana");
-			          
-			$stm->execute();
-			return $stm->fetchAll(PDO::FETCH_OBJ);
-		} catch (Exception $e) 
-		{
-			die($e->getMessage());
-		}
-	}
-
 }
