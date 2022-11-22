@@ -41,7 +41,7 @@ if ($_SESSION["acceso"] != true) {
                                 <ul class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="?op=permitido">Home</a></li>
                                     <li class="breadcrumb-item"><a href="?op=facultades">Facultades</a></li>
-                                    <li class="breadcrumb-item">Salones</li>
+                                    <li class="breadcrumb-item">Salones de la <?php echo $nombreFacultad->nombre ?></li>
                                 </ul>
                             </div>
                         </div>
@@ -52,32 +52,32 @@ if ($_SESSION["acceso"] != true) {
                 <div class="row">
 
                     <?php
-                    $n = 1;
-                    foreach ($referenciaSalones as $salones) { ?>
+                foreach ($referenciaSalones as $salones) { 
+                        ?>
                         <div class="col-sm-12 col-md-4">
                             <div class="card text-left">
                                 <div class="card-body">
 
-                                    <h5 class="card-title">Salon 1</h5>
+                                    <h5 class="card-title">Salon <?php echo $salones->salon ?></h5>
 
 
                                     <div class="card-descripcion">
-                                        <div class="card-text">Codigo:</div> <span><?php echo $salones->cod_salon ?></span>
+                                        <div class="card-text">Codigo:</div>
+                                        <span><?php echo $salones->salon ?></span>
                                     </div>
                                     <div class="card-descripcion">
-                                        <div class="card-text">Edificio:</div> <span>uno</span>
+                                        <div class="card-text">Edificio:</div> <span><?php echo $salones->numero_edificio ?></span>
                                     </div>
                                     <div class="card-descripcion">
-                                        <div class="card-text">Piso:</div> <span>tercero (3°)</span>
+                                        <div class="card-text">Piso:</div> <span><?php echo $salones->numero_piso ?></span>
                                     </div>
                                     <br>
-                                    <a href="?op=horarios&cod_salon=<?php echo $sal->cod_salon ?>" class="btn btn-primary btn-lg btn-block">Ver Horario</a>
+                                    <a href="?op=horarios&cod_salon=<?php echo $salones->salon ?>" class="btn btn-primary btn-lg btn-block">Ver Horario</a>
                                 </div>
                             </div>
                         </div>
 
                     <?php
-                        $n++;
                     } ?>
 
                 </div>

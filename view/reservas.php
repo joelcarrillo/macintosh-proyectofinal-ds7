@@ -27,7 +27,7 @@ if ($_SESSION["acceso"] != true) {
         include('layouts/pc-header.php');
         ?>
 
-<br>
+        <br>
         <div class="pc-container">
             <div class="pcoded-content">
                 <!-- [ breadcrumb ] start -->
@@ -60,8 +60,8 @@ if ($_SESSION["acceso"] != true) {
                                     <thead>
                                         <tr>
                                             <th>Codigo Reserva</th>
-                                            <th>Fecha solicitada</th>
-                                            <th>Hora Solicitada</th>
+                                            <th>Hora inicial</th>
+                                            <th>Hora final</th>
                                             <th>Edificio</th>
                                             <th>Aula</th>
                                             <th>Usuario</th>
@@ -72,97 +72,37 @@ if ($_SESSION["acceso"] != true) {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>16/10/2022</td>
-                                            <td>4:00 P.M</td>
-                                            <td>3</td>
-                                            <td>301</td>
-                                            <td>Juanito Gómez</td>
-                                            <td>vamos a jugar furbo 😎</td>
-                                            <td>Esperando Confirmacion</td>
-                                            <td>---</td>
-                                            <td><a href="#!" class="pc-link"><span class=""><i data-feather="check"></i></span></a>
-                                            <a href="#!" class="pc-link"><span class="pc-micon"><i data-feather="x"></i></span></a></td>
-                                        </tr>
-                                        <tr>
-                                        <td>2</td>
-                                            <td>16/10/2022</td>
-                                            <td>6:40 P.M</td>
-                                            <td>3</td>
-                                            <td>309</td>
-                                            <td>Pablo Lizana</td>
-                                            <td>dar una clase a mis compañeros</td>
-                                            <td>Esperando Confirmacion</td>
-                                            <td>---</td>
-                                            <td><a href="#!" class="pc-link"><span class=""><i data-feather="check"></i></span></a>
-                                            <a href="#!" class="pc-link"><span class="pc-micon"><i data-feather="x"></i></span></a></td>
-                                        </tr>
-                                        <tr>
-                                        <td>3</td>
-                                            <td>16/10/2022</td>    
-                                            <td>7:10 P.M</td>
-                                            <td>3</td>
-                                            <td>304</td>
-                                            <td>Lucas Teruel</td>
-                                            <td>Pasar tiempo con los panas</td>
-                                            <td>Esperando Confirmacion</td>
-                                            <td>---</td>
-                                            <td><a href="#!" class="pc-link"><span class=""><i data-feather="check"></i></span></a>
-                                            <a href="#!" class="pc-link"><span class="pc-micon"><i data-feather="x"></i></span></a></td>
-                                        </tr>
-                                        <tr>
-                                        <td>4</td>
-                                            <td>16/10/2022</td>    
-                                            <td>8:00 P.M</td>
-                                            <td>3</td>
-                                            <td>303</td>
-                                            <td>Jesus Miguel Zapata</td>
-                                            <td>Trabajo colaborativo</td>
-                                            <td>Esperando Confirmacion</td>
-                                            <td>---</td>
-                                            <td><a href="#!" class="pc-link"><span class=""><i data-feather="check"></i></span></a>
-                                            <a href="#!" class="pc-link"><span class="pc-micon"><i data-feather="x"></i></span></a></td>
-                                        </tr>
-                                        <tr>
-                                        <td>5</td>
-                                            <td>16/10/2022</td>
-                                            <td>10:00 P.M</td>
-                                            <td>3</td>
-                                            <td>310</td>
-                                            <td>Maria Asuncion Duran</td>
-                                            <td>Proyecto final de DDS8</td>
-                                            <td>Confirmado</td>
-                                            <td>---</td>
-                                            <td><a href="#!" class="pc-link"><span class=""><i data-feather="check"></i></span></a>
-                                            <a href="#!" class="pc-link"><span class="pc-micon"><i data-feather="x"></i></span></a></td>
-                                        </tr>
-                                        <tr>
-                                        <td>6</td>
-                                            <td>17/10/2022</td>
-                                            <td>12:00 A.M.</td>
-                                            <td>3</td>
-                                            <td>315</td>
-                                            <td>Piedad Borrego</td>
-                                            <td>Reunion general para SIG</td>
-                                            <td>Confirmado</td>
-                                            <td>---</td>
-                                            <td><a href="#!" class="pc-link"><span class=""><i data-feather="check"></i></span></a>
-                                            <a href="#!" class="pc-link"><span class="pc-micon"><i data-feather="x"></i></span></a></td>
-                                        </tr>
-                                        <tr>
-                                        <td>7</td>
-                                            <td>17/10/2022</td>    
-                                            <td>3:00 P.M</td>
-                                            <td>3</td>
-                                            <td>405</td>
-                                            <td>Eugenio Nieto</td>
-                                            <td>hacer tareas de la universidad</td>
-                                            <td>Esperando Confirmacion</td>
-                                            <td>3</td>
-                                            <td><a href="#!" class="pc-link"><span class=""><i data-feather="check"></i></span></a>
-                                            <a href="#!" class="pc-link"><span class="pc-micon"><i data-feather="x"></i></span></a></td>
-                                        </tr>     
+                                        <?php foreach ($consultarReservas as $reservas) {
+                                        ?>
+                                            <tr>
+                                                <td><?php echo $reservas->codigo_reserva ?></td>
+                                                <td><?php echo $reservas->tiempo_inicio ?></td>
+                                                <td><?php echo $reservas->tiempo_final ?></td>
+                                                <td><?php echo $reservas->salon[0] ?></td>
+                                                <td><?php echo $reservas->salon ?></td>
+                                                <td><?php echo $reservas->usuario ?></td>
+                                                <td><?php echo $reservas->breve_descripcion ?></td>
+                                                <td>
+                                                    
+                                                        <div class="text-center border border-secondary align-self-center bg-<?php if ($reservas->estado == 'pendiente') {
+                                                                                                            echo "secondary rounded";
+                                                                                                        } else if ($reservas->estado == 'en curso') {
+                                                                                                            echo "warning rounded";
+                                                                                                        } else {
+                                                                                                            echo "success rounded";
+                                                                                                        } ?> text-white"> 
+                                                        <?php echo $reservas->estado; ?> 
+                                                        </div>
+                                              
+                                                </td>
+
+                                                <td><?php echo $reservas->cantidad_equipos ?></td>
+                                                <td><a href="#!" class="pc-link"><span class=""><i data-feather="check"></i></span></a>
+                                                    <a href="#!" class="pc-link"><span class="pc-micon"><i data-feather="x"></i></span></a>
+                                                </td>
+                                            </tr>
+                                        <?php
+                                        } ?>
                                     </tbody>
                                 </table>
                             </div>
