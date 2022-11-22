@@ -69,8 +69,56 @@ INSERT INTO `facultad` (`cod_facultad`, `nombre`, `correo`, `logo`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `horarios_salon`
+--
+
+CREATE TABLE `horarios_salon` (
+  `id` int(11) NOT NULL,
+  `id_salon` varchar(5) NOT NULL,
+  `id_hora_general` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `horas_general`
+--
+
+CREATE TABLE `horas_general` (
+  `id` int(11) NOT NULL,
+  `descripcion` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `horas_general`
+--
+
+INSERT INTO `horas_general` (`id`, `descripcion`) VALUES
+(1, '7:00 - 7:45 AM'),
+(2, '7:50 - 8:35 AM'),
+(3, '8:40 - 9:25 AM'),
+(4, '9:30 - 10:15 AM'),
+(5, '10:20 - 11:05 AM'),
+(6, '11:10 - 11:55 AM'),
+(7, '12:00 - 12:45 PM'),
+(8, '12:50 - 1:35 PM'),
+(9, '1:40 - 2:25 PM'),
+(10, '2:30 - 3:15 PM'),
+(11, '3:20 - 4:05 PM'),
+(12, '4:10 - 4:55 PM'),
+(13, '5:00 - 5:45 PM'),
+(14, '5:50 - 6:35 PM'),
+(15, '6:40 - 7:25 PM'),
+(16, '7:30 - 8:15 PM'),
+(17, '8:20 - 9:05 PM'),
+(18, '9:10 - 9:55 PM');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `piso`
 --
+
 
 CREATE TABLE `piso` (
   `cod_piso` int(11) NOT NULL,
@@ -147,10 +195,6 @@ CREATE TABLE `usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `usuario`
---
-
---
 -- Índices para tablas volcadas
 --
 
@@ -165,6 +209,21 @@ ALTER TABLE `edificio`
 --
 ALTER TABLE `facultad`
   ADD PRIMARY KEY (`cod_facultad`);
+
+--
+-- Indices de la tabla `horarios_salon`
+--
+ALTER TABLE `horarios_salon`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_id_hora_general` (`id_hora_general`),
+  ADD KEY `fk_id_salon_horario` (`id_salon`);
+
+--
+-- Indices de la tabla `horas_general`
+--
+ALTER TABLE `horas_general`
+  ADD PRIMARY KEY (`id`);
+
 
 --
 -- Indices de la tabla `piso`
@@ -195,6 +254,20 @@ ALTER TABLE `salon`
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id_usuario`),
   ADD UNIQUE KEY `correo` (`correo`);
+
+
+
+
+-- AUTO_INCREMENT de la tabla `horarios_salon`
+--
+ALTER TABLE `horarios_salon`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `horas_general`
+--
+ALTER TABLE `horas_general`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -232,6 +305,13 @@ ALTER TABLE `piso`
 -- Filtros para la tabla `reservacion`
 --
 ALTER TABLE `reservacion`
+--
+-- Filtros para la tabla `horarios_salon`
+--
+ALTER TABLE `horarios_salon`
+  ADD CONSTRAINT `fk_id_hora_general` FOREIGN KEY (`id_hora_general`) REFERENCES `horas_general` (`id`),
+  ADD CONSTRAINT `fk_id_salon_horario` FOREIGN KEY (`id_salon`) REFERENCES `salon` (`cod_salon`);
+
   ADD CONSTRAINT `fk_cod_salon` FOREIGN KEY (`cod_salon`) REFERENCES `salon` (`cod_salon`),
   ADD CONSTRAINT `fk_id_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`);
 

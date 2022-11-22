@@ -57,6 +57,15 @@ class Controller
 
     public function Horarios(){
 
+        $listaHorasGenerales = new Usuario();
+        $listaHorasGenerales = $this->model2->ObtenerHorasGenerales();
+
+        
+        $listaHorarioSalones = new Usuario();
+        $listaHorarioSalones = $this->model2->ObtenerHorariosSalones();
+
+        $listaDiasSemana = new Usuario();
+        $listaDiasSemana = $this->model2->ObtenerDiasSemana();
         //Le paso los datos a la vista
         require("view/horarios.php");
 

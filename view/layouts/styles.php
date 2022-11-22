@@ -12,3 +12,6 @@
     <link rel="stylesheet" href="assets/css/customizer.css">
     <link rel="stylesheet" href="public/css/loader.css">
     <link rel="stylesheet" href="public/css/profile.css">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.7.3/tailwind.min.css">
