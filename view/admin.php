@@ -91,7 +91,7 @@ include('layouts/styles.php')
                                             <td><?php echo $n; ?></td>
                                             <td class="txt-oflo"><?php echo $lista->nombre; ?></td>
                                             <td class="txt-oflo"><?php echo $lista->apellido; ?></td>
-                                            <td class="txt-oflo"><?php echo $lista->email; ?></td>
+                                            <td class="txt-oflo"><?php echo $lista->correo; ?></td>
                                             <td><span class="text-success"><?php ?></span></td>
                                             <td class="txt-oflo"> 
 

@@ -98,6 +98,9 @@ class Controller
         require("view/panel.php");
     }
 
+    public function CrearSalon(){
+        require("view/crearSalon.php");
+    }
     public function Guardar(){
         $usuario = new Usuario();
         
