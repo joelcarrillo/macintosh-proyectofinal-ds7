@@ -69,10 +69,17 @@ if (isset($_GET['op'])){
 
     $controller->Reservar();
     }
-    elseif($opcion=="reservasActivas")
+    elseif($opcion=="misReservas")
     {
-    $controller->ReservasActivas();   
+    $controller->MisReservas();   
     }
+
+    elseif($opcion=="solicitudesReservas")
+    {
+    $controller->SolicitudesReservas();   
+    }
+
+    
 
     elseif ($opcion=="crearNuevoSalon"){
 

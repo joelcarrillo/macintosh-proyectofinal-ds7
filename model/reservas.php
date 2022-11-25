@@ -24,8 +24,12 @@ class Reservas
 
         try 
 		{
+			$sql = "SELECT  cod_reservacion, usuario.nombre, cod_salon,fecha_reserva,tiempo_inicio,tiempo_final,descripcion,cantidad,estado 
+			FROM reservacion INNER JOIN usuario ON usuario.id_usuario = reservacion.id_usuario"
+			;
+
 			$stm = $this->pdo
-                        ->prepare("SELECT reservacion.cod_reservacion AS codigo_reserva, usuario.correo AS usuario, salon.cod_salon AS salon, tiempo_inicio, tiempo_final, reservacion.descripcion AS breve_descripcion, reservacion.cantidad AS cantidad_equipos, estado.estado AS estado FROM reservacion INNER JOIN usuario ON reservacion.id_usuario = usuario.id_usuario INNER JOIN salon ON reservacion.cod_salon = salon.cod_salon INNER JOIN estado ON reservacion.estado = estado.id_estado;");
+                        ->prepare($sql);
 			$stm->execute(array());
 				return $stm->fetchAll(PDO::FETCH_OBJ);
 		} catch (Exception $e) {
@@ -62,4 +66,23 @@ class Reservas
 		return $this->msg;
 	}
 
+		
+    public function ObtenerSolicitudesUser($id_usuario ){
+
+        try 
+		{
+			$sql = "SELECT  cod_reservacion, usuario.nombre, cod_salon,fecha_reserva,tiempo_inicio,tiempo_final,descripcion,cantidad,estado 
+			FROM reservacion INNER JOIN usuario ON usuario.id_usuario = reservacion.id_usuario
+			WHERE usuario.id_usuario =?";
+			$stm = $this->pdo
+                        ->prepare($sql);
+			$stm->execute(array($id_usuario));
+				return $stm->fetchAll(PDO::FETCH_OBJ);
+		} catch (Exception $e) {
+			die($e->getMessage());
+		}
+
+    }
+
 }
+
