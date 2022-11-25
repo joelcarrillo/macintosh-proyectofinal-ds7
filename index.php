@@ -74,13 +74,6 @@ if (isset($_GET['op'])){
     $controller->ReservasActivas();   
     }
 
-    elseif ($opcion=="crearNuevoSalon"){
-
-        //Llamo al método ver pasándole la clave que me están pidiendo
-    
-        $controller->CrearSalon();
-    }
-
     elseif ($opcion=="admin")
     {
     //Para cerrar la sesion

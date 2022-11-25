@@ -89,7 +89,4 @@ class Salones
 			die($e->getMessage());
 		}
 	}
-
-
-
 }
