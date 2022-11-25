@@ -87,7 +87,7 @@ if ($_SESSION["acceso"] != true) {
                                         <input onchange="obtenerDiaSemana()" type="date" class="form-control"
                                             name="fecha_reserva" id="fecha_reserva" placeholder="CODIGO SALON"
                                             value="<?php echo $_GET["cod_salon"]; ?>"
-                                            min="<?php  $fechaActual = date('Y-m-d'); echo $fechaActual;?>">
+                                            min="<?php  $fechaActual = date('Y-m-d'); echo $fechaActual;?>" required>
                                         <!-- <input type="text" id="dia_semana_recib" class="form-control"> -->
                                     </div>
                                 </div>
@@ -97,7 +97,7 @@ if ($_SESSION["acceso"] != true) {
                                     <label for="tiempo_inicio">Hora de Inicio</label>
 
                                     <select onchange="calcularHoraFinal()" id="tiempo_inicio" name="tiempo_inicio"
-                                        class="form-control">
+                                        class="form-control" required>
                                         <option>Escoger hora disponible...</option>
                                         <?php foreach ($listaHorasGenerales as $listHoraGeneral) {
                                             ?>
@@ -119,12 +119,12 @@ if ($_SESSION["acceso"] != true) {
                                     <div class="form-group col-md-6">
                                         <label for="descripcion_reserva">Descripcion de Reserva</label>
                                         <input type="text" class="form-control" id="descripcion_reserva"
-                                            name="descripcion_reserva" placeholder="Descripcion de Reserva">
+                                            name="descripcion_reserva" placeholder="Descripcion de Reserva" required>
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label for="cantidad_reserva">Cantidad de Participantes</label>
                                         <input type="number" class="form-control" id="cantidad_reserva"
-                                            name="cantidad_reserva">
+                                            name="cantidad_reserva" required>
                                     </div>
                                 </div>
 

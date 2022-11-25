@@ -10,7 +10,7 @@
         <html lang="en">
 
         <head>
-            <title>Solicitudes de Reservas - UTP</title>
+            <title>Mis Reservas - UTP</title>
 
             <?php
             include('layouts/styles.php')
@@ -40,7 +40,7 @@
                                     </div>
                                     <ul class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="?op=permitido">Home</a></li>
-                                        <li class="breadcrumb-item">Solicitudes de Reservas</li>
+                                        <li class="breadcrumb-item">Mis Reservas</li>
                                     </ul>
                                 </div>
                             </div>
@@ -51,8 +51,7 @@
                     <div class="col-xl-12">
                         <div class="card">
                             <div class="card-header">
-                                <h5>Solicitudes de Reservas</h5>
-                                <span class="d-block m-t-5">Se visualizaran todas las reservas que estan activas esperando a que se cumplan</span>
+                                <h5>Mis Reservas</h5>
                             </div>
                             <div class="card-body table-border-style">
                                 <div class="table-responsive">

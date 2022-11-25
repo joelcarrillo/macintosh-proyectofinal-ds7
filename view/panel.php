@@ -62,7 +62,7 @@ include('layouts/styles.php')
         </script>
         <style>
             body {
-                margin: 40px 0;
+                margin: 0 0;
                 padding: 0;
                 font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
                 font-size: 14px;
@@ -106,6 +106,7 @@ include('layouts/styles.php')
             </div>
             <!-- [ breadcrumb ] end -->
             <!-- [ Main Content ] start -->
+            <br><br><br>
             <div id='calendar'></div>
             <!-- [ Main Content ] end -->
         </div>

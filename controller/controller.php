@@ -209,14 +209,26 @@ class Controller
 
     }
 
-    public function ReservasActivas(){
+    public function MisReservas(){
 
-        $consultarReservas = new Reservas();
-        $consultarReservas = $this->modeloReservas->ObtenerReservasActivas();
+        $id_usuario = $_SESSION["id"];
+        $MisSolicitudes = new Reservas();
+        $MisSolicitudes = $this->modeloReservas->ObtenerSolicitudesUser($id_usuario);
+
+        require("view/misReservas.php");
+
+    }
+    
+    public function SolicitudesReservas(){
+
+        $MisSolicitudes = new Reservas();
+        $MisSolicitudes = $this->modeloReservas->ObtenerReservasActivas();
 
         require("view/reservas.php");
 
     }
+
+    
     
     public function IngresarAdmin(){
 
