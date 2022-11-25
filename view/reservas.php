@@ -86,7 +86,7 @@ if ($_SESSION["acceso"] != true) {
                                                 <td><?php echo $reservas->breve_descripcion ?></td>
                                                 <td>
 
-                                                    <div class="text-center border border-secondary align-self-center bg-<?php if ($reservas->estado == 'pendiente') {
+                                                    <div class="text-center border border-secondary align-self-center px-2 bg-<?php if ($reservas->estado == 'pendiente') {
                                                                                                                                 echo "secondary rounded";
                                                                                                                             } else if ($reservas->estado == 'en curso') {
                                                                                                                                 echo "warning rounded";
