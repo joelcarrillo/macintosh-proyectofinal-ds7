@@ -34,43 +34,43 @@
                     <h2 style="color: #4C2F6A;">Crear Nuevo Usuario</h2>
                 </center>
                 <br>
-                <p class="<?php if (isset ($_GET['msg'])) echo $_GET['t'];?>"> <?php if (isset ($_GET['msg'])) echo $_GET['msg'];?> </p> 
-  
+                <p class="<?php if (isset($_GET['msg'])) echo $_GET['t']; ?>"> <?php if (isset($_GET['msg'])) echo $_GET['msg']; ?> </p>
+
                 <div style="display:flex">
-                    <div class="form-group"  style="margin:5px">
-                        <input type="text" class="form-control item" id="nombre" placeholder="Nombre" name="nombre"
-                            required>
+                    <div class="form-group" style="margin:5px">
+                        <input type="text" class="form-control item" id="nombre" placeholder="Nombre" name="nombre" required>
                     </div>
                     <br>
-                    <div class="form-group"  style="margin:5px">
-                        <input type="text" class="form-control item" id="apellido" placeholder="Apellido"
-                            name="apellido" required>
+                    <div class="form-group" style="margin:5px">
+                        <input type="text" class="form-control item" id="apellido" placeholder="Apellido" name="apellido" required>
                     </div>
 
                 </div>
                 <br>
                 <div class="form-group">
-                    <input type="text" class="form-control item" id="correo" placeholder="Email" name="correo" required
-                        autofocus>
+                    <input type="text" class="form-control item" id="correo" placeholder="Email" name="correo" required autofocus>
+                </div>
+
+                <br>
+                <div class="form-group">
+                    <input type="text" class="form-control item" id="telefono" placeholder="telefono" name="telefono" required autofocus>
                 </div>
                 <br>
 
                 <div style="display: flex;">
                     <div class="form-group" style="margin:5px">
-                        <input type="password" class="form-control item" id="password1" placeholder="Password"
-                            name="password1" required>
+                        <input type="password" class="form-control item" id="password1" placeholder="Password" name="password1" required>
                     </div>
                     <br>
                     <div class="form-group" style="margin:2px">
-                        <input type="password" class="form-control item" id="password2"
-                            placeholder="Password Nuevamente" name="password2" required>
+                        <input type="password" class="form-control item" id="password2" placeholder="Password Nuevamente" name="password2" required>
                     </div>
                 </div>
                 <br>
 
                 <button class="w-100 btn btn-lg btn-primary" type="submit" onClick="comprobarClave()">Registrarse</button>
 
-               
+
 
                 <div class="mt-4">
                     <div class="d-flex justify-content-center links">
@@ -88,16 +88,16 @@
     </form>
 
     <script>
-    function ComprobarClave(){
-        contra1 = document.formulario.password1.value
-        contra2 = document.formulario.password2.value
+        function ComprobarClave() {
+            contra1 = document.formulario.password1.value
+            contra2 = document.formulario.password2.value
 
-        if (contra1 != contra2){
-        alert("Las dos claves no son iguales...");
-        return false;}
-    } 
-
-</script>
+            if (contra1 != contra2) {
+                alert("Las dos claves no son iguales...");
+                return false;
+            }
+        }
+    </script>
 
 </body>
 

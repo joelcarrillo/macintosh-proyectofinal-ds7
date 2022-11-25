@@ -3,21 +3,22 @@
 session_start();// Comienzo de la sesión
 
 require_once 'model/usuario.php';
-require_once 'model/ubicacion.php';
+require_once 'model/salones.php';
+require_once 'model/reservas.php';
 
 class Controller
 {
     private $model;
     private $model2;
-    private $model3;
-    private $model4;
+    private $modeloSalones;
+    private $modeloReservas;
     private $resp;
     
     public function __CONSTRUCT(){
         $this->model = new Usuario();
-        $this->model2 = new Ubicacion();
-        $this->model3 = new Ubicacion();
-        $this->model4 = new Usuario();
+        $this->model2 = new Usuario();
+        $this->modeloReservas = new Reservas();
+        $this->modeloSalones = new Salones();
     }
 
     public function Index(){
@@ -40,13 +41,6 @@ class Controller
         $usuario = new Usuario();
         $usuario = $this->model->Obtener($_SESSION['id']);
 
-        $provincia =new Ubicacion();
-        $provincia= $this->model2->ConsultarProvincia();
-
-        $distritos =new Ubicacion();
-        $distritos= $this->model3->ConsultarDistrito();
-
-
         //Le paso los datos a la vista
         require("view/perfil.php");
 
@@ -61,21 +55,37 @@ class Controller
 
     public function Salones(){
 
+        $idFac = $_GET['id_facultad'];
+
+        $nombreFacultad = new Salones();
+        $nombreFacultad = $this->modeloSalones->nombreFacultad($idFac);
+
+        $referenciaSalones = new Salones();
+        $referenciaSalones = $this->modeloSalones->ObtenerSalonesFacultad($idFac);
+        
         //Le paso los datos a la vista
-        require("view/salones.php");
+        require("view/elegirSalon.php");
 
     }
 
 
     public function Horarios(){
 
+        $cod_salon = $_GET['cod_salon'];
+
+        $listaHorasGenerales = new Usuario();
+        $listaHorasGenerales = $this->modeloSalones->ObtenerHorasGenerales();
+
+        
+        $listaHorarioSalones = new Usuario();
+        $listaHorarioSalones = $this->modeloSalones->ObtenerHorariosSalones($cod_salon);
+
+        $listaDiasSemana = new Usuario();
+        $listaDiasSemana = $this->modeloSalones->ObtenerDiasSemana();
         //Le paso los datos a la vista
         require("view/horarios.php");
 
     }
-
-    
-    
 
     public function CrearUsuario(){
 
@@ -86,16 +96,18 @@ class Controller
     public function IngresarPanel(){
 
         require("view/panel.php");
-        
-     
     }
 
+    public function CrearSalon(){
+        require("view/crearSalon.php");
+    }
     public function Guardar(){
         $usuario = new Usuario();
         
         $usuario->nombre = $_POST['nombre'];
         $usuario->apellido = $_POST['apellido'];
-        $usuario->email = $_POST['correo'];  
+        $usuario->correo = $_POST['correo'];  
+        $usuario->telefono = $_POST['telefono'];  
         $usuario->pass = md5($_POST['password1']);    
       
         $this->resp= $this->model->Registrar($usuario);
@@ -106,19 +118,19 @@ class Controller
     public function Ingresar(){
         $ingresarUsuario = new Usuario();
         
-        $ingresarUsuario->email = $_REQUEST['correo'];  
+        $ingresarUsuario->correo = $_REQUEST['correo'];  
         $ingresarUsuario->pass = md5($_REQUEST['password']);    
 
         //Verificamos si existe en la base de datos
         if ($resultado= $this->model->Consultar($ingresarUsuario))
         {
             $_SESSION["acceso"] = true;
-            $_SESSION["user"] = $resultado->nombre." ".$resultado->apellido;
             $_SESSION["foto"] = $resultado->foto;
-            $_SESSION["id"] = $resultado->id;
+            $_SESSION["user"] = $resultado->nombre." ".$resultado->apellido;
+            $_SESSION["id"] = $resultado->id_usuario;
+            $_SESSION["dni"] = $resultado->dni;
             
             header('Location: ?op=permitido');
-
         }
         else
         {
@@ -131,8 +143,8 @@ class Controller
         $usuario = new Usuario();
         $usuario->nombre = $_REQUEST['nombre'];
         $usuario->apellido = $_REQUEST['apellido'];
-        $usuario->id_distrito= $_REQUEST['distrito'];
-        $usuario->id=$_SESSION["id"];
+        $usuario->telefono = $_REQUEST['telefono'];  
+        $usuario->id_usuario = $_SESSION["id"];
 
 
         if (isset($_FILES['foto']))
@@ -159,14 +171,52 @@ class Controller
 
     public function Reservar(){
 
+        
+        $idFac = $_GET['idFac'];
+        $cod_salon = $_GET['cod_salon'];
+
+        $nombreFacultad = new Salones();
+        $nombreFacultad = $this->modeloSalones->nombreFacultad($idFac);
+
+        $referenciaSalones = new Salones();
+        $referenciaSalones = $this->modeloSalones->ObtenerSalonesFacultad($idFac);
+
+        $listaHorasGenerales = new Usuario();
+        $listaHorasGenerales = $this->modeloSalones->ObtenerHorasGenerales();
+
+        
+        $listaHorarioSalones = new Usuario();
+        $listaHorarioSalones = $this->modeloSalones->ObtenerHorariosSalones($cod_salon);
+
         //Le paso los datos a la vista
-        require("view/panel.php");
+        require("view/crearReserva.php");
+
+    }
+
+    public function CrearReserva(){
+
+        $reserva = new Reservas();
+        
+        $reserva->id_usuario = $_POST['id_usuario'];
+        $reserva->cod_salon = $_POST['cod_salon'];
+        $reserva->fecha_reserva = $_POST['fecha_reserva'];  
+        $reserva->tiempo_inicio = $_POST['tiempo_inicio'];  
+        $reserva->tiempo_final = $_POST['tiempo_final'];  
+        $reserva->descripcion_reserva = $_POST['descripcion_reserva'];  
+        $reserva->cantidad_reserva = $_POST['cantidad_reserva'];  
+        
+        $this->resp= $this->modeloReservas->GuardarReserva($reserva);
+
+        header('Location: ?op=reservasActivas&msg='.$this->resp);
+
 
     }
 
     public function ReservasActivas(){
 
-        //Le paso los datos a la vista
+        $consultarReservas = new Reservas();
+        $consultarReservas = $this->modeloReservas->ObtenerReservasActivas();
+
         require("view/reservas.php");
 
     }
@@ -174,7 +224,7 @@ class Controller
     public function IngresarAdmin(){
 
         $listaUsuario = new Usuario();
-        $listaUsuario = $this->model4->ObtenerTodosLosUsuarios();
+        $listaUsuario = $this->model2->ObtenerTodosLosUsuarios();
 
         require("view/admin.php");
         
@@ -196,13 +246,16 @@ class Controller
         
         $usuario->nombre = $_POST['nombre'];
         $usuario->apellido = $_POST['apellido'];
-        $usuario->email = $_POST['correo'];  
+        $usuario->correo = $_POST['correo'];  
+        $usuario->telefono = $_POST['telefono'];  
         $usuario->pass = md5($_POST['password1']);    
       
         $this->resp= $this->model->Registrar($usuario);
 
         header('Location: ?op=admin');
     }
+
+
 
    
 }

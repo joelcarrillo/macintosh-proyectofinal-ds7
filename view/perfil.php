@@ -40,41 +40,6 @@ if ($_SESSION["acceso"] != true)
         </div>
     </div>
     
-<script>
-var arrayIdDistrito = new Array();
-var arrayNomDistrito = new Array();
-var arrayIdProvincia = new Array();
-var i = 1;
-// Inicializamos 3 arreglos con los datos de los Ids de las provincias y distritos; ademas, del nombre de los distritos
-<?php
-$n=0;
-foreach ($distritos as $d)  {
-    echo "arrayIdDistrito[$n]=$d->id_distrito;";
-    echo "arrayNomDistrito[$n]='$d->nom_distrito';";
-    echo "arrayIdProvincia[$n]=$d->id_provincia;";
-    $n++;
-    }
- ?>
-var n = "<?php echo $n; ?>"; //total de registros
-
-function SelectDistritos() {
-    var indice = 0;
-    var valor = 0;
-    //asignamos a la variable valor el valor de la lista de menú seleccionado
-    valor = document.formulario_profile.provincia.value;
-    document.formulario_profile.distrito.length = 0; //Limpiamos la lista de menu distrito
-    for (x = 0; x < n; x++) {
-
-        if (valor == arrayIdProvincia[x]) {
-            //asigna a la lista de menú sub_areas los nuevos valores segun la selección del menú areas
-            document.formulario_profile.distrito[indice] = new Option(arrayNomDistrito[x], arrayIdDistrito[x]);
-            indice = indice + 1;
-        }
-    }
-
-}
-</script>
-
 <?php
    
 include('layouts/styles.php'); 
@@ -209,32 +174,19 @@ include('layouts/pc-header.php');
                                                     <div class="form-group">
                                                         <label>Correo</label>
                                                         <input type="text" class="form-control" name="correo"
-                                                            value="<?php echo $usuario->email; ?>" disabled>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label>Provincia</label>
-                                                        <select class="form-control" name="provincia" id="provincia"
-                                                            onchange="SelectDistritos()">
-                                                            <?php foreach ($provincia as $p){ ?>
-                                                            <option value="<?php echo $p->id_provincia; ?>">
-                                                                <?php echo $p->nom_provincia; ?></option>
-                                                            <?php } ?>
-                                                        </select>
-
+                                                            value="<?php echo $usuario->correo; ?>" disabled>
                                                     </div>
                                                 </div>
 
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label>Distrito</label>
-                                                        <select name="distrito" id="distrito" class="form-control">
-                                                        </select>
+                                                        <label>Telefono</label>
+                                                        <input type="text" class="form-control" name="telefono"
+                                                            value="<?php echo $usuario->telefono; ?>">
                                                     </div>
                                                 </div>
 
-                                                <div class="col-md-6">
+                                                <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label>Cambiar Foto</label>
                                                         <input accept="image/*" type="file" class="form-control p-0 border-0"

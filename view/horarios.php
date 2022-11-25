@@ -11,24 +11,21 @@ if ($_SESSION["acceso"] != true)
 
 <head>
     <title>Salones - UTP</title>
-
-    <?php
-include('layouts/styles.php')
-    ?>
-
 </head>
 
 <body class="">
 
 
     <?php
-
+  include('layouts/styles.php');
   include('layouts/pc-mob-header.php');
   include('layouts/pc-sidebar.php');
   include('layouts/pc-header.php');
+  
 ?>
 
     <!-- [ Contenido Principal ] -->
+
     <div class="pc-container">
         <div class="pcoded-content">
             <!-- [ breadcrumb ] start -->
@@ -42,7 +39,7 @@ include('layouts/styles.php')
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="?op=permitido">Home</a></li>
                                 <li class="breadcrumb-item"><a href="?op=facultades">Facultades</a></li>
-                                <li class="breadcrumb-item"><a href="?op=salones">Salones</a></li>
+                                <li class="breadcrumb-item"><a href="?op=salones&id_facultad=<?php echo $_GET['idFac']?>">Salones</a></li>
                                 <li class="breadcrumb-item">Horario</li>
                             </ul>
                         </div>
@@ -51,151 +48,71 @@ include('layouts/styles.php')
             </div>
             <!-- [ breadcrumb ] end -->
             <!-- [ Main Content ] start -->
-            <div class="row">
-            <br><br><br><br>
-            <div class="col-xl-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h5>Aula : 3-307</h5>
-                    </div>
-                    <div class="card-body table-border-style">
-                        <div class="table-responsive">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Hora</th>
-                                        <th>Lunes</th>
-                                        <th>Martes</th>
-                                        <th>Miercoles</th>
-                                        <th>Jueves</th>
-                                        <th>Viernes</th>
-                                        <th>Sábado</th>
 
+            <div class="bg-gray-200">
+                <div class="container mx-auto mt-10">
+                    <div class="wrapper bg-white rounded shadow w-full ">
+                        <div class="header flex justify-between border-b p-2">
+                            <span class="text-lg font-bold">
+                                Horario - Salon ( <?php echo $cod_salon ?>)
+                            </span>
 
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>7:00 AM - 7:45 AM</td>
-                                        <td style="color: red">Ocupado</td>
-                                    </tr>
-                                    <tr>
-                                        <td>8:40 AM - 9:25 AM</td>
-                                        <td><Button style="background-color: rgb(60, 131, 60); color:white; border: none; border-radius: 10px;">Reservar ></Button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>9:30 AM - 10:15 AM</td>
-                                        <td style="color: red">Ocupado</td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>10:20 AM - 11:05 AM</td>
-                                        <td style="color: red">Ocupado</td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>11:10 AM - 11:55 AM</td>
-                                        <td style="color: red">Ocupado</td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>12:00 PM - 12:45 PM</td>
-                                        <td><Button style="background-color: rgb(60, 131, 60); color:white; border: none; border-radius: 10px;">Reservar ></Button></td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>12:50 PM - 1:35 PM</td>
-                                        <td><Button style="background-color: rgb(60, 131, 60); color:white; border: none; border-radius: 10px;">Reservar ></Button></td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>1:40 PM - 2:25 PM</td>
-                                        <td style="color: red">Ocupado</td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>2:30 PM - 3:15 PM</td>
-                                        <td><Button style="background-color: rgb(60, 131, 60); color:white; border: none; border-radius: 10px;">Reservar ></Button></td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>3:20 PM - 4:05 PM</td>
-                                        <td style="color: red">Ocupado</td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>4:10 PM - 4:55 PM</td>
-                                        <td><Button style="background-color: rgb(60, 131, 60); color:white; border: none; border-radius: 10px;">Reservar ></Button></td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>5:00 PM - 5:45 PM</td>
-                                        <td style="color: red">Ocupado</td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>5:50 PM - 6:35 PM</td>
-                                        <td style="color: red">Ocupado</td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>6:40 PM - 7:25 PM</td>
-                                        <td style="color: red">Ocupado</td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>7:30 PM - 8:15 PM</td>
-                                        <td style="color: red">Ocupado</td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>8:20 PM - 9:05 PM</td>
-                                        <td><Button style="background-color: rgb(60, 131, 60); color:white; border: none; border-radius: 10px;">Reservar ></Button></td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>9:10 PM - 9:55 PM</td>
-                                        <td style="color: red">Ocupado</td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>10:00 PM - 10:45 PM</td>
-                                        <td><Button style="background-color: rgb(60, 131, 60); color:white; border: none; border-radius: 10px;">Reservar ></Button></td>
-
-                                    </tr>
-                                </tbody>
-                            </table>
                         </div>
+
+                        <div class="container p-2 mx-auto rounded-md sm:p-4 dark:text-gray-100 dark:bg-gray-900">
+
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full text-xs border-separate">
+                                    <thead class=" bg-neutral-300 rounded-t-lg ">
+                                        <tr class="text-center border ">
+                                            <th class="bg-blue-400 text-white p-3 text-center border text-sm" >Hora</th>
+                                            <th class="p-3 text-center border text-sm">Lunes</th>
+                                            <th class="p-3 text-center border text-sm">Martes</th>
+                                            <th class="p-3 text-center border text-sm">Miercoles</th>
+                                            <th class="p-3 text-center border text-sm">Jueves</th>
+                                            <th class="p-3 text-center border text-sm">Viernes</th>
+                                            <th class="p-3 text-center border text-sm">Sabado</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach($listaHorasGenerales as $listHoras){?>
+                                        <tr
+                                            class="text-right border-b border-opacity-20 dark:border-gray-700 dark:bg-gray-800">
+
+                                            <td class="bg-blue-400 px-3 py-2 text-center border ">
+                                                <span
+                                                    class="event bg-blue-400 text-white rounded p-1 text-sm mb-1"><?php echo $listHoras->descripcion?></span>
+                                            </td>
+
+                                            <?php foreach($listaDiasSemana as $listDiaSemana){ ?>
+                                            <td class="px-3 py-2 text-center border">
+                                                <?php foreach($listaHorarioSalones as $listHorarioSalon){ 
+                                                if($listHorarioSalon->dia_semana == $listDiaSemana->id AND $listHorarioSalon->id_hora_general==$listHoras->id ){?>
+                                                <span class="event bg-green-600 text-white rounded p-1 text-sm mb-1"><?php echo "Reservado"?></span>
+                                                <?php } } ?>
+                                            </td>
+                                            <?php }?>
+                                        </tr>
+                                        <?php }?>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
+
             </div>
 
-
-            <!-- [ Main Content ] end -->
         </div>
     </div>
-
-    </div>
-
     <!-- Required Js -->
-    <script src="assets/js/vendor-all.min.js"></script>
-    <script src="assets/js/plugins/bootstrap.min.js"></script>
-    <script src="assets/js/plugins/feather.min.js"></script>
-    <script src="assets/js/pcoded.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-    <script src="assets/js/plugins/clipboard.min.js"></script>
-    <script src="assets/js/uikit.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="assets/js/plugins/apexcharts.min.js"></script>
+    <?php
+  include('layouts/scripts.php');
 
-    <script>
-    /*
-    window.onload = function(){
-        var contenedor = documen.getElementById('contenedor_carga');
-        contenedor.style.visibility='hidden';
-        contenedor.style.opacity='0';
-    }*/
-    </script>
+?>
+
 
 </body>
 
@@ -203,5 +120,5 @@ include('layouts/styles.php')
 </html>
 
 <?php
-}
+  }
 ?>

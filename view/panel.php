@@ -15,6 +15,64 @@ if ($_SESSION["acceso"] != true)
     <?php
 include('layouts/styles.php')
     ?>
+     <link href='./public/css/main.css' rel='stylesheet' />
+      <script src='./public/js/main.js'></script>
+    <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var calendarEl = document.getElementById('calendar');
+
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    headerToolbar: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                    },
+                    initialDate: '2020-09-12',
+                    navLinks: true, // can click day/week names to navigate views
+                    selectable: true,
+                    selectMirror: true,
+                    select: function(arg) {
+                        var title = prompt('Event Title:');
+                        if (title) {
+                            calendar.addEvent({
+                                title: title,
+                                start: arg.start,
+                                end: arg.end,
+                                allDay: arg.allDay
+                            })
+                        }
+                        calendar.unselect()
+                    },
+                    eventClick: function(arg) {
+                        alert('eL TITULO ES: '+arg.event.start);
+                       
+                    },
+                    editable: true,
+                    dayMaxEvents: true, // allow "more" link when too many events
+                    events: [{
+                            title: '5',
+                            start: '2022-08-24'
+                        },
+                      
+                    ]
+                });
+
+                calendar.render();
+            });
+        </script>
+        <style>
+            body {
+                margin: 40px 10px;
+                padding: 0;
+                font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+                font-size: 14px;
+            }
+
+            #calendar {
+                max-width: 1100px;
+                margin: 0 auto;
+            }
+        </style>
 
 </head>
 
@@ -48,7 +106,7 @@ include('layouts/styles.php')
             </div>
             <!-- [ breadcrumb ] end -->
             <!-- [ Main Content ] start -->
-            
+            <div id='calendar'></div>
             <!-- [ Main Content ] end -->
         </div>
     </div>
