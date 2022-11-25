@@ -41,7 +41,7 @@ if ($_SESSION["acceso"] != true) {
                                 <ul class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="?op=permitido">Home</a></li>
                                     <li class="breadcrumb-item"><a href="?op=facultades">Facultades</a></li>
-                                    <li class="breadcrumb-item">Salones de la <?php echo $nombreFacultad->nombre ?></li>
+                                    <li class="breadcrumb-item">Salones (<?php echo $nombreFacultad->nombre ?>)</li>
                                 </ul>
                             </div>
                         </div>
@@ -49,8 +49,8 @@ if ($_SESSION["acceso"] != true) {
                 </div>
                 <!-- [ breadcrumb ] end -->
                 <!-- [ Main Content ] start -->
+              
                 <div class="row">
-
                     <?php
                 foreach ($referenciaSalones as $salones) { 
                         ?>

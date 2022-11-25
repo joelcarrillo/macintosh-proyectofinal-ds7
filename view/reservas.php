@@ -1,5 +1,5 @@
 <?php
-@session_start(); // Comienzo de la sesión
+@session_start(); // Comienzo de la sesiÃ³n
 
 if ($_SESSION["acceso"] != true) {
     header('Location: ?op=error');
@@ -15,7 +15,9 @@ if ($_SESSION["acceso"] != true) {
         <?php
         include('layouts/styles.php')
         ?>
-
+        
+       
+    
     </head>
 
     <body class="">
@@ -56,55 +58,10 @@ if ($_SESSION["acceso"] != true) {
                         </div>
                         <div class="card-body table-border-style">
                             <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>Codigo Reserva</th>
-                                            <th>Hora inicial</th>
-                                            <th>Hora final</th>
-                                            <th>Edificio</th>
-                                            <th>Aula</th>
-                                            <th>Usuario</th>
-                                            <th>Descripción</th>
-                                            <th>Estado</th>
-                                            <th>Cantidad</th>
-                                            <th>Opciones</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php foreach ($consultarReservas as $reservas) {
-                                        ?>
-                                            <tr>
-                                                <td><?php echo $reservas->codigo_reserva ?></td>
-                                                <td><?php echo $reservas->tiempo_inicio ?></td>
-                                                <td><?php echo $reservas->tiempo_final ?></td>
-                                                <td><?php echo $reservas->salon[0] ?></td>
-                                                <td><?php echo $reservas->salon ?></td>
-                                                <td><?php echo $reservas->usuario ?></td>
-                                                <td><?php echo $reservas->breve_descripcion ?></td>
-                                                <td>
-                                                    
-                                                        <div class="text-center border border-secondary align-self-center bg-<?php if ($reservas->estado == 'pendiente') {
-                                                                                                            echo "secondary rounded";
-                                                                                                        } else if ($reservas->estado == 'en curso') {
-                                                                                                            echo "warning rounded";
-                                                                                                        } else {
-                                                                                                            echo "success rounded";
-                                                                                                        } ?> text-white"> 
-                                                        <?php echo $reservas->estado; ?> 
-                                                        </div>
-                                              
-                                                </td>
 
-                                                <td><?php echo $reservas->cantidad_equipos ?></td>
-                                                <td><a href="#!" class="pc-link"><span class=""><i data-feather="check"></i></span></a>
-                                                    <a href="#!" class="pc-link"><span class="pc-micon"><i data-feather="x"></i></span></a>
-                                                </td>
-                                            </tr>
-                                        <?php
-                                        } ?>
-                                    </tbody>
-                                </table>
+                                
+
+
                             </div>
                         </div>
                     </div>
@@ -112,25 +69,13 @@ if ($_SESSION["acceso"] != true) {
                 <!-- [ stiped-table ] end -->
             </div>
         </div>
-        <!-- Required Js -->
-        <script src="assets/js/vendor-all.min.js"></script>
-        <script src="assets/js/plugins/bootstrap.min.js"></script>
-        <script src="assets/js/plugins/feather.min.js"></script>
-        <script src="assets/js/pcoded.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-        <script src="assets/js/plugins/clipboard.min.js"></script>
-        <script src="assets/js/uikit.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-        <script src="assets/js/plugins/apexcharts.min.js"></script>
 
-        <script>
-            /*
-    window.onload = function(){
-        var contenedor = documen.getElementById('contenedor_carga');
-        contenedor.style.visibility='hidden';
-        contenedor.style.opacity='0';
-    }*/
-        </script>
+        <!-- Required Js -->
+       
+        <?php
+        include('layouts/scripts.php')
+        ?>
+      
 
     </body>
 

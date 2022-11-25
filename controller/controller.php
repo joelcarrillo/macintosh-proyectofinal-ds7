@@ -190,6 +190,25 @@ class Controller
 
     }
 
+    public function CrearReserva(){
+
+        $reserva = new Reservas();
+        
+        $reserva->id_usuario = $_POST['id_usuario'];
+        $reserva->cod_salon = $_POST['cod_salon'];
+        $reserva->fecha_reserva = $_POST['fecha_reserva'];  
+        $reserva->tiempo_inicio = $_POST['tiempo_inicio'];  
+        $reserva->tiempo_final = $_POST['tiempo_final'];  
+        $reserva->descripcion_reserva = $_POST['descripcion_reserva'];  
+        $reserva->cantidad_reserva = $_POST['cantidad_reserva'];  
+        
+        $this->resp= $this->modeloReservas->GuardarReserva($reserva);
+
+        header('Location: ?op=reservasActivas&msg='.$this->resp);
+
+
+    }
+
     public function ReservasActivas(){
 
         $consultarReservas = new Reservas();
@@ -232,6 +251,8 @@ class Controller
 
         header('Location: ?op=admin');
     }
+
+
 
    
 }

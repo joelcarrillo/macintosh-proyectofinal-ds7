@@ -100,6 +100,13 @@ if (isset($_GET['op'])){
         $controller->ActualizarDatos();
     }
 
+    elseif ($opcion=="crearReserva"){
+
+        //Llamo al método ver pasándole la clave que me están pidiendo
+    
+        $controller->CrearReserva();
+    }
+
 
 
 }

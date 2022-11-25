@@ -34,5 +34,32 @@ class Reservas
 
     }
 
+	public function GuardarReserva(reservas $data){
+		try 
+		{
+		$sql = "INSERT INTO reservacion(id_usuario,cod_salon,fecha_reserva,tiempo_inicio,tiempo_final,descripcion,cantidad) VALUES (?,?,?,?,?,?,?)";
+
+		$this->pdo->prepare($sql)
+		     ->execute(
+				array( 
+                    $data->id_usuario,
+                    $data->cod_salon, 
+                    $data->fecha_reserva, 
+                    $data->tiempo_inicio,
+					$data->tiempo_final,
+					$data->descripcion_reserva,
+					$data->cantidad_reserva,
+					
+                )
+			);
+		$this->msg="La reserva se ha guardado exitosamente!&icon=success&titulo=Exito!";
+		} catch (Exception $e) 
+		{
+				$line_error = $e;
+				$this->msg= $line_error;
+			
+		}
+		return $this->msg;
+	}
 
 }

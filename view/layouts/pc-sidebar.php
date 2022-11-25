@@ -31,7 +31,6 @@
                              class="pc-mtext">Reservación</span><span class="pc-arrow">
                              <i data-feather="chevron-right"></i></span></a>
                      <ul class="pc-submenu">
-                         <li class="pc-item"><a class="pc-link" href="?op=reservar">Crear Reserva</a></li>
                          <li class="pc-item"><a class="pc-link" href="?op=reservasActivas">Reservas activas</a></li>
                          <li class="pc-item"><a class="pc-link" href="?op=facultades">Ver Horario de Salon</a></li>
                      </ul>
