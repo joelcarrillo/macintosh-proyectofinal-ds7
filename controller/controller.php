@@ -2,6 +2,22 @@
 
 session_start();// Comienzo de la sesión
 
+//clase FPDF 
+require 'public/fpdf/fpdf.php';
+
+//Librería para enviar email
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+require 'public/phpmailer/src/Exception.php';
+require 'public/phpmailer/src/PHPMailer.php';
+require 'public/phpmailer/src/SMTP.php';
+//------------------------------------------
+
+
+
+
 require_once 'model/usuario.php';
 require_once 'model/salones.php';
 require_once 'model/reservas.php';
@@ -131,7 +147,7 @@ class Controller
         }
         else
         {
-            header('Location: ?&msg=Su contraseña o usuario está incorrecto');
+            header('Location: ?op=login&msg=Su contraseña o usuario está incorrecto&t=text-danger');
         }
     }
 
@@ -264,6 +280,127 @@ class Controller
         header('Location: ?op=admin');
     }
 
+
+    /* RECUPERAR CONTRASEÑA MEDIANTE CORREO ELECTRONICO */
+
+
+    public function CambiarPass()
+    {
+
+        $consultarEmail = new Usuario();
+        if ($consultarEmail = $this->model->ConsultarEmail($_REQUEST['correo'])) {
+            $restablecer = new Usuario();
+            $restablecer->restablecer = md5(rand(1, 1000));
+            $restablecer->correo = $_REQUEST['correo'];
+            $this->resp = $this->model2->IncluirHash($restablecer);
+            //Enviar email
+            $mail = new PHPMailer(true);
+            $mail->SMTPDebug = 0;                      //Enable verbose debug output
+            $mail->isSMTP();                                            //Send using SMTP
+            $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
+            $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+            $mail->Username   = constant('CORREO_REMITENTE');                     //SMTP username
+            $mail->Password   = constant('CORREO_PASS');                               //SMTP password
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+            $mail->Port       = 465;
+
+            //Recipients
+            $mail->setFrom(constant('CORREO_REMITENTE'), 'UTP-RESERVAS-SALONES');
+            $mail->addAddress($restablecer->correo);
+            //plantilla HTML
+
+            $mensajeHTML = '
+            <body style="margin: 0 2%;">
+            <div style="width: auto; height: 40px; background-color: #2a2438; border-bottom: 2px black solid;"></div>
+            <div
+                style="background-color: #ffffff; height: auto; width: auto; border-left: 1px black solid; border-right: 1px black solid;">
+                <div style="margin-bottom: 25px; text-align: center;">
+                    <img style="margin-top: 40px;" src="https://i.imgur.com/02Tsyqi.png" width="125px" height="125px">
+                </div>
+                <h1
+                    style="margin: 0; color: #000000; direction: ltr; font-size: 28px; font-weight: 400; letter-spacing: normal; line-height: 120%; text-align: center; margin-top: 0; margin-bottom: 15px;">
+                    <strong>Se le olvido su contrasenia?</strong>
+                </h1>
+                <div style="font-family: Arial, sans-serif">
+                    <p style="margin: 0; text-align: center;"><span style="font-size:16px;color:#393d47;">Hemos recibido una
+                            solicitud para recuperar contrasenia.</span></p>
+                    <p style="margin-bottom: 15px; text-align: center;"><span
+                            style="font-size:16px;color:#393d47; border-bottom: 1px solid #2a2438; padding-bottom: 25px;">Si
+                            usted no ha hecho esta solicitud, simplemente ignore este email.</span></p>
+                    <br>
+                    <p style="margin-bottom: 30px; text-align: center;"><span style="font-size:18px;color:#000000;"><b>Haga
+                                click a
+                                este boton: </b></span></p>
+                    <p style="margin-top: 40px; text-align: center;">
+                        <a style="padding: 15px; border-radius: 15px; background-color: #2a2438; color: white; border: 1px #000000 solid; text-decoration: none;"
+                            href="http://localhost:8080/macintosh-proyectofinal-ds7/?op=validarHash&e=' . $restablecer->correo . '&h=' . $restablecer->restablecer . '">Cambiar
+                            mi contrasenia</a></button>
+                    </p>
+                    <div style="padding-bottom: 40px;">
+                        <div style="margin-top: 45px; text-align: center;">
+                            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><img style="margin-right: 5px;" src="https://i.imgur.com/sRnL0im.png" alt="" width="40px"
+                                    height="40px"></a>
+                            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><img style="margin-left: 5px;" src="https://i.imgur.com/9xRA1h4.png" alt="" width="40px"
+                                    height="40px"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="width: auto; height: 40px; background-color: #2a2438; border-top: 2px black solid;">
+            </div>
+            </body>
+            ';
+
+            //Content
+            $mail->isHTML(true);                                  //Set email format to HTML
+            $mail->Subject = 'DS7-Restablecer Contrasenia';
+            $mail->Body    = $mensajeHTML;
+            $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+            $mail->send();
+            echo '<meta http-equiv="refresh" content="0;url=?op=restablecerContra&msg=Se ha enviado correctamente un correo electrónico para restablecer la contraseña&t=text-success">';
+            //header('Location:?op=restablecer&msg=Se ha enviado un correo electrónico para restablecer la contraseña&t=text-success');
+        } else {
+            header('Location: ?op=restablecerContra&msg=El Email no está registrado, deberá crear una cuenta&t=text-danger');
+        }
+    }
+
+    /* FIN DE RECUPERAR CONTRASEÑA MEDIANTE CORREO ELECTRONICO */
+
+    public function RestablecerPass()
+    {
+        require("view/restablecerContrasenia.php");
+    }
+
+    //se valida que el hash sea el mismo de ese correo y le da el privilegio de poder cambiar la contraseña
+
+    public function ValidarHash(){
+        $emailsazo = $_GET['e'];
+        $hashsazo = $_GET['h'];
+
+        if ($resultado = $this->model->ConsultarHash($emailsazo, $hashsazo)) {
+            require("view/cambiarContra.php");
+        } else {
+            header('Location: ?op=login');
+        }
+    }
+ 
+
+    //se cambia la contraseña
+
+    public function CambiarContrasenia()
+    {
+        try{
+            $usuario = new Usuario();
+            $usuario->correo = $_GET['e'];
+            $usuario->pass = md5($_POST['password1']);
+            $this->resp = $this->model->ActualizarContra($usuario);
+            header('Location: ?op=login&msg='.$this->resp);
+        } catch(Exception $e) {
+			header('Location: ?op=login&msg='.$this->resp);
+		}
+       
+    }
 
 
    

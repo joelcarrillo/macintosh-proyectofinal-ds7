@@ -30,7 +30,7 @@
                 <center>
                     <h1 style="color: #4C2F6A;">Iniciar Sesión </h1>
                 </center>
-                <p class="text-danger"> <?php if (isset ($_GET['msg'])) echo $_GET['msg'];?> </p> 
+                <p class="<?php if (isset ($_GET['t']))  echo $_GET['t'];?>"> <?php if (isset ($_GET['msg'])) echo $_GET['msg'];?> </p> 
 
 
                 <div class="tit_osc">Ingrese su usuario</div>
@@ -54,7 +54,7 @@
                 <button class="w-100 btn btn-lg btn-primary" type="submit">Entrar</button>
 
                 <div style="margin-top: 15px;" class="d-flex justify-content-center links">
-                    <a href="#">¿Olvido su contraseña?</a>
+                    <a href="?op=restablecerContra">¿Olvido su contraseña?</a>
                               </div>
 
                               <div class="d-flex justify-content-center links">
