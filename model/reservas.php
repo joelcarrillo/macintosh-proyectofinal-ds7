@@ -24,9 +24,8 @@ class Reservas
 
         try 
 		{
-			$sql = "SELECT  cod_reservacion, usuario.nombre, cod_salon,fecha_reserva,tiempo_inicio,tiempo_final,descripcion,cantidad,estado 
-			FROM reservacion INNER JOIN usuario ON usuario.id_usuario = reservacion.id_usuario"
-			;
+			$sql = "SELECT cod_reservacion, usuario.nombre, cod_salon ,fecha_reserva,tiempo_inicio,tiempo_final,descripcion,cantidad,estado 
+			FROM reservacion INNER JOIN usuario ON usuario.id_usuario = reservacion.id_usuario";
 
 			$stm = $this->pdo
                         ->prepare($sql);
@@ -67,7 +66,7 @@ class Reservas
 	}
 
 		
-    public function ObtenerSolicitudesUser($id_usuario ){
+    public function ObtenerSolicitudesUser($id_usuario){
 
         try 
 		{

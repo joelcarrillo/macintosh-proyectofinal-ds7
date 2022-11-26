@@ -68,6 +68,7 @@
                                             <th>DESCRIPCIÓN</th>
                                             <th>CANTIDAD</th>
                                             <th>ESTADO</th>
+                                            <th>OPCIONES</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -100,6 +101,9 @@
                                                     <td>
                                                         <div style="padding:8px" class=" text-white align-self-center bg-<?php echo  $status ?>"><?php echo $estado; ?></div>
                                                     </td>
+                                                    <td><a href="#!" class="pc-link"><span class=""><i data-feather="check"></i></span></a>
+                                                    <a href="#!" class="pc-link"><span class="pc-micon"><i data-feather="x"></i></span></a>
+                                                </td>
                                                 </tr>
                                             <?php
                                             }

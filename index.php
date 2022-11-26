@@ -79,14 +79,24 @@ if (isset($_GET['op'])){
     $controller->SolicitudesReservas();   
     }
 
-    
+    elseif ($opcion=="restablecerContra"){
 
-    elseif ($opcion=="crearNuevoSalon"){
-
-        //Llamo al método ver pasándole la clave que me están pidiendo
-    
-        $controller->CrearSalon();
+        //Llamo al método para ver la vista de restablecer la contraseña
+        $controller->RestablecerPass();
     }
+    elseif ($opcion=="verificaremail"){
+        
+        $controller->CambiarPass();
+    }
+    elseif ($opcion=="validarHash"){
+
+        $controller->ValidarHash();
+    }
+    elseif ($opcion=="cambiarContrasenia"){
+
+        $controller->CambiarContrasenia();
+    }
+
 
     elseif ($opcion=="admin")
     {
@@ -119,6 +129,10 @@ if (isset($_GET['op'])){
         //Llamo al método ver pasándole la clave que me están pidiendo
     
         $controller->CrearReserva();
+    }
+    elseif($opcion=="login"){
+        
+        $controller->index();
     }
 
 
