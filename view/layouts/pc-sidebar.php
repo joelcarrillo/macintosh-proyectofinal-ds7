@@ -18,10 +18,7 @@
                      <a href="?op=permitido" class="pc-link d-flex"><span class="pc-micon"><i data-feather="home"></i></span><span class="pc-mtext">Home</span></a>
                  </li>
 
-                 <li class="pc-item">
-                     <a href="?op=perfil" class="pc-link d-flex"><span class="pc-micon">
-                             <i data-feather="user"></i></span><span class="pc-mtext">Mi Perfil</span></a>
-                 </li>
+             
 
                  <li class="pc-item pc-hasmenu">
                      <a href="#!" class="pc-link d-flex"><span class="pc-micon"><i data-feather="calendar"></i></span><span class="pc-mtext">Reservación</span><span class="pc-arrow">
@@ -32,6 +29,11 @@
                          <li class="pc-item"><a class="pc-link" href="?op=solicitudesReservas">Solicitudes de Reservas</a></li>
                      </ul>
 
+                 </li>
+
+                 <li class="pc-item">
+                     <a href="?op=perfil" class="pc-link d-flex"><span class="pc-micon">
+                             <i data-feather="user"></i></span><span class="pc-mtext">Mi Perfil</span></a>
                  </li>
                  <!--
                  <li class="pc-item pc-hasmenu">

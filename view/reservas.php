@@ -57,7 +57,7 @@
                             <div class="card-body table-border-style">
                                 <div class="table-responsive">
 
-                                    <table id="table" class="table table-striped">
+                                    <table id="table_solic_reservas" class="table table-striped">
                                         <thead>
                                             <th>ID</th>
                                             <th>SOLICITANTE</th>
@@ -125,6 +125,29 @@
          <!-- Required Js -->
          <?php 
             include('layouts/scripts.php');?>
+
+<script>
+    $(document).ready(function() {
+        $('#table_solic_reservas').DataTable({
+            searching: true,
+            ordering: true,
+            dom: 'Bfrtip',
+            language: {
+                search: '<i class="bi bi-search"></i> Buscar',
+                zeroRecords: 'No hay registros para mostrar.',
+                emptyTable: 'La tabla está vacia.',
+                info: "Mostrando _START_ de _END_ de _TOTAL_ Registros.",
+                infoFiltered: "(Filtrados de _MAX_ Registros.)",
+                paginate: {
+                    first: 'Primero',
+                    previous: 'Anterior',
+                    next: 'Siguiente',
+                    last: 'Último'
+                }
+            }
+        });
+    });
+    </script>
 
         </body>
 
