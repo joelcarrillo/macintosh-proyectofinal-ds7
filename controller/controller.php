@@ -207,7 +207,7 @@ class Controller
         
         $this->resp= $this->modeloReservas->GuardarReserva($reserva);
 
-        header('Location: ?op=reservasActivas&msg='.$this->resp);
+        header('Location: ?op=misReservas&msg='.$this->resp);
 
 
     }
