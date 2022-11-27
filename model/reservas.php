@@ -80,7 +80,7 @@ class Reservas
 
 		try {
 			//$sql = "SELECT fecha_Reserva, SUM(1) AS cantidad, cod_salon  FROM reservacion where cod_salon = ? GROUP BY fecha_Reserva";
-			$sql = "SELECT cod_salon, fecha_reserva, tiempo_inicio, tiempo_final FROM reservacion WHERE cod_salon = ?";
+			$sql = "SELECT  cod_reservacion, usuario.nombre as Nombre, cod_salon,fecha_reserva,tiempo_inicio,tiempo_final,descripcion,cantidad,estado from reservacion inner join usuario on usuario.id_usuario = reservacion.id_usuario where usuario.id_usuario =?";
 			$stm = $this->pdo
 				->prepare($sql);
 			$stm->execute(array($salon));

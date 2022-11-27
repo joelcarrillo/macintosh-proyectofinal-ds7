@@ -28,9 +28,9 @@ if ($_SESSION["acceso"] != true) {
                         right: 'dayGridMonth,timeGridWeek,timeGridDay'
                     },
                     initialDate: '2022-11-12',
-                    navLinks: true, // can click day/week names to navigate views
-                    selectable: true,
-                    selectMirror: true,
+                    navLinks: false, // can click day/week names to navigate views
+                    selectable: false,
+                    selectMirror: false,
                     select: function(arg) {
                         var title = prompt('Event Title:');
                         if (title) {
@@ -39,14 +39,15 @@ if ($_SESSION["acceso"] != true) {
                                 start: arg.start,
                                 end: arg.end,
                                 allDay: arg.allDay
+                                
+
                             })
                         }
                         calendar.unselect()
                     },
                     eventClick: function(arg) {
 
-
-                        mostrarDetalles(arg.event.title, arg.event.start, arg.event.end);
+                        mostrarDetalles(arg.event.title.substr(0, 7, arg.event.title.lenght), arg.event.start, arg.event.end, arg.event.title.substr(7));
 
 
                     },
@@ -59,11 +60,12 @@ if ($_SESSION["acceso"] != true) {
 
                         if ($_REQUEST['salon'] != null) {
                             foreach ($calendario as $calendario) {
-                        ?> {
-                                    title: ' <?php echo $calendario->cod_salon; ?>',
+                        ?> {        
+                                   
+                                    title: ' <?php echo $calendario->cod_salon." ". $calendario->Nombre?>',
                                     start: '<?php echo $calendario->fecha_reserva . "T" . $calendario->tiempo_inicio ?>',
                                     end: '<?php echo $calendario->fecha_reserva . "T" . $calendario->tiempo_final ?>'
-
+                                    
                                 },
                         <?php
 
@@ -175,14 +177,23 @@ if ($_SESSION["acceso"] != true) {
                         </div>
                         <div class="modal-body">
 
+                        <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Solicitante</label>
+                                        <input value="" type="text" class="form-control" name="usuario" id="usuario" required disabled>
+                                    </div>
+                                </div>
+                        
 
+                            </div>
 
 
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Salon</label>
-                                        <input value="" type="text" class="form-control" name="SAL" id="SalonInput" required disabled>
+                                        <input value="" type="text" class="form-control" name="salon" id="SalonInput" required disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -255,6 +266,7 @@ if ($_SESSION["acceso"] != true) {
                 echo "arrayNomSalon[$n]='$s->cod_salon';";
                 echo "arrayIdFacultad[$n]=$s->cod_facultad;";
                 $n++;
+
             }
             ?>
             var n = "<?php echo $n; ?>";
@@ -289,7 +301,7 @@ if ($_SESSION["acceso"] != true) {
 
        
 
-            function mostrarDetalles(salon, inicio, fin) {
+            function mostrarDetalles(salon, inicio, fin, user) {
                 console.log(salon)
 
               
@@ -298,7 +310,7 @@ if ($_SESSION["acceso"] != true) {
                 } else {
                     m.style.display = "block"
                    
-
+                    document.getElementById('usuario').value = user;
                     document.getElementById("SalonInput").value = salon;
                     document.getElementById("fecha").value = inicio.getDate() + '-' + ( inicio.getMonth() + 1 ) + '-' + inicio.getFullYear();;
 
