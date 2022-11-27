@@ -1,6 +1,6 @@
 <?php
 
-session_start();// Comienzo de la sesión
+session_start(); // Comienzo de la sesión
 
 require_once 'model/usuario.php';
 require_once 'model/salones.php';
@@ -13,47 +13,49 @@ class Controller
     private $modeloSalones;
     private $modeloReservas;
     private $resp;
-    
-    public function __CONSTRUCT(){
+
+    public function __CONSTRUCT()
+    {
         $this->model = new Usuario();
         $this->model2 = new Usuario();
         $this->modeloReservas = new Reservas();
         $this->modeloSalones = new Salones();
     }
 
-    public function Index(){
+    public function Index()
+    {
 
         //Le paso los datos a la vista
         require("view/login.php");
-
     }
 
-    public function Logout(){
+    public function Logout()
+    {
 
         //Le paso los datos a la vista
         require("view/login.php");
-	    session_destroy();
-
+        session_destroy();
     }
 
-    public function Perfil(){
+    public function Perfil()
+    {
 
         $usuario = new Usuario();
         $usuario = $this->model->Obtener($_SESSION['id']);
 
         //Le paso los datos a la vista
         require("view/perfil.php");
-
     }
 
-    public function Facultades(){
+    public function Facultades()
+    {
 
         //Le paso los datos a la vista
         require("view/facultades.php");
-
     }
 
-    public function Salones(){
+    public function Salones()
+    {
 
         $idFac = $_GET['id_facultad'];
 
@@ -62,21 +64,21 @@ class Controller
 
         $referenciaSalones = new Salones();
         $referenciaSalones = $this->modeloSalones->ObtenerSalonesFacultad($idFac);
-        
+
         //Le paso los datos a la vista
         require("view/elegirSalon.php");
-
     }
 
 
-    public function Horarios(){
+    public function Horarios()
+    {
 
         $cod_salon = $_GET['cod_salon'];
 
         $listaHorasGenerales = new Usuario();
         $listaHorasGenerales = $this->modeloSalones->ObtenerHorasGenerales();
 
-        
+
         $listaHorarioSalones = new Usuario();
         $listaHorarioSalones = $this->modeloSalones->ObtenerHorariosSalones($cod_salon);
 
@@ -84,94 +86,119 @@ class Controller
         $listaDiasSemana = $this->modeloSalones->ObtenerDiasSemana();
         //Le paso los datos a la vista
         require("view/horarios.php");
-
     }
 
-    public function CrearUsuario(){
+    public function CrearUsuario()
+    {
 
         require("view/creacionUser.php");
-
     }
 
-    public function IngresarPanel(){
+    public function IngresarPanel()
+    {
+
+        $facultades = new Salones();
+        $facultades = $this->modeloSalones->listarFacultades();
+
+        $salones = new Salones();
+        $salones = $this->modeloSalones->listarSalon();
+
+        $calendario = new Reservas();
+
+        $_SESSION['salon'] = '';
+        if (isset($_REQUEST['salon'])) {
+            $_SESSION['salon'] = $_REQUEST['salon'];
+            $calendario = $this->modeloReservas->Calendario($_SESSION['salon']);
+        }else{
+            $_SESSION['salon']= '';
+            $calendario = $this->modeloReservas->Calendario($_SESSION['salon']);
+
+        }
+
+
+
+
+
+
+
+
 
         require("view/panel.php");
     }
 
-    public function CrearSalon(){
+    public function CrearSalon()
+    {
         require("view/crearSalon.php");
     }
-    public function Guardar(){
+    public function Guardar()
+    {
         $usuario = new Usuario();
-        
+
         $usuario->nombre = $_POST['nombre'];
         $usuario->apellido = $_POST['apellido'];
-        $usuario->correo = $_POST['correo'];  
-        $usuario->telefono = $_POST['telefono'];  
-        $usuario->pass = md5($_POST['password1']);    
-      
-        $this->resp= $this->model->Registrar($usuario);
+        $usuario->correo = $_POST['correo'];
+        $usuario->telefono = $_POST['telefono'];
+        $usuario->pass = md5($_POST['password1']);
 
-        header('Location: ?op=crear&msg='.$this->resp);
+        $this->resp = $this->model->Registrar($usuario);
+
+        header('Location: ?op=crear&msg=' . $this->resp);
     }
 
-    public function Ingresar(){
+    public function Ingresar()
+    {
         $ingresarUsuario = new Usuario();
-        
-        $ingresarUsuario->correo = $_REQUEST['correo'];  
-        $ingresarUsuario->pass = md5($_REQUEST['password']);    
+
+        $ingresarUsuario->correo = $_REQUEST['correo'];
+        $ingresarUsuario->pass = md5($_REQUEST['password']);
 
         //Verificamos si existe en la base de datos
-        if ($resultado= $this->model->Consultar($ingresarUsuario))
-        {
+        if ($resultado = $this->model->Consultar($ingresarUsuario)) {
             $_SESSION["acceso"] = true;
             $_SESSION["foto"] = $resultado->foto;
-            $_SESSION["user"] = $resultado->nombre." ".$resultado->apellido;
+            $_SESSION["user"] = $resultado->nombre . " " . $resultado->apellido;
             $_SESSION["id"] = $resultado->id_usuario;
             $_SESSION["dni"] = $resultado->dni;
-            
+
             header('Location: ?op=permitido');
-        }
-        else
-        {
+        } else {
             header('Location: ?&msg=Su contraseña o usuario está incorrecto');
         }
     }
 
-    public function ActualizarDatos(){
-        
+    public function ActualizarDatos()
+    {
+
         $usuario = new Usuario();
         $usuario->nombre = $_REQUEST['nombre'];
         $usuario->apellido = $_REQUEST['apellido'];
-        $usuario->telefono = $_REQUEST['telefono'];  
+        $usuario->telefono = $_REQUEST['telefono'];
         $usuario->id_usuario = $_SESSION["id"];
 
 
-        if (isset($_FILES['foto']))
-        {
-            move_uploaded_file($_FILES['foto']['tmp_name'], "./public/images/users/".$_SESSION["id"].".jpg");
-            
-            $usuario->foto = $_SESSION["id"].".jpg";
+        if (isset($_FILES['foto'])) {
+            move_uploaded_file($_FILES['foto']['tmp_name'], "./public/images/users/" . $_SESSION["id"] . ".jpg");
 
-            $_SESSION["foto"]=$_SESSION["id"].".jpg";
-        }
-        else
-        {
+            $usuario->foto = $_SESSION["id"] . ".jpg";
+
+            $_SESSION["foto"] = $_SESSION["id"] . ".jpg";
+        } else {
             $usuario->foto = $_SESSION["foto"];
         }
-         
-        
-        $this->resp= $this->model->Actualizar($usuario);
-       $_SESSION["user"] = $usuario->nombre." ".$usuario->apellido;
-       $_SESSION["foto"] = $usuario->foto;
 
 
-        header('Location: ?op=perfil&msg='.$this->resp);
+        $this->resp = $this->model->Actualizar($usuario);
+        $_SESSION["user"] = $usuario->nombre . " " . $usuario->apellido;
+        $_SESSION["foto"] = $usuario->foto;
+
+
+        header('Location: ?op=perfil&msg=' . $this->resp);
     }
 
-    public function Reservar(){
+    public function Reservar()
+    {
 
-        
+
         $idFac = $_GET['idFac'];
         $cod_salon = $_GET['cod_salon'];
 
@@ -184,90 +211,85 @@ class Controller
         $listaHorasGenerales = new Usuario();
         $listaHorasGenerales = $this->modeloSalones->ObtenerHorasGenerales();
 
-        
+
         $listaHorarioSalones = new Usuario();
         $listaHorarioSalones = $this->modeloSalones->ObtenerHorariosSalones($cod_salon);
 
         //Le paso los datos a la vista
         require("view/crearReserva.php");
-
     }
 
-    public function CrearReserva(){
+    public function CrearReserva()
+    {
 
         $reserva = new Reservas();
-        
+
         $reserva->id_usuario = $_POST['id_usuario'];
         $reserva->cod_salon = $_POST['cod_salon'];
-        $reserva->fecha_reserva = $_POST['fecha_reserva'];  
-        $reserva->tiempo_inicio = $_POST['tiempo_inicio'];  
-        $reserva->tiempo_final = $_POST['tiempo_final'];  
-        $reserva->descripcion_reserva = $_POST['descripcion_reserva'];  
-        $reserva->cantidad_reserva = $_POST['cantidad_reserva'];  
-        
-        $this->resp= $this->modeloReservas->GuardarReserva($reserva);
+        $reserva->fecha_reserva = $_POST['fecha_reserva'];
+        $reserva->tiempo_inicio = $_POST['tiempo_inicio'];
+        $reserva->tiempo_final = $_POST['tiempo_final'];
+        $reserva->descripcion_reserva = $_POST['descripcion_reserva'];
+        $reserva->cantidad_reserva = $_POST['cantidad_reserva'];
 
-        header('Location: ?op=misReservas&msg='.$this->resp);
+        $this->resp = $this->modeloReservas->GuardarReserva($reserva);
 
-
+        header('Location: ?op=misReservas&msg=' . $this->resp);
     }
 
-    public function MisReservas(){
+    public function MisReservas()
+    {
 
         $id_usuario = $_SESSION["id"];
         $MisSolicitudes = new Reservas();
         $MisSolicitudes = $this->modeloReservas->ObtenerSolicitudesUser($id_usuario);
 
         require("view/misReservas.php");
-
     }
-    
-    public function SolicitudesReservas(){
+
+    public function SolicitudesReservas()
+    {
 
         $MisSolicitudes = new Reservas();
         $MisSolicitudes = $this->modeloReservas->ObtenerReservasActivas();
 
         require("view/reservas.php");
-
     }
 
-    
-    
-    public function IngresarAdmin(){
+
+
+    public function IngresarAdmin()
+    {
 
         $listaUsuario = new Usuario();
         $listaUsuario = $this->model2->ObtenerTodosLosUsuarios();
 
         require("view/admin.php");
-        
-     
     }
 
-    public function BorrarUser(){
+    public function BorrarUser()
+    {
 
         $usuario = new Usuario();
         $usuario->id = $_GET['id_u'];
 
-        $this->resp= $this->model->BorrarUsuario($usuario);
-        
-        header('Location: ?op=admin&msg='.$this->resp);
+        $this->resp = $this->model->BorrarUsuario($usuario);
+
+        header('Location: ?op=admin&msg=' . $this->resp);
     }
 
-    public function GuardarU(){
+    public function GuardarU()
+    {
         $usuario = new Usuario();
-        
+
         $usuario->nombre = $_POST['nombre'];
         $usuario->apellido = $_POST['apellido'];
-        $usuario->correo = $_POST['correo'];  
-        $usuario->telefono = $_POST['telefono'];  
-        $usuario->pass = md5($_POST['password1']);    
-      
-        $this->resp= $this->model->Registrar($usuario);
+        $usuario->correo = $_POST['correo'];
+        $usuario->telefono = $_POST['telefono'];
+        $usuario->pass = md5($_POST['password1']);
+
+        $this->resp = $this->model->Registrar($usuario);
 
         header('Location: ?op=admin');
     }
-
-
-
-   
 }
