@@ -204,7 +204,7 @@ if ($_SESSION["acceso"] != true) {
 
 
                     //asigna a la lista de menú sub_areas los nuevos valores segun la selección del menú areas
-                    document.getElementById('tiempo_inicio')[indice] = new Option(arrayHorasFijas[x], arrayHorasFijas_id[x]);
+                    document.getElementById('tiempo_inicio')[indice] = new Option(arrayHorasFijas[x], arrayHorasFijas[x]);
                     calcularHoraFinal();
                     indice = indice + 1;
 
