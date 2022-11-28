@@ -56,7 +56,6 @@ if ($_SESSION["acceso"] != true) {
                     dayMaxEvents: true, // allow "more" link when too many events
                     events: [
 
-
                         <?php
 
                         if ($_REQUEST['salon'] != null) {
@@ -167,7 +166,7 @@ if ($_SESSION["acceso"] != true) {
                         <i class="feather icon-search-plus"></i>Cargar</button><button type="submit"></input>
                 </form>
             </div>
-            <button id="boton" type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button>
+          
 
             <div class="modal" id="modal" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
