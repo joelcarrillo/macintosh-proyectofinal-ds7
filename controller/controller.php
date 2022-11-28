@@ -252,7 +252,12 @@ class Controller
         $tiempo_inicio = $_GET['d'];
         $tiempo_final = $_GET['e'];
         $estado = $_GET['f'];
-    
+        $cod_Reserva = $_GET['g'];
+        
+        $CambiarEstado = new Reservas();
+        $CambiarEstado = $this->modeloReservas->CambiarEstadoReserva($estado,$cod_Reserva);
+
+
         if($estado == 3){
             $estado = "Confirmada";
             $confirmed = "color: rgb(10, 150, 0)";
@@ -452,7 +457,7 @@ class Controller
                                 este boton: </b></span></p>
                     <p style="margin-top: 40px; text-align: center;">
                         <a style="padding: 15px; border-radius: 15px; background-color: #2a2438; color: white; border: 1px #000000 solid; text-decoration: none;"
-                            href="http://localhost:8080/macintosh-proyectofinal-ds7/?op=validarHash&e=' . $restablecer->correo . '&h=' . $restablecer->restablecer . '">Cambiar
+                            href="http://localhost/macintosh-proyectofinal-ds7/?op=validarHash&e=' . $restablecer->correo . '&h=' . $restablecer->restablecer . '">Cambiar
                             mi contrasenia</a></button>
                     </p>
                     <div style="padding-bottom: 40px;">

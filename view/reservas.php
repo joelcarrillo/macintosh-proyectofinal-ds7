@@ -93,17 +93,20 @@ if ($_SESSION["acceso"] != true) {
                                                 } elseif ($MisSolicitudes->estado == 1) {
                                                     $status = "warning rounded";
                                                     $estado = "Pendiente";
-                                                } else {
+                                                } elseif ($MisSolicitudes->estado == 3){
                                                     $status = "success rounded";
                                                     $estado = "Completado";
+                                                } else{
+                                                    $status = "secundary rounded";
+                                                    $estado = "Finalizado";
                                                 }
                                                 ?>
                                                 <td>
                                                     <div style="padding:8px" class=" text-white align-self-center bg-<?php echo  $status ?>"><?php echo $estado; ?></div>
                                                 </td>
-                                                <td><a href="?op=confirmarSolicitud&a=<?php echo $MisSolicitudes->correo;?>&b=<?php echo $MisSolicitudes->cod_salon; ?>&c=<?php echo $MisSolicitudes->fecha_reserva; ?>&d=<?php echo $MisSolicitudes->tiempo_inicio; ?>&e=<?php echo $MisSolicitudes->tiempo_final; ?>&f=<?php echo $MisSolicitudes->estado=3; ?>" class="pc-link"><span class=""><i data-feather="check"></i></span></a>
+                                                <td><a href="?op=confirmarSolicitud&a=<?php echo $MisSolicitudes->correo;?>&b=<?php echo $MisSolicitudes->cod_salon; ?>&c=<?php echo $MisSolicitudes->fecha_reserva; ?>&d=<?php echo $MisSolicitudes->tiempo_inicio; ?>&e=<?php echo $MisSolicitudes->tiempo_final; ?>&f=<?php echo $MisSolicitudes->estado=3; ?>&g=<?php echo $MisSolicitudes->cod_reservacion; ?>" class="pc-link"><span class=""><i data-feather="check"></i></span></a>
 
-                                                    <a href="?op=confirmarSolicitud&a=<?php echo $MisSolicitudes->correo;?>&b=<?php echo $MisSolicitudes->cod_salon; ?>&c=<?php echo $MisSolicitudes->fecha_reserva; ?>&d=<?php echo $MisSolicitudes->tiempo_inicio; ?>&e=<?php echo $MisSolicitudes->tiempo_final; ?>&f=<?php echo $MisSolicitudes->estado=2; ?>" class="pc-link"><span class="pc-micon"><i data-feather="x"></i></span></a>
+                                                    <a href="?op=confirmarSolicitud&a=<?php echo $MisSolicitudes->correo;?>&b=<?php echo $MisSolicitudes->cod_salon; ?>&c=<?php echo $MisSolicitudes->fecha_reserva; ?>&d=<?php echo $MisSolicitudes->tiempo_inicio; ?>&e=<?php echo $MisSolicitudes->tiempo_final; ?>&f=<?php echo $MisSolicitudes->estado=2; ?>&g=<?php echo $MisSolicitudes->cod_reservacion; ?>" class="pc-link"><span class="pc-micon"><i data-feather="x"></i></span></a>
                                                 </td>
                                             </tr>
                                         <?php

@@ -83,5 +83,18 @@ class Reservas
 
     }
 
+
+	public function CambiarEstadoReserva($estado,$cod_Reserva){
+		try{
+			$sql = "UPDATE reservacion SET estado = ? 
+					WHERE cod_reservacion = ?";
+
+			$this->pdo->prepare($sql)
+				->execute(array($estado,$cod_Reserva));
+		}catch (Exception $e) {
+			$this->msg = "Error al actualizar el estado&t=text-danger";
+		}
+		return;
+	}
 }
 
