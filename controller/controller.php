@@ -109,11 +109,29 @@ class Controller
 
     }
 
-    public function IngresarPanel(){
+    public function IngresarPanel()
+    {
 
+        $facultades = new Salones();
+        $facultades = $this->modeloSalones->listarFacultades();
+
+        $salones = new Salones();
+        $salones = $this->modeloSalones->listarSalon();
+
+        $calendario = new Reservas();
+
+        $_SESSION['salon'] = '';
+        if (isset($_REQUEST['salon'])) {
+            $_SESSION['salon'] = $_REQUEST['salon'];
+            $calendario = $this->modeloReservas->Calendario($_SESSION['salon']);
+        }else{
+            $_SESSION['salon']= '';
+            $calendario = $this->modeloReservas->Calendario($_SESSION['salon']);
+
+        }
         require("view/panel.php");
     }
-    
+
     public function Guardar(){
         $usuario = new Usuario();
         

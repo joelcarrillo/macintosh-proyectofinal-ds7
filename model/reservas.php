@@ -5,16 +5,13 @@ require_once 'model/db.php';
 class Reservas
 {
 	private $pdo;
-
+	private $salon;
 
 	public function __CONSTRUCT()
 	{
-		try
-		{
+		try{
 			$this->pdo = Db::StartUp();     
-		}
-		catch(Exception $e)
-		{
+		}catch(Exception $e){
 			die($e->getMessage());
 		}
 	}
@@ -34,7 +31,6 @@ class Reservas
 		} catch (Exception $e) {
 			die($e->getMessage());
 		}
-
     }
 
 	public function GuardarReserva(reservas $data){
@@ -56,16 +52,14 @@ class Reservas
                 )
 			);
 		$this->msg="La reserva se ha guardado exitosamente!&icon=success&titulo=Exito!";
-		} catch (Exception $e) 
-		{
+		} catch (Exception $e) {
 				$line_error = $e;
 				$this->msg= $line_error;
 			
 		}
 		return $this->msg;
 	}
-
-		
+	
     public function ObtenerSolicitudesUser($id_usuario){
 
         try 
@@ -80,9 +74,21 @@ class Reservas
 		} catch (Exception $e) {
 			die($e->getMessage());
 		}
-
     }
+	public function Calendario($salon)
+	{
 
+		try {
+			//$sql = "SELECT fecha_Reserva, SUM(1) AS cantidad, cod_salon  FROM reservacion where cod_salon = ? GROUP BY fecha_Reserva";
+			$sql = "SELECT  cod_reservacion, usuario.nombre as Nombre, cod_salon,fecha_reserva,tiempo_inicio,tiempo_final,descripcion,cantidad,estado from reservacion inner join usuario on usuario.id_usuario = reservacion.id_usuario where usuario.id_usuario =?";
+			$stm = $this->pdo
+				->prepare($sql);
+			$stm->execute(array($salon));
+			return $stm->fetchAll(PDO::FETCH_OBJ);
+		} catch (Exception $e) {
+			die($e->getMessage());
+		}
+	}
 
 	public function ConfirmarReserva($data){
 

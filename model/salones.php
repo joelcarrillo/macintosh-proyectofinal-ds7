@@ -96,4 +96,32 @@ class Salones
 			die($e->getMessage());
 		}
 	}
+
+	public function listarFacultades()
+	{
+		try 
+		{
+			$stm = $this->pdo->prepare("SELECT * FROM facultad");
+			          
+			$stm->execute();
+			return $stm->fetchAll(PDO::FETCH_OBJ);
+		} catch (Exception $e) 
+		{
+			die($e->getMessage());
+		}
+	}
+	public function listarSalon()
+	{
+		try 
+		{
+			$stm = $this->pdo->prepare("SELECT*FROM salon");
+			          
+			$stm->execute();
+			return $stm->fetchAll(PDO::FETCH_OBJ);
+		} catch (Exception $e) 
+		{
+			die($e->getMessage());
+		}
+	}
+	
 }
