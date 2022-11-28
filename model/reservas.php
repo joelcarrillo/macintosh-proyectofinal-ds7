@@ -24,7 +24,7 @@ class Reservas
 
         try 
 		{
-			$sql = "SELECT cod_reservacion, usuario.nombre, cod_salon ,fecha_reserva,tiempo_inicio,tiempo_final,descripcion,cantidad,estado 
+			$sql = "SELECT cod_reservacion, usuario.correo, cod_salon ,fecha_reserva, tiempo_inicio, tiempo_final, descripcion, cantidad, estado 
 			FROM reservacion INNER JOIN usuario ON usuario.id_usuario = reservacion.id_usuario";
 
 			$stm = $this->pdo

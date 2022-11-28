@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 25-11-2022 a las 22:02:45
+-- Tiempo de generación: 28-11-2022 a las 06:29:18
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 8.1.6
 
@@ -222,7 +222,9 @@ INSERT INTO `reservacion` (`cod_reservacion`, `id_usuario`, `cod_salon`, `fecha_
 (14, 1, '3-316', '2022-11-26', '07:50:00', '08:35:00', 'Voy a comer', 5, 1),
 (15, 1, '3-316', '2022-11-26', '09:30:00', '10:15:00', 'Voy a comer', 5, 1),
 (16, 1, '3-316', '2022-11-30', '10:20:00', '11:05:00', 'Voy a comer', 45, 1),
-(17, 1, '3-316', '2022-11-26', '10:20:00', '11:05:00', 'Voy a comer', 56, 1);
+(17, 1, '3-316', '2022-11-26', '10:20:00', '11:05:00', 'Voy a comer', 56, 1),
+(18, 3, '3-313', '2022-12-01', '07:50:00', '08:35:00', 'biba vegetitta', 3, 1),
+(19, 3, '3-103', '2022-11-29', '13:40:00', '14:25:00', 'biba vegetitta', 6, 1);
 
 -- --------------------------------------------------------
 
@@ -241,7 +243,50 @@ CREATE TABLE `salon` (
 --
 
 INSERT INTO `salon` (`cod_salon`, `cod_piso`, `cod_facultad`) VALUES
-('3-316', 11, 1);
+('3-101', 9, 2),
+('3-102', 9, 2),
+('3-103', 9, 2),
+('3-104', 9, 2),
+('3-105', 9, 2),
+('3-106', 9, 2),
+('3-107', 9, 2),
+('3-108', 9, 2),
+('3-109', 9, 2),
+('3-201', 10, 2),
+('3-202', 10, 2),
+('3-203', 10, 2),
+('3-204', 10, 2),
+('3-205', 10, 2),
+('3-206', 10, 2),
+('3-207', 10, 2),
+('3-208', 10, 2),
+('3-209', 10, 2),
+('3-301', 11, 1),
+('3-302', 11, 1),
+('3-303', 11, 1),
+('3-304', 11, 1),
+('3-305', 11, 1),
+('3-306', 11, 1),
+('3-307', 11, 1),
+('3-308', 11, 1),
+('3-309', 11, 1),
+('3-310', 11, 1),
+('3-311', 11, 1),
+('3-312', 11, 1),
+('3-313', 11, 1),
+('3-314', 11, 1),
+('3-315', 11, 1),
+('3-316', 11, 1),
+('3-401', 12, 1),
+('3-402', 12, 1),
+('3-403', 12, 1),
+('3-404', 12, 1),
+('3-405', 12, 1),
+('3-406', 12, 1),
+('3-407', 12, 1),
+('3-408', 12, 1),
+('3-409', 12, 1),
+('3-410', 12, 1);
 
 -- --------------------------------------------------------
 
@@ -267,7 +312,9 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`id_usuario`, `correo`, `nombre`, `apellido`, `pass`, `telefono`, `foto`, `restablecer`, `dni`) VALUES
 (1, 'keneric0707@gmail.com', 'Keneric', 'Vasquez', '202cb962ac59075b964b07152d234b70', '62635228', '', '', '8-977-1227'),
-(2, 'floppy@gmail.com', 'Floppy', 'Vasquez', '202cb962ac59075b964b07152d234b70', '62635228', '', '', NULL);
+(2, 'floppy@gmail.com', 'Floppy', 'Vasquez', '202cb962ac59075b964b07152d234b70', '62635228', '', '', NULL),
+(3, 'pablo.lizana@utp.ac.pa', 'Pablo', 'Lizana', '202cb962ac59075b964b07152d234b70', '6648-9541', '', '4311359ed4969e8401880e3c1836fbe1', NULL),
+(4, 'chutinga@jajasaludos.com', 'Pablo', 'Lizana', '202cb962ac59075b964b07152d234b70', '6648-9541', '', '', NULL);
 
 --
 -- Índices para tablas volcadas
@@ -384,13 +431,13 @@ ALTER TABLE `piso`
 -- AUTO_INCREMENT de la tabla `reservacion`
 --
 ALTER TABLE `reservacion`
-  MODIFY `cod_reservacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `cod_reservacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_usuario` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Restricciones para tablas volcadas

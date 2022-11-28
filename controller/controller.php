@@ -220,7 +220,7 @@ class Controller
         
         $this->resp= $this->modeloReservas->GuardarReserva($reserva);
 
-        header('Location: ?op=reservasActivas&msg='.$this->resp);
+        header('Location: ?op=misReservas&msg='.$this->resp);
 
 
     }
@@ -244,7 +244,126 @@ class Controller
 
     }
 
+    public function ConfirmarSolicitudReservada(){
+
+        $correo = $_GET['a'];
+        $cod_salon = $_GET['b'];
+        $fecha_reserva = $_GET['c'];
+        $tiempo_inicio = $_GET['d'];
+        $tiempo_final = $_GET['e'];
+        $estado = $_GET['f'];
     
+        if($estado == 3){
+            $estado = "Confirmada";
+            $confirmed = "color: rgb(10, 150, 0)";
+            $mensajeHTML = '
+         <body style="margin: 0 2%;">
+         <div style="width: auto; height: 40px; background-color: #2a2438; border-bottom: 2px black solid;"></div>
+         <div
+             style="background-color: #ffffff; height: auto; width: auto; border-left: 1px black solid; border-right: 1px black solid;">
+             <div style="margin-bottom: 25px; text-align: center;">
+                 <img style="margin-top: 40px;" src="https://i.imgur.com/02Tsyqi.png" width="125px" height="125px">
+             </div>
+             <h1
+                 style="margin: 0; color: #000000; direction: ltr; font-size: 36px; font-weight: 500; letter-spacing: normal; line-height: 120%; text-align: center; margin-top: 0; margin-bottom: 15px;">
+                 <strong>Confirmacion para reserva de aula</strong>
+             </h1>
+             <div style="font-family: Arial, sans-serif">
+                 <p style="margin: 0; text-align: center;"><span style="font-size:18px;color:#393d47;">Su reserva del dia
+                         <b>'.$fecha_reserva.'</b> en el salon <b>'.$cod_salon.'</b> de <b>'.$tiempo_inicio.'</b> a <b>'.$tiempo_final.'</b></span></p>
+                 <p style="margin-bottom: 25px; text-align: center;"><span
+                         style="font-size:18px;color:#393d47;padding-bottom: 25px;">
+                         ha sido <b><span style="font-size: 22px;'.$confirmed.'">'.$estado.'</b></span></span></p>
+                 <p style="margin-bottom: 15px; text-align: center;"><span
+                         style="font-size:14px; color:#393d47; padding-bottom: 25px;">
+                         favor, si de percibir algun error o inconveniente comunicarse con el administrador</span></p>
+                 <div style="padding-bottom: 20px;">
+                     <div style="text-align: center;">
+                         <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><img style="margin-right: 5px;"
+                                 src="https://i.imgur.com/sRnL0im.png" alt="" width="40px" height="40px"></a>
+                         <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><img style="margin-left: 5px;"
+                                 src="https://i.imgur.com/9xRA1h4.png" alt="" width="40px" height="40px"></a>
+                     </div>
+                 </div>
+             </div>
+             <p style="text-align: center; font-size: 9px; padding-bottom: 20px;">UTP © 2022 - Macintosh Projects</p>
+         </div>
+         <div style="width: auto; height: 40px; background-color: #2a2438; border-top: 2px black solid;">
+         </div>
+     </body>
+         ';
+        }else{
+            $estado = "Rechazada";
+            $rechazao = "color: rgb(255, 32, 32);";
+            $mensajeHTML = '
+         <body style="margin: 0 2%;">
+         <div style="width: auto; height: 40px; background-color: #2a2438; border-bottom: 2px black solid;"></div>
+         <div
+             style="background-color: #ffffff; height: auto; width: auto; border-left: 1px black solid; border-right: 1px black solid;">
+             <div style="margin-bottom: 25px; text-align: center;">
+                 <img style="margin-top: 40px;" src="https://i.imgur.com/02Tsyqi.png" width="125px" height="125px">
+             </div>
+             <h1
+                 style="margin: 0; color: #000000; direction: ltr; font-size: 36px; font-weight: 500; letter-spacing: normal; line-height: 120%; text-align: center; margin-top: 0; margin-bottom: 15px;">
+                 <strong>Confirmacion para reserva de aula</strong>
+             </h1>
+             <div style="font-family: Arial, sans-serif">
+                 <p style="margin: 0; text-align: center;"><span style="font-size:18px;color:#393d47;">Su reserva del dia
+                         <b>'.$fecha_reserva.'</b> en el salon <b>'.$cod_salon.'</b> de <b>'.$tiempo_inicio.'</b> a <b>'.$tiempo_final.'</b></span></p>
+                 <p style="margin-bottom: 25px; text-align: center;"><span
+                         style="font-size:18px;color:#393d47;padding-bottom: 25px;">
+                         ha sido <b><span style="font-size: 22px;'.$rechazao.'">'.$estado.'</b></span></span></p>
+                 <p style="margin-bottom: 15px; text-align: center;"><span
+                         style="font-size:14px; color:#393d47; padding-bottom: 25px;">
+                         favor, si de percibir algun error o inconveniente comunicarse con el administrador</span></p>
+                 <div style="padding-bottom: 20px;">
+                     <div style="text-align: center;">
+                         <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><img style="margin-right: 5px;"
+                                 src="https://i.imgur.com/sRnL0im.png" alt="" width="40px" height="40px"></a>
+                         <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><img style="margin-left: 5px;"
+                                 src="https://i.imgur.com/9xRA1h4.png" alt="" width="40px" height="40px"></a>
+                     </div>
+                 </div>
+             </div>
+             <p style="text-align: center; font-size: 9px; padding-bottom: 20px;">UTP © 2022 - Macintosh Projects</p>
+         </div>
+         <div style="width: auto; height: 40px; background-color: #2a2438; border-top: 2px black solid;">
+         </div>
+     </body>
+         ';
+        }
+
+         //Enviar email
+         $mail = new PHPMailer(true);
+         $mail->SMTPDebug = 0;                      //Enable verbose debug output
+         $mail->isSMTP();                                            //Send using SMTP
+         $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
+         $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+         $mail->Username   = constant('CORREO_REMITENTE');                     //SMTP username
+         $mail->Password   = constant('CORREO_PASS');                               //SMTP password
+         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+         $mail->Port       = 465;
+
+         //Recipients
+         $mail->setFrom(constant('CORREO_REMITENTE'), 'UTP-RESERVAS-SALONES-DS7');
+         $mail->addAddress($correo);
+         //plantilla HTML
+
+         //Content
+         $mail->isHTML(true);                                  //Set email format to HTML
+         $mail->Subject = 'UTP-RESERVAS SALON '.$cod_salon;
+         $mail->Body    = $mensajeHTML;
+         $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+         $mail->send();
+         echo '<meta http-equiv="refresh" content="0;url=?op=solicitudesReservas&msg=Se ha enviado correctamente un correo electrónico para restablecer la contraseña&t=text-success">';
+    }
+
+    public function RechazarSolicitudReservada(){
+
+        
+
+    }
     
     public function IngresarAdmin(){
 
@@ -305,7 +424,7 @@ class Controller
             $mail->Port       = 465;
 
             //Recipients
-            $mail->setFrom(constant('CORREO_REMITENTE'), 'UTP-RESERVAS-SALONES');
+            $mail->setFrom(constant('CORREO_REMITENTE'), 'UTP-RESERVAS-SALONES-DS7');
             $mail->addAddress($restablecer->correo);
             //plantilla HTML
 
@@ -353,7 +472,7 @@ class Controller
 
             //Content
             $mail->isHTML(true);                                  //Set email format to HTML
-            $mail->Subject = 'DS7-Restablecer Contrasenia';
+            $mail->Subject = 'UTP-RESERVAS-SALONES RECUPERAR CONTRASENIA';
             $mail->Body    = $mensajeHTML;
             $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
