@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost
--- Tiempo de generación: 25-11-2022 a las 22:02:45
--- Versión del servidor: 10.4.24-MariaDB
--- Versión de PHP: 8.1.6
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 29-11-2022 a las 00:29:11
+-- Versión del servidor: 10.4.25-MariaDB
+-- Versión de PHP: 7.4.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,41 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `proyecto_ds7`
 --
+
+DELIMITER $$
+--
+-- Procedimientos
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ReservasPorDia` (IN `parametro` VARCHAR(5))   BEGIN
+ DECLARE counter BIGINT DEFAULT 0;
+  DECLARE cantidad BIGINT DEFAULT 1;
+  DECLARE fecha_a date;
+  DECLARE fecha_d date;
+
+
+
+  my_loop: LOOP
+    SET counter=counter+1;
+    set fecha_a = (select fecha_reserva from reservacion where cod_reservacion = counter);
+    set fecha_d = (select fecha_reserva from reservacion where cod_reservacion = counter+1);
+    if fecha_a = fecha_d then 
+        set cantidad = cantidad+1;
+    else
+        select cantidad,  fecha_a;
+        set cantidad = 1;
+    end if;
+
+
+
+
+    IF counter = (select count(cod_reservacion) from  reservacion) THEN
+      LEAVE my_loop;
+    END IF;
+
+  END LOOP my_loop;
+END$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -82,7 +117,8 @@ CREATE TABLE `estado` (
 INSERT INTO `estado` (`id_estado`, `estado`) VALUES
 (1, 'pendiente'),
 (2, 'en curso'),
-(3, 'completado');
+(3, 'completado'),
+(4, 'cancelado');
 
 -- --------------------------------------------------------
 
@@ -215,15 +251,6 @@ CREATE TABLE `reservacion` (
 -- Volcado de datos para la tabla `reservacion`
 --
 
-INSERT INTO `reservacion` (`cod_reservacion`, `id_usuario`, `cod_salon`, `fecha_reserva`, `tiempo_inicio`, `tiempo_final`, `descripcion`, `cantidad`, `estado`) VALUES
-(11, 1, '3-316', '2022-11-27', '13:40:00', '14:25:00', 'Voy a comer', 9, 1),
-(12, 1, '3-316', '2022-11-19', '12:50:00', '13:35:00', 'Voy a comer', 5, 1),
-(13, 1, '3-316', '2022-11-26', '12:50:00', '13:35:00', 'Voy a comer', 65, 1),
-(14, 1, '3-316', '2022-11-26', '07:50:00', '08:35:00', 'Voy a comer', 5, 1),
-(15, 1, '3-316', '2022-11-26', '09:30:00', '10:15:00', 'Voy a comer', 5, 1),
-(16, 1, '3-316', '2022-11-30', '10:20:00', '11:05:00', 'Voy a comer', 45, 1),
-(17, 1, '3-316', '2022-11-26', '10:20:00', '11:05:00', 'Voy a comer', 56, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -241,7 +268,50 @@ CREATE TABLE `salon` (
 --
 
 INSERT INTO `salon` (`cod_salon`, `cod_piso`, `cod_facultad`) VALUES
-('3-316', 11, 1);
+('3-101', 9, 2),
+('3-102', 9, 2),
+('3-103', 9, 2),
+('3-104', 9, 2),
+('3-105', 9, 2),
+('3-106', 9, 2),
+('3-107', 9, 2),
+('3-108', 9, 2),
+('3-109', 9, 2),
+('3-201', 10, 2),
+('3-202', 10, 2),
+('3-203', 10, 2),
+('3-204', 10, 2),
+('3-205', 10, 2),
+('3-206', 10, 2),
+('3-207', 10, 2),
+('3-208', 10, 2),
+('3-209', 10, 2),
+('3-301', 11, 1),
+('3-302', 11, 1),
+('3-303', 11, 1),
+('3-304', 11, 1),
+('3-305', 11, 1),
+('3-306', 11, 1),
+('3-307', 11, 1),
+('3-308', 11, 1),
+('3-309', 11, 1),
+('3-310', 11, 1),
+('3-311', 11, 1),
+('3-312', 11, 1),
+('3-313', 11, 1),
+('3-314', 11, 1),
+('3-315', 11, 1),
+('3-316', 11, 1),
+('3-401', 12, 1),
+('3-402', 12, 1),
+('3-403', 12, 1),
+('3-404', 12, 1),
+('3-405', 12, 1),
+('3-406', 12, 1),
+('3-407', 12, 1),
+('3-408', 12, 1),
+('3-409', 12, 1),
+('3-410', 12, 1);
 
 -- --------------------------------------------------------
 
@@ -255,19 +325,17 @@ CREATE TABLE `usuario` (
   `nombre` varchar(256) NOT NULL,
   `apellido` varchar(256) NOT NULL,
   `pass` varchar(256) NOT NULL,
-  `telefono` varchar(10) NOT NULL,
+  `telefono` varchar(10) DEFAULT NULL,
   `foto` varchar(20) NOT NULL,
   `restablecer` varchar(250) NOT NULL,
-  `dni` varchar(255) DEFAULT NULL
+  `dni` varchar(255) DEFAULT NULL,
+  `tipo_usuario` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id_usuario`, `correo`, `nombre`, `apellido`, `pass`, `telefono`, `foto`, `restablecer`, `dni`) VALUES
-(1, 'keneric0707@gmail.com', 'Keneric', 'Vasquez', '202cb962ac59075b964b07152d234b70', '62635228', '', '', '8-977-1227'),
-(2, 'floppy@gmail.com', 'Floppy', 'Vasquez', '202cb962ac59075b964b07152d234b70', '62635228', '', '', NULL);
 
 --
 -- Índices para tablas volcadas
@@ -360,7 +428,7 @@ ALTER TABLE `dias_semana`
 -- AUTO_INCREMENT de la tabla `estado`
 --
 ALTER TABLE `estado`
-  MODIFY `id_estado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_estado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `horarios_salon`
@@ -384,13 +452,13 @@ ALTER TABLE `piso`
 -- AUTO_INCREMENT de la tabla `reservacion`
 --
 ALTER TABLE `reservacion`
-  MODIFY `cod_reservacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `cod_reservacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_usuario` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Restricciones para tablas volcadas

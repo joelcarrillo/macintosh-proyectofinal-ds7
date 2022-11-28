@@ -83,7 +83,10 @@
 
                         <span>
                             <span class="user-name"><?php echo $_SESSION["user"]; ?></span>
-                            <span class="user-desc">Administrator</span>
+                            <span class="user-desc"><?php if($_SESSION["tipo_usuario"]==2){
+                               echo 'Administrador'; }else{
+                                echo 'Usuario';
+                                } ?></span>
                         </span>
                     </a>
                     <br>
@@ -95,20 +98,7 @@
                             <i data-feather="user"></i>
                             <span>Mi Perfil</span>
                         </a>
-                        <!--
-                            <a href="#!" class="dropdown-item">
-                                <i data-feather="settings"></i>
-                                <span>Settings</span>
-                            </a>
-                            <a href="#!" class="dropdown-item">
-                                <i data-feather="life-buoy"></i>
-                                <span>Support</span>
-                            </a>
-                            <a href="#!" class="dropdown-item">
-                                <i data-feather="lock"></i>
-                                <span>Lock Screen</span>
-                            </a>
--->
+                     
                         <a href="?op=logout" class="dropdown-item">
                             <i data-feather="power"></i>
                             <span>Cerrar sesión</span>

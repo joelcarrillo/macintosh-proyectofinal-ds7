@@ -60,19 +60,18 @@ include('layouts/styles.php')
 
 
                             <div class="card-header-right">
-                                
 
-                                <button type="button"
-                                        class="btn  btn-success" data-toggle="modal" data-target="#AddUserModal">
-                                        <i class="feather icon-user-plus"></i> Crear Usuario</button>
+
+                                <button type="button" class="btn  btn-success" data-toggle="modal"
+                                    data-target="#AddUserModal">
+                                    <i class="feather icon-user-plus"></i> Crear Usuario</button>
                             </div>
 
 
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table id="table_list_users" 
-                                class="table no-wrap">
+                                <table id="table_list_users" class="table no-wrap">
                                     <thead>
                                         <tr>
                                             <th class="border-top-0">#</th>
@@ -89,23 +88,25 @@ include('layouts/styles.php')
                                     foreach ($listaUsuario as $lista) {
                                     ?>
                                         <tr>
-                                            <td><?php echo $n; ?></td>
+                                            <td><?php echo $lista->id_usuario; ?></td>
                                             <td class="txt-oflo"><?php echo $lista->nombre; ?></td>
                                             <td class="txt-oflo"><?php echo $lista->apellido; ?></td>
                                             <td class="txt-oflo"><?php echo $lista->correo; ?></td>
-                                            <td><span class="text-success"><?php ?></span></td>
-                                            <td class="txt-oflo"> 
+                                            <td><strong class="text-success"><?php if($lista->tipo_usuario==1){echo 'Usuario';}else{echo 'Administrador';}?> </strong></td>
+                                            <td class="txt-oflo">
 
-                                                <button type="button"
-                                                        class="btn  btn-danger" data-toggle="modal"
-                                                        data-target="#DeleteUserModal"><i
-                                                            class="feather icon-trash"></i></button>
+                                                <button type="button" class="btn  btn-danger"
+                                                    onclick="borrarUsuario('<?php echo $lista->id_usuario; ?>','<?php echo $lista->nombre.' '.$lista->apellido;  ?>')"
+                                                    data-toggle="modal" data-target="#DeleteUserModal"><i
+                                                        class="feather icon-trash"></i></button>
 
-                                                            <a href="?op=admin&id_u=<?php echo $lista->id;?>"><button type="button" class="btn  btn-primary" href=""
-                                                        data-toggle="modal" data-target="#EditUserModal"><i
-                                                            class="feather icon-edit"></i></button></a>
+                                                <button
+                                                        type="button" class="btn  btn-primary"
+                                                        onclick="editarUsuario('<?php echo $lista->id_usuario; ?>','<?php echo $lista->nombre ?>','<?php echo $lista->apellido ?>','<?php echo $lista->correo ?>','<?php echo $lista->tipo_usuario ?>')"
+                                                        data-toggle="modal" data-target="#EditUserModal" ><i
+                                                            class="feather icon-edit"></i></button>
 
-                                                
+
                                             </td>
                                         </tr>
                                         <?php
@@ -131,10 +132,6 @@ include('layouts/styles.php')
     </div>
 
     <!-- [ Crear Nuevo Usuario -modal ] start -->
-    <div class="col-xl-4 col-md-6">
-        <div class="card">
-        
-            <div class="card-body">
                 <div id="AddUserModal" class="modal fade" tabindex="-1" role="dialog"
                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -145,45 +142,55 @@ include('layouts/styles.php')
                                         aria-hidden="true">&times;</span></button>
                             </div>
                             <div class="modal-body">
-                                
-                            
-                            <form  action="./?op=creacionU" method="POST" name="formulario"  enctype="multipart/form-data">
-                                            <div class="titulo_perfil">
+
+
+                                <form action="./?op=crearUser" method="POST" name="formulario"
+                                    enctype="multipart/form-data">
+                                    <div class="titulo_perfil">
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Nombre</label>
+                                                <input type="text" class="form-control" required name="nombre">
                                             </div>
-                                            <div class="row">
-
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label>Nombre</label>
-                                                        <input type="text" class="form-control" name="nombre">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label>Apellido</label>
-                                                        <input type="text" class="form-control" name="apellido">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label>Correo</label>
-                                                        <input type="text" class="form-control" name="correo">
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label>Contraseña</label>
-                                                        <input type="text"  class="form-control" name="password1">
-                                                    </div>
-                                                </div>
-
-                                               
-
-                      
-
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Apellido</label>
+                                                <input type="text" class="form-control" name="apellido">
                                             </div>
-                                            
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Correo</label>
+                                                <input type="text" class="form-control" required name="correo">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Contraseña</label>
+                                                <input type="text" required class="form-control" name="password1">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Tipo Usuario</label>
+                                                <select name="tipo_usuario"
+                                                    class="form-control" required>
+                                                    <option value="1">Usuario</option>
+                                                    <option value="2">Administrador</option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
 
 
                             </div>
@@ -195,18 +202,9 @@ include('layouts/styles.php')
                         </div>
                     </div>
                 </div>
-                
-            </div>
-        </div>
-    </div>
+
 
     <!-- [ Editar Usuario -modal ] start -->
-    <div class="col-xl-4 col-md-6">
-        <div class="card">
-            <div class="card-header">
-                <h5>Vertically Centered 1</h5>
-            </div>
-            <div class="card-body">
                 <div id="EditUserModal" class="modal fade" tabindex="-1" role="dialog"
                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -217,88 +215,88 @@ include('layouts/styles.php')
                                         aria-hidden="true">&times;</span></button>
                             </div>
                             <div class="modal-body">
-                                
-                            
-                            <form action="./?op=actualizar" method="POST" name="formulario"  enctype="multipart/form-data">
-                                            <div class="titulo_perfil">
+
+
+                                <form action="./?op=actualizarUser" method="POST" name="formulario"
+                                    enctype="multipart/form-data">
+                                    <div class="titulo_perfil">
+                                    </div>
+                                    <div class="row">
+                                    <input type="hidden" class="form-control" name="id_user" id="id_user_edit">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Nombre</label>
+                                                <input type="text" class="form-control" name="nombre" id="nombre_user_edit">
                                             </div>
-                                            <div class="row">
-
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label>Nombre</label>
-                                                        <input type="text" class="form-control" name="nombre" value="<?php foreach ($listaUsuario as $lista => $lista->id){
-                                                            echo $lista->nombre;
-                                                        };?>">
-                                                    </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Apellido</label>
+                                                <input type="text" class="form-control" name="apellido" id="apellido_user_edit">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Correo</label>
+                                                <input type="text" class="form-control" name="correo" id="correo_user_edit" >
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Tipo de Usuario</label>
+                                                <div id="tipo_usuario_content">
+                                                  
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label>Apellido</label>
-                                                        <input type="text" class="form-control" name="apellido" value="<?php echo $lista->apellido;?>">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label>Correo</label>
-                                                        <input type="text" class="form-control" name="correo" value="<?php echo $lista->email;?>">
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label>Contraseña</label>
-                                                        <input type="text" class="form-control" name="contraseña">
-                                                    </div>
-                                                </div>
-
                                                
-
-                      
-
                                             </div>
-                                            
+                                        </div>
+
+                                    </div>
+
 
 
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn  btn-secondary" data-dismiss="modal">Cerrar</button>
-                                <button type="button" class="btn  btn-primary">Actualizar Usuario</button>
+                                <button type="submit" class="btn  btn-primary">Actualizar Usuario</button>
                             </div>
                             </form>
                         </div>
                     </div>
                 </div>
-                
-            </div>
+
+    
+
+    <!-- [ Borrar/Eliminar Usuario -modal ] start -->
+    <div id="DeleteUserModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLiveLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form action="./?op=borrarUser" method="POST">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLiveLabel">Borrar Usuario</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="id_user_delete" id="id_user_delete">
+                        <p>Estas seguro que quieres borrar el usuario <strong><span
+                                    id="name_user_delete"></span></strong>!</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn  btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn  btn-danger">Eliminar</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
-
- <!-- [ Borrar/Eliminar Usuario -modal ] start -->
-    
-    <div id="DeleteUserModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLiveLabel" aria-hidden="true">
-							<div class="modal-dialog" role="document">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h5 class="modal-title" id="exampleModalLiveLabel">Borrar Usuario</h5>
-										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-									</div>
-									<div class="modal-body">
-										<p>Estas seguro que quieres borrar el usuario <strong><?php echo $lista->nombre;?></strong>!</p>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn  btn-secondary" data-dismiss="modal">Cancelar</button>
-										<a href="?op=borrar&id_u=<?php echo $lista->id;?>"><button type="button" class="btn  btn-danger">Eliminar</button></a>
-									</div>
-								</div>
-							</div>
-						</div>
 
     <!-- Required Js -->
     <?php
 include('layouts/scripts.php')
     ?>
-    
+
     <script>
     $('#exampleModal').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget)
@@ -308,8 +306,28 @@ include('layouts/scripts.php')
         modal.find('.modal-body input').val(recipient)
     });
     </script>
+
+    <script>
+    function borrarUsuario(id_user, nombre_user) {
+        document.getElementById("name_user_delete").innerHTML = nombre_user;
+        document.getElementById("id_user_delete").value = id_user;
+    }
     
-<script>
+    function editarUsuario(id_user, nombre_user,apellido_user,correo_user,tipo_user) {
+        document.getElementById("nombre_user_edit").value = nombre_user;
+        document.getElementById("apellido_user_edit").value = apellido_user;
+        document.getElementById("correo_user_edit").value = correo_user;
+        console.log("tipo_usuario: "+tipo_user);
+        if(tipo_user==1){
+            document.getElementById("tipo_usuario_content").innerHTML= '<select name="tipo_usuario" class="form-control"><option value="1">Usuario</option><option value="2">Administrador</option></select>';
+        }else{
+            document.getElementById("tipo_usuario_content").innerHTML= '<select name="tipo_usuario" class="form-control"><option value="2">Administrador</option><option value="1">Usuario</option></select>';
+        }
+        document.getElementById("id_user_edit").value = id_user;
+    }
+    </script>
+
+    <script>
     $(document).ready(function() {
         $('#table_list_users').DataTable({
             searching: true,
@@ -332,7 +350,7 @@ include('layouts/scripts.php')
     });
     </script>
 
-   
+
 
 
 </body>

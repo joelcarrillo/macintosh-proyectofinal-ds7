@@ -52,6 +52,34 @@ class Usuario
 		return $this->msg;
 	}
 
+	
+	public function RegistrarUsuario(usuario $data)
+	{
+		try {
+			$sql = "INSERT INTO usuario (correo,nombre,apellido,pass,tipo_usuario) 
+		        VALUES (?, ?, ?, ?, ?)";
+
+			$this->pdo->prepare($sql)
+				->execute(
+					array(
+						$data->correo,
+						$data->nombre,
+						$data->apellido,
+						$data->pass,
+						$data->tipo_usuario,
+					)
+				);
+			$this->msg = "Se registro el usuario (".$data->nombre.") exitosamente!&icon=success&titulo=Exito!";
+		} catch (Exception $e) {
+			if ($e->errorInfo[1] == 1062) { // error 1062 es de duplicación de datos 
+				$this->msg = "Correo electrónico ya está registrado en el sistema&icon=error&titulo=Error!";
+			} else {
+				$this->msg = "Error al guardar los datos&icon=error&titulo=Error!";
+			}
+		}
+		return $this->msg;
+	}
+
 	public function Consultar(usuario $data)
 	{
 		try {
@@ -93,7 +121,7 @@ class Usuario
 	public function Actualizar(usuario $data)
 	{
 		try {
-			$sql = "UPDATE usuario SET nombre = ?, apellido = ?, telefono = ? , foto = ? 
+			$sql = "UPDATE usuario SET nombre = ?, apellido = ?, telefono = ? , foto = ? , dni=?
 		        WHERE id_usuario = ?";
 
 			$this->pdo->prepare($sql)
@@ -103,12 +131,36 @@ class Usuario
 						$data->apellido,
 						$data->telefono,
 						$data->foto,
+						$data->dni,
 						$data->id_usuario
 					)
 				);
 			$this->msg = "Su registro se ha Actualizado exitosamente!&t=text-success";
 		} catch (Exception $e) {
 			$this->msg = "Error al actualizar los datos&t=text-danger";
+		}
+		return $this->msg;
+	}
+
+	public function ActualizarUsuarios(usuario $data)
+	{
+		try {
+			$sql = "UPDATE usuario SET nombre = ?, apellido = ?, correo = ? , tipo_usuario=?
+		        WHERE id_usuario = ?";
+
+			$this->pdo->prepare($sql)
+				->execute(
+					array(
+						$data->nombre,
+						$data->apellido,
+						$data->correo,
+						$data->tipo_usuario,
+						$data->id_usuario
+					)
+				);
+			$this->msg = "Su registro se ha Actualizado exitosamente!&icon=success&titulo=Exito!";
+		} catch (Exception $e) {
+			$this->msg = "Error al actualizar los datos&icon=error&titulo=Error!";
 		}
 		return $this->msg;
 	}
@@ -125,9 +177,9 @@ class Usuario
 					)
 				);
 
-			$this->msg = "Su registro se ha Eliminado exitosamente!&t=text-success";
+			$this->msg = "Su registro se ha Eliminado exitosamente!&icon=success&titulo=Exito!";
 		} catch (Exception $e) {
-			$this->msg = "Error al actualizar los datos&t=text-danger";
+			$this->msg = "Error al actualizar los datos&icon=error&titulo=Error!";
 		}
 		return $this->msg;
 	}

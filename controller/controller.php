@@ -98,6 +98,11 @@ class Controller
 
         $listaDiasSemana = new Usuario();
         $listaDiasSemana = $this->modeloSalones->ObtenerDiasSemana();
+
+        
+        $listaReservas = new Reservas();
+        $listaReservas = $this->modeloReservas->ObtenerReservasActivas($cod_salon);
+
         //Le paso los datos a la vista
         require("view/horarios.php");
 
@@ -111,7 +116,7 @@ class Controller
 
     public function IngresarPanel()
     {
-
+        if($_SESSION['tipo_usuario']==2){
         $facultades = new Salones();
         $facultades = $this->modeloSalones->listarFacultades();
 
@@ -129,7 +134,16 @@ class Controller
             $calendario = $this->modeloReservas->Calendario($_SESSION['salon']);
 
         }
-        require("view/panel.php");
+            require("view/panel.php");
+        }else{
+            
+            $id_usuario = $_SESSION["id"];
+            $MisSolicitudes = new Reservas();
+            $MisSolicitudes = $this->modeloReservas->ObtenerSolicitudesUser($id_usuario);
+            
+            require("view/misReservas.php");
+        }
+       
     }
 
     public function Guardar(){
@@ -160,7 +174,8 @@ class Controller
             $_SESSION["user"] = $resultado->nombre." ".$resultado->apellido;
             $_SESSION["id"] = $resultado->id_usuario;
             $_SESSION["dni"] = $resultado->dni;
-            
+            $_SESSION["tipo_usuario"] = $resultado->tipo_usuario;
+
             header('Location: ?op=permitido');
         }
         else
@@ -176,6 +191,7 @@ class Controller
         $usuario->apellido = $_REQUEST['apellido'];
         $usuario->telefono = $_REQUEST['telefono'];  
         $usuario->id_usuario = $_SESSION["id"];
+        $usuario->dni= $_REQUEST["doc_identidad"];
 
 
         if (isset($_FILES['foto']))
@@ -200,6 +216,22 @@ class Controller
         header('Location: ?op=perfil&msg='.$this->resp);
     }
 
+    public function ActualizarUsuarios(){
+        
+        $usuario = new Usuario();
+        $usuario->nombre = $_POST['nombre'];
+        $usuario->apellido = $_POST['apellido'];
+        $usuario->correo = $_POST['correo'];
+        $usuario->tipo_usuario = $_POST['tipo_usuario'];
+        $usuario->id_usuario = $_POST["id_user"];
+         
+        
+        $this->resp= $this->model->ActualizarUsuarios($usuario);
+
+        header('Location: ?op=admin&msg='.$this->resp);
+    }
+
+
     public function Reservar(){
 
         
@@ -219,6 +251,7 @@ class Controller
         $listaHorarioSalones = new Usuario();
         $listaHorarioSalones = $this->modeloSalones->ObtenerHorariosSalones($cod_salon);
 
+        
         //Le paso los datos a la vista
         require("view/crearReserva.php");
 
@@ -277,7 +310,7 @@ class Controller
     public function BorrarUser(){
 
         $usuario = new Usuario();
-        $usuario->id = $_GET['id_u'];
+        $usuario->id = $_POST['id_user_delete'];
 
         $this->resp= $this->model->BorrarUsuario($usuario);
         
@@ -296,6 +329,21 @@ class Controller
         $this->resp= $this->model->Registrar($usuario);
 
         header('Location: ?op=admin');
+    }
+
+    public function GuardarUsuario(){
+        $usuario = new Usuario();
+        
+        $usuario->nombre = $_POST['nombre'];
+        $usuario->apellido = $_POST['apellido'];
+        $usuario->correo = $_POST['correo'];  
+        $usuario->pass = md5($_POST['password1']); 
+        $usuario->tipo_usuario = $_POST['tipo_usuario'];  
+         
+      
+        $this->resp= $this->model->RegistrarUsuario($usuario);
+
+        header('Location: ?op=admin&msg='.$this->resp);
     }
 
 

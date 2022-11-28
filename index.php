@@ -105,7 +105,7 @@ if (isset($_GET['op'])){
     }
 
     
-    elseif ($opcion=="borrar"){
+    elseif ($opcion=="borrarUser"){
 
         //Llamo al método ver pasándole la clave que me están pidiendo
     
@@ -117,11 +117,25 @@ if (isset($_GET['op'])){
     // Guarda los datos del registro de usuario
     $controller->GuardarU();
     }
+
+    elseif ($opcion=="crearUser")
+    {
+    // Guarda los datos del registro de usuario
+    $controller->GuardarUsuario();
+    }
+
     elseif ($opcion=="actualizar"){
 
         //Llamo al método ver pasándole la clave que me están pidiendo
     
         $controller->ActualizarDatos();
+    }
+
+    elseif ($opcion=="actualizarUser"){
+
+        //Llamo al método ver pasándole la clave que me están pidiendo
+    
+        $controller->ActualizarUsuarios();
     }
 
     elseif ($opcion=="crearReserva"){

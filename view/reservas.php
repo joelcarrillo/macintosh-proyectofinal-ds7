@@ -135,6 +135,7 @@
             searching: true,
             ordering: true,
             dom: 'Bfrtip',
+            order: [[8, "desc"]],
             language: {
                 search: '<i class="bi bi-search"></i> Buscar',
                 zeroRecords: 'No hay registros para mostrar.',
@@ -146,7 +147,8 @@
                     previous: 'Anterior',
                     next: 'Siguiente',
                     last: 'Último'
-                }
+                },
+    
             }
         });
     });

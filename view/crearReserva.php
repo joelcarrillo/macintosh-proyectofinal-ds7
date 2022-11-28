@@ -85,8 +85,7 @@ if ($_SESSION["acceso"] != true) {
                                     <div class="form-group col-md-6">
                                         <label for="tiempo_inicio">Fecha de Reserva</label>
                                         <input onchange="obtenerDiaSemana()" type="date" class="form-control"
-                                            name="fecha_reserva" id="fecha_reserva" placeholder="CODIGO SALON"
-                                            value="<?php echo $_GET["cod_salon"]; ?>"
+                                            name="fecha_reserva" id="fecha_reserva"
                                             min="<?php  $fechaActual = date('Y-m-d'); echo $fechaActual;?>" required>
                                         <!-- <input type="text" id="dia_semana_recib" class="form-control"> -->
                                     </div>
@@ -144,17 +143,11 @@ if ($_SESSION["acceso"] != true) {
     </div>
 
     <!-- Required Js -->
-    <script src="assets/js/vendor-all.min.js"></script>
-    <script src="assets/js/plugins/bootstrap.min.js"></script>
-    <script src="assets/js/plugins/feather.min.js"></script>
-    <script src="assets/js/pcoded.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-    <script src="assets/js/plugins/clipboard.min.js"></script>
-    <script src="assets/js/uikit.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="assets/js/plugins/apexcharts.min.js"></script>
-
+    <?php
+        include('layouts/styles.php')
+        ?>
     <script>
+        
     function calcularHoraFinal() {
 
         var hora_inicial = document.getElementById("tiempo_inicio");
@@ -186,9 +179,8 @@ if ($_SESSION["acceso"] != true) {
         ];
         const numeroDia = new Date(fechaComoCadena).getDay();
         const nombreDia = dias[numeroDia];
-        document.getElementById("dia_semana_recib").value = nombreDia;
-        var semana_seleccionada = nombreDia;
-        console.log("Nombre de día de la semana: ", nombreDia);
+        console.log(nombreDia);
+        return nombreDia;
     }
     </script>
 
