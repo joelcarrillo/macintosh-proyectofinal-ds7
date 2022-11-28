@@ -118,6 +118,21 @@ class Salones
 	}
 
 
+	public function HorasLibresReservaSalon($cod_salon)
+	{
+		try 
+		{
+			$stm = $this->pdo->prepare("SELECT horarios_salon.id_salon, horas_general.descripcion, horarios_salon.id_hora_general, dias_semana.dia_semana as Dia from horarios_salon inner join dias_semana on dias_semana.id = horarios_salon.dia_semana inner join horas_general on horas_general.id = horarios_salon.id_hora_general WHERE horarios_salon.id_salon = ?");
+			          
+			$stm->execute(array($cod_salon));
+			return $stm->fetchAll(PDO::FETCH_OBJ);
+		} catch (Exception $e) 
+		{
+			die($e->getMessage());
+		}
+	}
+
+
 	
 
 

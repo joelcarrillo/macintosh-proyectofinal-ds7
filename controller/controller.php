@@ -204,9 +204,10 @@ class Controller
         $listaHorasGenerales = $this->modeloSalones->ObtenerHorasGenerales();
 
 
-        $listaHorarioSalones = new Usuario();
-        $listaHorarioSalones = $this->modeloSalones->ObtenerHorariosSalones($cod_salon);
-
+        $horarios = new Salones();
+        $horarios = $this->modeloSalones->HorasLibresReservaSalon($cod_salon);
+        $horas = new Salones();
+        $horas= $this->modeloSalones->ObtenerHorasGenerales();
         //Le paso los datos a la vista
         require("view/crearReserva.php");
     }
