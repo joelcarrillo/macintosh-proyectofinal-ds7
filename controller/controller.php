@@ -115,14 +115,6 @@ class Controller
 
         }
 
-
-
-
-
-
-
-
-
         require("view/panel.php");
     }
 

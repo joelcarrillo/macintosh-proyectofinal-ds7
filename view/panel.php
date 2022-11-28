@@ -70,8 +70,6 @@ if ($_SESSION["acceso"] != true) {
                         <?php
 
 
-
-
                             }
                         }
                         ?>
