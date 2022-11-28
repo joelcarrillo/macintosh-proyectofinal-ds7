@@ -402,6 +402,24 @@ class Controller
        
     }
 
+    public function ConfirmarReserva()
+    {
+            $reserva = new Reservas();
+            $reserva->id_reserva = $_GET['id_reserva'];
+
+            $this->resp = $this->modeloReservas->ConfirmarReserva($reserva);
+            header('Location: ?op=reservas&msg='.$this->resp);
+      
+    }
+
+    public function RechazarReserva()
+    {
+            $id_reserva = $_GET['id_reserva'];
+            $this->resp = $this->modeloReservas->RechazarReserva($id_reserva);
+            header('Location: ?op=reservas&msg='.$this->resp);
+       
+    }
+    
 
    
 }

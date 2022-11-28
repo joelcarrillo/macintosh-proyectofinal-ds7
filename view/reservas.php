@@ -93,16 +93,19 @@
                                                     } elseif ($MisSolicitudes->estado == 1) {
                                                         $status = "warning rounded";
                                                         $estado = "Pendiente";
-                                                    } else {
+                                                    } elseif($MisSolicitudes->estado == 3) {
                                                         $status = "success rounded";
                                                         $estado = "Completado";
+                                                    } else {
+                                                        $status = "danger rounded";
+                                                        $estado = "Rechazado";
                                                     }
                                                     ?>
                                                     <td>
                                                         <div style="padding:8px" class=" text-white align-self-center bg-<?php echo  $status ?>"><?php echo $estado; ?></div>
                                                     </td>
-                                                    <td><a href="#!" class="pc-link"><span class=""><i data-feather="check"></i></span></a>
-                                                    <a href="#!" class="pc-link"><span class="pc-micon"><i data-feather="x"></i></span></a>
+                                                    <td><a href="./?op=confirmarReserva&id_reserva=<?php echo $MisSolicitudes->cod_reservacion; ?>" class="pc-link"><span class=""><i data-feather="check"></i></span></a>
+                                                    <a href="./?op=rechazarReserva&id_reserva=<?php echo $MisSolicitudes->cod_reservacion; ?>" class="pc-link"><span class="pc-micon"><i data-feather="x"></i></span></a>
                                                 </td>
                                                 </tr>
                                             <?php

@@ -71,7 +71,8 @@ include('layouts/styles.php')
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table no-wrap">
+                                <table id="table_list_users" 
+                                class="table no-wrap">
                                     <thead>
                                         <tr>
                                             <th class="border-top-0">#</th>
@@ -294,7 +295,10 @@ include('layouts/styles.php')
 						</div>
 
     <!-- Required Js -->
-
+    <?php
+include('layouts/scripts.php')
+    ?>
+    
     <script>
     $('#exampleModal').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget)
@@ -302,26 +306,34 @@ include('layouts/styles.php')
         var modal = $(this)
         modal.find('.modal-title').text('New message to ' + recipient)
         modal.find('.modal-body input').val(recipient)
-    })
+    });
     </script>
-    <script src="assets/js/vendor-all.min.js"></script>
-    <script src="assets/js/plugins/bootstrap.min.js"></script>
-    <script src="assets/js/plugins/feather.min.js"></script>
-    <script src="assets/js/pcoded.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-    <script src="assets/js/plugins/clipboard.min.js"></script>
-    <script src="assets/js/uikit.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="assets/js/plugins/apexcharts.min.js"></script>
+    
+<script>
+    $(document).ready(function() {
+        $('#table_list_users').DataTable({
+            searching: true,
+            ordering: true,
+            dom: 'Bfrtip',
+            language: {
+                search: '<i class="bi bi-search"></i> Buscar',
+                zeroRecords: 'No hay registros para mostrar.',
+                emptyTable: 'La tabla está vacia.',
+                info: "Mostrando _START_ de _END_ de _TOTAL_ Registros.",
+                infoFiltered: "(Filtrados de _MAX_ Registros.)",
+                paginate: {
+                    first: 'Primero',
+                    previous: 'Anterior',
+                    next: 'Siguiente',
+                    last: 'Último'
+                }
+            }
+        });
+    });
+    </script>
 
-    <script>
-    /*
-    window.onload = function(){
-        var contenedor = documen.getElementById('contenedor_carga');
-        contenedor.style.visibility='hidden';
-        contenedor.style.opacity='0';
-    }*/
-    </script>
+   
+
 
 </body>
 

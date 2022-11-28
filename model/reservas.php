@@ -83,5 +83,48 @@ class Reservas
 
     }
 
+
+	public function ConfirmarReserva($data){
+
+        try 
+		{
+
+			$sql = "UPDATE `reservacion` SET estado = 3 WHERE cod_reservacion=?";
+
+			$this->pdo->prepare($sql)
+				->execute(
+					array(
+						$data->id_reserva,
+					)
+					);
+				$this->msg="La reserva se ha confirmado exitosamente!&icon=success&titulo=Exito!";
+		
+		} catch (Exception $e) {
+			die($e->getMessage());
+		}
+
+    }
+
+	public function RechazarReserva($data){
+
+		try 
+		{
+			$sql = "UPDATE `reservacion` SET estado = 4 WHERE cod_reservacion=?";
+			$stm = $this->pdo
+                        ->prepare($sql);
+			$stm->execute(array($data->id_reserva));
+				return $stm->fetchAll(PDO::FETCH_OBJ);
+				$this->msg="La reserva se ha confirmado exitosamente!&icon=success&titulo=Exito!";
+
+		} catch (Exception $e) {
+			die($e->getMessage());
+		}
+
+    }
+	
+	
+
+	
+
 }
 

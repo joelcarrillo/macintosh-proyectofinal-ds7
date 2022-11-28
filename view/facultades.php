@@ -10,7 +10,7 @@ if ($_SESSION["acceso"] != true)
 <html lang="en">
 
 <head>
-    <title>Dashboard - UTP</title>
+    <title>Facultades - UTP</title>
 
     <?php
 include('layouts/styles.php')
