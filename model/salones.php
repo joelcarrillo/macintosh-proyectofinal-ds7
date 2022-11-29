@@ -39,16 +39,9 @@ class Salones
         try 
 		{
 			$stm = $this->pdo
-                        ->prepare("SELECT salon.cod_salon AS salon, 
-								   piso.numero_piso AS numero_piso, 
-								   numero_edificio, 
-								   facultad.nombre AS nombre_facultad FROM salon 
-								   INNER JOIN piso ON salon.cod_piso = piso.cod_piso 
-								   INNER JOIN facultad ON salon.cod_facultad = facultad.cod_facultad 
-								   WHERE salon.cod_facultad = ?");
-
-			$stm->execute(array($idFacultad));
-				return $stm->fetchAll(PDO::FETCH_OBJ);
+			->prepare("SELECT salon.cod_salon AS salon, piso.numero_piso AS numero_piso, numero_edificio, facultad.nombre AS nombre_facultad FROM salon INNER JOIN piso ON salon.cod_piso = piso.cod_piso INNER JOIN facultad ON salon.cod_facultad = facultad.cod_facultad WHERE salon.cod_facultad = ?");
+$stm->execute(array($idFacultad));
+	return $stm->fetchAll(PDO::FETCH_OBJ);
 		} catch (Exception $e) {
 			die($e->getMessage());
 		}
@@ -117,6 +110,21 @@ class Salones
 			$stm = $this->pdo->prepare("SELECT*FROM salon");
 			          
 			$stm->execute();
+			return $stm->fetchAll(PDO::FETCH_OBJ);
+		} catch (Exception $e) 
+		{
+			die($e->getMessage());
+		}
+	}
+
+	
+	public function HorasLibresReservaSalon($cod_salon)
+	{
+		try 
+		{
+			$stm = $this->pdo->prepare("SELECT horarios_salon.id_salon, horas_general.descripcion, horarios_salon.id_hora_general, dias_semana.dia_semana as Dia from horarios_salon inner join dias_semana on dias_semana.id = horarios_salon.dia_semana inner join horas_general on horas_general.id = horarios_salon.id_hora_general WHERE horarios_salon.id_salon = ?");
+			          
+			$stm->execute(array($cod_salon));
 			return $stm->fetchAll(PDO::FETCH_OBJ);
 		} catch (Exception $e) 
 		{

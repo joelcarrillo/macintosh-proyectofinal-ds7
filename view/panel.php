@@ -1,4 +1,3 @@
-
 <?php
 @session_start(); // Comienzo de la sesión
 
@@ -56,6 +55,7 @@ if ($_SESSION["acceso"] != true) {
                     dayMaxEvents: true, // allow "more" link when too many events
                     events: [
 
+
                         <?php
 
                         if ($_REQUEST['salon'] != null) {
@@ -68,8 +68,6 @@ if ($_SESSION["acceso"] != true) {
                                     
                                 },
                         <?php
-
-
 
 
                             }
@@ -166,7 +164,6 @@ if ($_SESSION["acceso"] != true) {
                         <i class="feather icon-search-plus"></i>Cargar</button><button type="submit"></input>
                 </form>
             </div>
-          
 
             <div class="modal" id="modal" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">

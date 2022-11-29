@@ -98,7 +98,7 @@
                                                     ?>
                                         <td>
                                             <div style="padding:8px"
-                                                class=" text-white align-self-center bg-<?php echo  $status ?>">
+                                                class="text-white align-self-center bg-<?php echo  $status ?>">
                                                 <?php echo $estado; ?></div>
                                         </td>
                                     </tr>
