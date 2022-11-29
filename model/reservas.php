@@ -17,11 +17,11 @@ class Reservas
 	}
 
 
-    public function ObtenerReservasActivas(){
+	public function ObtenerReservasActivas(){
 
         try 
 		{
-			$sql = "SELECT cod_reservacion, usuario.nombre, cod_salon ,fecha_reserva,tiempo_inicio,tiempo_final,descripcion,cantidad,estado 
+			$sql = "SELECT cod_reservacion, usuario.correo, cod_salon ,fecha_reserva, tiempo_inicio, tiempo_final, descripcion, cantidad, estado 
 			FROM reservacion INNER JOIN usuario ON usuario.id_usuario = reservacion.id_usuario";
 
 			$stm = $this->pdo
@@ -31,6 +31,7 @@ class Reservas
 		} catch (Exception $e) {
 			die($e->getMessage());
 		}
+
     }
 
 	public function GuardarReserva(reservas $data){
@@ -60,21 +61,7 @@ class Reservas
 		return $this->msg;
 	}
 	
-    public function ObtenerSolicitudesUser($id_usuario){
-
-        try 
-		{
-			$sql = "SELECT  cod_reservacion, usuario.nombre, cod_salon,fecha_reserva,tiempo_inicio,tiempo_final,descripcion,cantidad,estado 
-			FROM reservacion INNER JOIN usuario ON usuario.id_usuario = reservacion.id_usuario
-			WHERE usuario.id_usuario =?";
-			$stm = $this->pdo
-                        ->prepare($sql);
-			$stm->execute(array($id_usuario));
-				return $stm->fetchAll(PDO::FETCH_OBJ);
-		} catch (Exception $e) {
-			die($e->getMessage());
-		}
-    }
+  
 	public function Calendario($salon)
 	{
 
@@ -89,43 +76,34 @@ class Reservas
 		}
 	}
 
-	public function ConfirmarReserva($data){
+	public function ObtenerSolicitudesUser($id_usuario){
 
         try 
 		{
-
-			$sql = "UPDATE `reservacion` SET estado = 3 WHERE cod_reservacion=?";
-
-			$this->pdo->prepare($sql)
-				->execute(
-					array(
-						$data->id_reserva,
-					)
-					);
-				$this->msg="La reserva se ha confirmado exitosamente!&icon=success&titulo=Exito!";
-		
-		} catch (Exception $e) {
-			die($e->getMessage());
-		}
-
-    }
-
-	public function RechazarReserva($data){
-
-		try 
-		{
-			$sql = "UPDATE `reservacion` SET estado = 4 WHERE cod_reservacion=?";
+			$sql = "SELECT  cod_reservacion, usuario.nombre, cod_salon,fecha_reserva,tiempo_inicio,tiempo_final,descripcion,cantidad,estado 
+			FROM reservacion INNER JOIN usuario ON usuario.id_usuario = reservacion.id_usuario
+			WHERE usuario.id_usuario =?";
 			$stm = $this->pdo
                         ->prepare($sql);
-			$stm->execute(array($data->id_reserva));
+			$stm->execute(array($id_usuario));
 				return $stm->fetchAll(PDO::FETCH_OBJ);
-				$this->msg="La reserva se ha confirmado exitosamente!&icon=success&titulo=Exito!";
-
 		} catch (Exception $e) {
 			die($e->getMessage());
 		}
-
     }
+	
+	public function CambiarEstadoReserva($estado,$cod_Reserva){
+		try{
+			$sql = "UPDATE reservacion SET estado = ? 
+					WHERE cod_reservacion = ?";
+
+			$this->pdo->prepare($sql)
+				->execute(array($estado,$cod_Reserva));
+		}catch (Exception $e) {
+			$this->msg = "Error al actualizar el estado&t=text-danger";
+		}
+		return;
+	}
 	
 	
 

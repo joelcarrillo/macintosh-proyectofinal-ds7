@@ -149,15 +149,10 @@ if (isset($_GET['op'])){
         $controller->index();
     }
     
-    elseif($opcion=="confirmarReserva"){
-        
-        $controller->ConfirmarReserva();
-    }
-
-    elseif($opcion=="rechazarReserva"){
-        
-        $controller->RechazarReserva();
-    }
+   // mandar confirmacion por correo
+   elseif ($opcion == "confirmarSolicitud") {
+    $controller->ConfirmarSolicitudReservada();
+}
     
     
 
