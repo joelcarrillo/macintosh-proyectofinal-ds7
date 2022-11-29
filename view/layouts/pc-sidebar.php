@@ -33,10 +33,9 @@
                              class="pc-arrow">
                              <i data-feather="chevron-right"></i></span></a>
                      <ul class="pc-submenu">
-                         <li class="pc-item"><a class="pc-link" href="?op=facultades">Crear reserva</a></li>
+                         <li class="pc-item"><a class="pc-link" href="?op=facultades">Horarios de Salones</a></li>
                          <li class="pc-item"><a class="pc-link" href="?op=solicitudesReservas">Solicitudes de
                                  Reservas</a></li>
-                         <li class="pc-item"><a class="pc-link" href="?op=misReservas">Mis Reservas</a></li>
                       
                      </ul>
                  </li>

@@ -107,8 +107,10 @@ if ($_SESSION["acceso"] != true) {
                             <br>
                             <a href="?op=horarios&cod_salon=<?php echo $salones->salon ?>&idFac=<?php echo $idFac ?>"
                                 class="btn btn-primary btn-lg btn-block"><i class="bi bi-calendar-week"></i> Ver Horario</a>
+                                <?php if($_SESSION["tipo_usuario"]==1){ ?>
                             <a href="?op=reservar&cod_salon=<?php echo $salones->salon ?>&idFac=<?php echo $idFac ?>"
                                 class="btn btn-success btn-lg btn-block"><i class="bi bi-calendar-plus"></i> Crear Reserva</a>
+                                <?php }?>
 
                         </div>
                     </div>
