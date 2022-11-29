@@ -39,7 +39,7 @@ if ($_SESSION["acceso"] != true) {
                                 start: arg.start,
                                 end: arg.end,
                                 allDay: arg.allDay
-                                
+
 
                             })
                         }
@@ -60,12 +60,12 @@ if ($_SESSION["acceso"] != true) {
 
                         if ($_REQUEST['salon'] != null) {
                             foreach ($calendario as $calendario) {
-                        ?> {        
-                                   
-                                    title: ' <?php echo $calendario->cod_salon." ". $calendario->Nombre?>',
+                        ?> {
+
+                                    title: ' <?php echo $calendario->cod_salon . " " . $calendario->Nombre ?>',
                                     start: '<?php echo $calendario->fecha_reserva . "T" . $calendario->tiempo_inicio ?>',
                                     end: '<?php echo $calendario->fecha_reserva . "T" . $calendario->tiempo_final ?>'
-                                    
+
                                 },
                         <?php
 
@@ -174,14 +174,14 @@ if ($_SESSION["acceso"] != true) {
                         </div>
                         <div class="modal-body">
 
-                        <div class="row">
+                            <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Solicitante</label>
                                         <input value="" type="text" class="form-control" name="usuario" id="usuario" required disabled>
                                     </div>
                                 </div>
-                        
+
 
                             </div>
 
@@ -254,7 +254,6 @@ if ($_SESSION["acceso"] != true) {
                 echo "arrayNomSalon[$n]='$s->cod_salon';";
                 echo "arrayIdFacultad[$n]=$s->cod_facultad;";
                 $n++;
-
             }
             ?>
             var n = "<?php echo $n; ?>";
@@ -264,15 +263,17 @@ if ($_SESSION["acceso"] != true) {
                 var indice = 0;
                 var valor = 0;
                 var facultadSeleccionada = document.getElementById('facultad');
-
                 valor = facultadSeleccionada.options[facultadSeleccionada.selectedIndex].value;
                 document.formulario.salon.lenght = 0;
+                var options = document.querySelectorAll('#salon option');
+                options.forEach(o => o.remove());
                 for (x = 0; x < n; x++) {
 
                     if (valor == arrayIdFacultad[x]) {
 
                         //asigna a la lista de menú sub_areas los nuevos valores segun la selección del menú areas
                         document.formulario.salon[indice] = new Option(arrayNomSalon[x], arrayNomSalon[x]);
+                        console.log(valor, " ", arrayIdFacultad[x])
 
                         indice = indice + 1;
                     }
@@ -287,20 +288,20 @@ if ($_SESSION["acceso"] != true) {
                 m.style = "none";
             }
 
-       
+
 
             function mostrarDetalles(salon, inicio, fin, user) {
                 console.log(salon)
 
-              
+
                 if (m.style.display == "block") {
                     m.style.display = "none"
                 } else {
                     m.style.display = "block"
-                   
+
                     document.getElementById('usuario').value = user;
                     document.getElementById("SalonInput").value = salon;
-                    document.getElementById("fecha").value = inicio.getDate() + '-' + ( inicio.getMonth() + 1 ) + '-' + inicio.getFullYear();;
+                    document.getElementById("fecha").value = inicio.getDate() + '-' + (inicio.getMonth() + 1) + '-' + inicio.getFullYear();;
 
                     document.getElementById("inicio").value = inicio.getHours() + ':' + inicio.getMinutes() + ':' + inicio.getSeconds();
                     document.getElementById("final").value = fin.getHours() + ':' + fin.getMinutes() + ':' + fin.getSeconds();
