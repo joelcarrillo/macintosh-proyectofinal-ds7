@@ -117,7 +117,7 @@ $stm->execute(array($idFacultad));
 		}
 	}
 
-	
+
 	public function HorasLibresReservaSalon($cod_salon)
 	{
 		try 

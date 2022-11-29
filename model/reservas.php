@@ -5,7 +5,7 @@ require_once 'model/db.php';
 class Reservas
 {
 	private $pdo;
-	private $salon;
+	private $salon;	
 
 	public function __CONSTRUCT()
 	{
@@ -25,19 +25,18 @@ class Reservas
 			FROM reservacion INNER JOIN usuario ON usuario.id_usuario = reservacion.id_usuario";
 
 			$stm = $this->pdo
-                        ->prepare($sql);
+				->prepare($sql);
 			$stm->execute(array());
-				return $stm->fetchAll(PDO::FETCH_OBJ);
+			return $stm->fetchAll(PDO::FETCH_OBJ);
 		} catch (Exception $e) {
 			die($e->getMessage());
 		}
+	}
 
-    }
-
-	public function GuardarReserva(reservas $data){
-		try 
-		{
-		$sql = "INSERT INTO reservacion(id_usuario,cod_salon,fecha_reserva,tiempo_inicio,tiempo_final,descripcion,cantidad) VALUES (?,?,?,?,?,?,?)";
+	public function GuardarReserva(reservas $data)
+	{
+		try {
+			$sql = "INSERT INTO reservacion(id_usuario,cod_salon,fecha_reserva,tiempo_inicio,tiempo_final,descripcion,cantidad) VALUES (?,?,?,?,?,?,?)";
 
 		$this->pdo->prepare($sql)
 		     ->execute(
@@ -66,6 +65,7 @@ class Reservas
 	{
 
 		try {
+			//$sql = "SELECT fecha_Reserva, SUM(1) AS cantidad, cod_salon  FROM reservacion where cod_salon = ? GROUP BY fecha_Reserva";
 			$sql = "SELECT  cod_reservacion, usuario.nombre as Nombre, cod_salon,fecha_reserva,tiempo_inicio,tiempo_final,descripcion,cantidad,estado from reservacion inner join usuario on usuario.id_usuario = reservacion.id_usuario where usuario.id_usuario =?";
 			$stm = $this->pdo
 				->prepare($sql);
@@ -76,17 +76,18 @@ class Reservas
 		}
 	}
 
-	public function ObtenerSolicitudesUser($id_usuario){
 
-        try 
-		{
+	public function ObtenerSolicitudesUser($id_usuario)
+	{
+
+		try {
 			$sql = "SELECT  cod_reservacion, usuario.nombre, cod_salon,fecha_reserva,tiempo_inicio,tiempo_final,descripcion,cantidad,estado 
 			FROM reservacion INNER JOIN usuario ON usuario.id_usuario = reservacion.id_usuario
 			WHERE usuario.id_usuario =?";
 			$stm = $this->pdo
-                        ->prepare($sql);
+				->prepare($sql);
 			$stm->execute(array($id_usuario));
-				return $stm->fetchAll(PDO::FETCH_OBJ);
+			return $stm->fetchAll(PDO::FETCH_OBJ);
 		} catch (Exception $e) {
 			die($e->getMessage());
 		}
@@ -107,7 +108,4 @@ class Reservas
 	
 	
 
-	
-
 }
-
