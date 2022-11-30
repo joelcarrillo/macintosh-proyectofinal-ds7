@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="assets/css/customizer.css">
     <link rel="stylesheet" href="public/css/loader.css">
     <link rel="stylesheet" href="public/css/profile.css">
+    <link rel="stylesheet" href="public/css/notify_bell.css">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.7.3/tailwind.min.css">
@@ -30,3 +31,12 @@
         display:none;
     }
 </style>
+
+<?php 
+  function obtener_formato_fecha($fecha_recibida)
+{
+    $fecha_enviada = new DateTime($fecha_recibida);
+    return $fecha_enviada->format("d/m/Y");
+}
+
+?>

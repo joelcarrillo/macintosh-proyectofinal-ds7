@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-11-2022 a las 00:29:11
+-- Tiempo de generación: 30-11-2022 a las 01:18:13
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 7.4.30
 
@@ -118,7 +118,7 @@ INSERT INTO `estado` (`id_estado`, `estado`) VALUES
 (1, 'pendiente'),
 (2, 'en curso'),
 (3, 'completado'),
-(4, 'cancelado');
+(4, 'rechazado');
 
 -- --------------------------------------------------------
 
@@ -247,10 +247,6 @@ CREATE TABLE `reservacion` (
   `estado` int(11) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Volcado de datos para la tabla `reservacion`
---
-
 -- --------------------------------------------------------
 
 --
@@ -336,6 +332,9 @@ CREATE TABLE `usuario` (
 -- Volcado de datos para la tabla `usuario`
 --
 
+INSERT INTO `usuario` (`id_usuario`, `correo`, `nombre`, `apellido`, `pass`, `telefono`, `foto`, `restablecer`, `dni`, `tipo_usuario`) VALUES
+(1, 'admin@gmail.com', 'Admin', 'Nistrador', '202cb962ac59075b964b07152d234b70', '62635228', '1.jpg', '', '1-111-111', 2),
+(11, 'usuario@gmail.com', 'Usuario', 'Interno', '202cb962ac59075b964b07152d234b70', '5555', '11.jpg', '', '8-968-582', 1);
 
 --
 -- Índices para tablas volcadas
@@ -452,13 +451,13 @@ ALTER TABLE `piso`
 -- AUTO_INCREMENT de la tabla `reservacion`
 --
 ALTER TABLE `reservacion`
-  MODIFY `cod_reservacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `cod_reservacion` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_usuario` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Restricciones para tablas volcadas

@@ -1,0 +1,89 @@
+
+
+main {
+  
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  position: absolute;
+  width: 15px;
+}
+main .notification {
+  position: relative;
+  width: 10em;
+  height: 10em;
+}
+main .notification svg {
+  width: 337px;
+  height: 20px;
+}
+main .notification svg > path {
+  fill: #FFFFFF;
+}
+main .notification--bell {
+  animation: bell 1.2s linear infinite;
+  transform-origin: 50% 0%;
+}
+main .notification--bellClapper {
+  animation: bellClapper 2.2s 0.1s linear infinite;
+}
+main .notification--num {
+  position: absolute;
+  top: 0%;
+  left: 60%;
+  font-size: 15px;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  background-color: #FF4C13;
+  border: 6px solid #1c232f;
+  color: #FFFFFF;
+  text-align: center;
+  line-height: 1.7em;
+  animation: notification 3.2s ease;
+}
+
+@keyframes bell {
+  0%, 25%, 75%, 100% {
+    transform: rotate(0deg);
+  }
+  40% {
+    transform: rotate(6deg);
+  }
+  45% {
+    transform: rotate(-6deg);
+  }
+  55% {
+    transform: rotate(4deg);
+  }
+  60% {
+    transform: rotate(-4deg);
+  }
+}
+@keyframes bellClapper {
+  0%, 25%, 75%, 100% {
+    transform: translateX(0);
+  }
+  40% {
+    transform: translateX(-0.25em);
+  }
+  45% {
+    transform: translateX(0.25em);
+  }
+  55% {
+    transform: translateX(-0.20em);
+  }
+  60% {
+    transform: translateX(0.20em);
+  }
+}
+@keyframes notification {
+  0%, 25%, 75%, 100% {
+    opacity: 1;
+  }
+  30%, 70% {
+    opacity: 0;
+  }
+}
