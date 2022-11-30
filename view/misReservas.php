@@ -87,13 +87,13 @@
                                                     $MisSolicitudes->estado;
                                                     if ($MisSolicitudes->estado == 2) {
                                                         $status = "danger rounded";
-                                                        $estado = "Rechazado";
+                                                        $estado = "3-Rechazado";
                                                     } elseif ($MisSolicitudes->estado == 1) {
                                                         $status = "warning rounded";
-                                                        $estado = "Pendiente";
+                                                        $estado = "1-Pendiente";
                                                     } else {
                                                         $status = "success rounded";
-                                                        $estado = "Confirmado";
+                                                        $estado = "2-Confirmado";
                                                     }
                                                     ?>
                                         <td>

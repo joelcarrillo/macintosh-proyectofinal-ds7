@@ -87,20 +87,17 @@
                                         <td><?php echo $MisSolicitudes->descripcion ; ?></td>
                                         <td><?php echo $MisSolicitudes->cantidad; ?></td>
                                         <?php
-                                                $MisSolicitudes->estado;
-                                                if ($MisSolicitudes->estado == 2) {
-                                                    $status = "danger rounded";
-                                                    $estado = "Rechazado";
-                                                } elseif ($MisSolicitudes->estado == 1) {
-                                                    $status = "warning rounded";
-                                                    $estado = "Pendiente";
-                                                } elseif ($MisSolicitudes->estado == 3){
-                                                    $status = "success rounded";
-                                                    $estado = "Confirmado";
-                                                } else{
-                                                    $status = "secundary rounded";
-                                                    $estado = "Finalizado";
-                                                }
+                                                   $MisSolicitudes->estado;
+                                                   if ($MisSolicitudes->estado == 2) {
+                                                       $status = "danger rounded";
+                                                       $estado = "3-Rechazado";
+                                                   } elseif ($MisSolicitudes->estado == 1) {
+                                                       $status = "warning rounded";
+                                                       $estado = "1-Pendiente";
+                                                   } else {
+                                                       $status = "success rounded";
+                                                       $estado = "2-Confirmado";
+                                                   }
                                                 ?>
                                         <td>
                                             <div style="padding:8px"
