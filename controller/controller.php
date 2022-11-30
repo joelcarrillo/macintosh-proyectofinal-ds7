@@ -516,7 +516,7 @@ class Controller
                      </div>
                  </div>
              </div>
-             <p style="text-align: center; font-size: 9px; padding-bottom: 20px;">UTP © 2022 - Macintosh Projects</p>
+             <div style="text-align: center; font-size: 9px; padding-bottom: 20px;">UTP © 2022 - Macintosh Projects</div>
          </div>
          <div style="width: auto; height: 40px; background-color: #2a2438; border-top: 2px black solid;">
          </div>
@@ -555,7 +555,7 @@ class Controller
                      </div>
                  </div>
              </div>
-             <p style="text-align: center; font-size: 9px; padding-bottom: 20px;">UTP © 2022 - Macintosh Projects</p>
+             <div style="text-align: center; font-size: 9px; padding-bottom: 20px;">UTP © 2022 - Macintosh Projects</div>
          </div>
          <div style="width: auto; height: 40px; background-color: #2a2438; border-top: 2px black solid;">
          </div>

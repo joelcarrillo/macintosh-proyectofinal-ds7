@@ -30,6 +30,11 @@
     .filtro{
         display:none;
     }
+
+    .button_hover:hover{
+        background-color: #BBBEFA;
+    }
+
 </style>
 
 <?php 

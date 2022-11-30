@@ -86,14 +86,14 @@
                                         <?php
                                                     $MisSolicitudes->estado;
                                                     if ($MisSolicitudes->estado == 2) {
-                                                        $status = "secundary rounded";
-                                                        $estado = "En curso";
+                                                        $status = "danger rounded";
+                                                        $estado = "Rechazado";
                                                     } elseif ($MisSolicitudes->estado == 1) {
                                                         $status = "warning rounded";
                                                         $estado = "Pendiente";
                                                     } else {
                                                         $status = "success rounded";
-                                                        $estado = "Completado";
+                                                        $estado = "Confirmado";
                                                     }
                                                     ?>
                                         <td>
@@ -123,16 +123,37 @@
             include('layouts/scripts.php');?>
 
     <script>
+        var groupColumn = 8;
     $(document).ready(function() {
         $('#table_mis_reservas').DataTable({
             searching: true,
             ordering: true,
             dom: 'Bfrtip',
+            columnDefs: [{ visible: false, targets: groupColumn }],
             rowReorder: {
                 selector: 'td:nth-child(2)'
             },
+            displayLength: 25,
+            drawCallback: function (settings) {
+            var api = this.api();
+            var rows = api.rows({ page: 'current' }).nodes();
+            var last = null;
+ 
+            api
+                .column(groupColumn, { page: 'current' })
+                .data()
+                .each(function (group, i) {
+                    if (last !== group) {
+                        $(rows)
+                            .eq(i)
+                            .before('<tr class="group"><td colspan="5">' + group + '</td></tr>');
+ 
+                        last = group;
+                    }
+                });
+            },
             responsive: true,
-            order: [[8, "desc"]],
+            order: [[8, "asc"]],
             language: {
                 search: '<i class="bi bi-search"></i> Buscar',
                 zeroRecords: 'No hay registros para mostrar.',
