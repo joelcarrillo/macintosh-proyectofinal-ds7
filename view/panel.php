@@ -264,6 +264,7 @@ if ($_SESSION["acceso"] != true) {
                 var valor = 0;
                 var facultadSeleccionada = document.getElementById('facultad');
                 valor = facultadSeleccionada.options[facultadSeleccionada.selectedIndex].value;
+                
                 document.formulario.salon.lenght = 0;
                 var options = document.querySelectorAll('#salon option');
                 options.forEach(o => o.remove());
