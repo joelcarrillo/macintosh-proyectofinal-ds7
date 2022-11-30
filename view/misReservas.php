@@ -78,7 +78,7 @@
                                         <td><?php echo $MisSolicitudes->cod_reservacion; ?></td>
                                         <td><?php echo $MisSolicitudes->nombre; ?></td>
                                         <td><?php echo $MisSolicitudes->cod_salon; ?></td>
-                                        <td><?php echo $MisSolicitudes->fecha_reserva; ?></td>
+                                        <td><?php echo obtener_formato_fecha($MisSolicitudes->fecha_reserva); ?></td>
                                         <td><?php echo $MisSolicitudes->tiempo_inicio; ?></td>
                                         <td><?php echo $MisSolicitudes->tiempo_final; ?></td>
                                         <td><?php echo $MisSolicitudes->descripcion; ?></td>
@@ -128,6 +128,11 @@
             searching: true,
             ordering: true,
             dom: 'Bfrtip',
+            rowReorder: {
+                selector: 'td:nth-child(2)'
+            },
+            responsive: true,
+            order: [[8, "desc"]],
             language: {
                 search: '<i class="bi bi-search"></i> Buscar',
                 zeroRecords: 'No hay registros para mostrar.',

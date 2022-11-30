@@ -57,18 +57,15 @@
                         <div class="card-body table-border-style">
                             <div class="table-responsive">
 
-                                <table id="table" class="table table-striped">
+                                <table id="table_solic_reservas" class="table table-striped">
                                     <thead>
                                         <th>ID</th>
                                         <th>SOLICITANTE</th>
                                         <th>SALON</th>
                                         <th>FECHA RESERVA</th>
-                                        <th>DESDE</th>
-                                        <th>HASTA</th>
                                         <th>DESCRIPCIÓN</th>
-                                        <th>CANTIDAD</th>
                                         <th>ESTADO</th>
-                                        <th>OPCIONES</th>
+                                        <th>OPCION</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -80,16 +77,13 @@
                                                 <td><?php echo $MisSolicitudes->cod_reservacion; ?></td>
                                                 <td><?php echo $MisSolicitudes->correo; ?></td>
                                                 <td><?php echo $MisSolicitudes->cod_salon; ?></td>
-                                                <td><?php echo $MisSolicitudes->fecha_reserva; ?></td>
-                                                <td><?php echo $MisSolicitudes->tiempo_inicio; ?></td>
-                                                <td><?php echo $MisSolicitudes->tiempo_final; ?></td>
-                                                <td><?php echo $MisSolicitudes->descripcion; ?></td>
-                                                <td> <?php echo $MisSolicitudes->cantidad; ?></td>
+                                                <td><?php echo obtener_formato_fecha($MisSolicitudes->fecha_reserva).'<br>'.'<strong>DESDE: </strong>'.$MisSolicitudes->tiempo_inicio.'<br>'.'<strong>HASTA: </strong>'.$MisSolicitudes->tiempo_final;  ?></td>
+                                                <td><?php echo $MisSolicitudes->descripcion.'<br><strong>Cantidad: </strong>'.$MisSolicitudes->cantidad; ?></td>
                                                 <?php
                                                 $MisSolicitudes->estado;
                                                 if ($MisSolicitudes->estado == 2) {
                                                     $status = "danger rounded";
-                                                    $estado = "cancelado";
+                                                    $estado = "Cancelado";
                                                 } elseif ($MisSolicitudes->estado == 1) {
                                                     $status = "warning rounded";
                                                     $estado = "Pendiente";
@@ -104,9 +98,9 @@
                                                 <td>
                                                     <div style="padding:8px" class=" text-white align-self-center bg-<?php echo  $status ?>"><?php echo $estado; ?></div>
                                                 </td>
-                                                <td><a href="?op=confirmarSolicitud&a=<?php echo $MisSolicitudes->correo;?>&b=<?php echo $MisSolicitudes->cod_salon; ?>&c=<?php echo $MisSolicitudes->fecha_reserva; ?>&d=<?php echo $MisSolicitudes->tiempo_inicio; ?>&e=<?php echo $MisSolicitudes->tiempo_final; ?>&f=<?php echo $MisSolicitudes->estado=3; ?>&g=<?php echo $MisSolicitudes->cod_reservacion; ?>" class="pc-link"><span class=""><i data-feather="check"></i></span></a>
+                                                <td><a href="?op=confirmarSolicitud&a=<?php echo $MisSolicitudes->correo;?>&b=<?php echo $MisSolicitudes->cod_salon; ?>&c=<?php echo $MisSolicitudes->fecha_reserva; ?>&d=<?php echo $MisSolicitudes->tiempo_inicio; ?>&e=<?php echo $MisSolicitudes->tiempo_final; ?>&f=<?php echo $MisSolicitudes->estado=3; ?>&g=<?php echo $MisSolicitudes->cod_reservacion; ?>" class="pc-link"><span class="text-success"><i data-feather="check"></i><span>Aceptar</span></span></a>
 
-                                                    <a href="?op=confirmarSolicitud&a=<?php echo $MisSolicitudes->correo;?>&b=<?php echo $MisSolicitudes->cod_salon; ?>&c=<?php echo $MisSolicitudes->fecha_reserva; ?>&d=<?php echo $MisSolicitudes->tiempo_inicio; ?>&e=<?php echo $MisSolicitudes->tiempo_final; ?>&f=<?php echo $MisSolicitudes->estado=2; ?>&g=<?php echo $MisSolicitudes->cod_reservacion; ?>" class="pc-link"><span class="pc-micon"><i data-feather="x"></i></span></a>
+                                                    <a href="?op=confirmarSolicitud&a=<?php echo $MisSolicitudes->correo;?>&b=<?php echo $MisSolicitudes->cod_salon; ?>&c=<?php echo $MisSolicitudes->fecha_reserva; ?>&d=<?php echo $MisSolicitudes->tiempo_inicio; ?>&e=<?php echo $MisSolicitudes->tiempo_final; ?>&f=<?php echo $MisSolicitudes->estado=2; ?>&g=<?php echo $MisSolicitudes->cod_reservacion; ?>" class="pc-link"><span class="text-danger"><i data-feather="x"></i>Rechazar</span></a>
                                                 </td>
                                             </tr>
                                         <?php
@@ -137,6 +131,10 @@
             ordering: true,
             dom: 'Bfrtip',
             order: [[8, "desc"]],
+            rowReorder: {
+                selector: 'td:nth-child(2)'
+            },
+            responsive: true,
             language: {
                 search: '<i class="bi bi-search"></i> Buscar',
                 zeroRecords: 'No hay registros para mostrar.',
